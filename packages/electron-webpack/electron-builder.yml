@@ -1,0 +1,12 @@
+files:
+  -
+    from: .
+    # package.json is added to filter for main file set in any case, but some inclusive pattern must be in the filter, otherwise electron-builder will add */**
+    filter: ["package.json"]
+  -
+    from: "dist/main"
+  -
+    from: "dist/renderer"
+  -
+    from: static
+    to: static

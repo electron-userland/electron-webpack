@@ -1,0 +1,25 @@
+{
+  "name": "electron-webpack",
+  "private": true,
+  "license": "MIT",
+  "author": "Vladimir Krivosheev <develar@gmail.com>",
+  "scripts": {
+    "update-deps": "lerna exec -- npm-check-updates -a",
+    "compile": "ts-babel packages/electron-webpack"
+  },
+  "devDependencies": {
+    "babel-plugin-array-includes": "^2.0.3",
+    "babel-plugin-transform-async-to-module-method": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-es2015-parameters": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-inline-imports-commonjs": "^1.2.0",
+    "electron-builder-tslint-config": "^1.0.2",
+    "ts-babel": "^3.1.2",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
