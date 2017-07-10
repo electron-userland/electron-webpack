@@ -4692,7 +4692,7 @@ vue-html-loader@^1.2.4:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
-vue-loader@^13.0.0:
+vue-loader@^13.0.1:
   version "13.0.1"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-13.0.1.tgz#265b5c81451079304601e8aff3e95af64fb10c43"
   dependencies:
