@@ -232,9 +232,6 @@ function computeExternals(whiteListedModules: Set<string> | any, packageData: an
   if (packageData.dependencies != null) {
     externals = Object.keys(packageData.dependencies).filter(filter).concat(externals)
   }
-  if (packageData.devDependencies != null) {
-    externals = Object.keys(packageData.devDependencies).filter(filter).concat(externals)
-  }
   externals.push("electron")
   return externals
 }

@@ -30,6 +30,11 @@ To keep your `devDependencies` size minimal, only JavaScript is supported out of
 Special presets are used to ensure that you don't need to specify all required packages explicitly, — for example, `electron-webpack-ts` includes `ts-loader` and `fork-ts-checker-webpack-plugin` for you.
 But if you want, you can install loaders/plugins explicitly (it will be still detected and appropriate config applied). 
 
+**Note:** All renderer dependencies should be in the `devDependencies`. e.g. `vue` and `vue-router` should be in the `devDependencies`.
+Because Webpack will smartly copy only required files and as result, application size will be minimal
+(electron-builder cannot do such filtering, because in general it is not applicable for node modules).
+No doubt, [files](https://github.com/electron-userland/electron-builder/wiki/Options#Config-files) allows you to filter out anything you want, but it is tedious to write and maintain.
+
 ### JavaScript
 
 Supported out of the box.

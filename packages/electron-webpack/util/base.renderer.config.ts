@@ -83,7 +83,8 @@ export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: str
     resolve: {
       alias: {
         "@": path.join(projectDir, "src/renderer"),
-        vue$: "vue/dist/vue.esm.js"
+        vue$: "vue/dist/vue.esm.js",
+        "vue-router$": "vue-router/dist/vue-router.esm.js",
       },
       extensions: [".vue", ".css"]
     },
