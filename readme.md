@@ -1,23 +1,26 @@
 # electron-webpack
 
-Scripts and configuration to compile Electron applications that use [electron-vue](https://github.com/SimulatedGREG/electron-vue) boilerplate [project structure](https://simulatedgreg.gitbooks.io/electron-vue/content/en/project_structure.html).
+Configuration and scripts to compile Electron applications that use [electron-vue](https://github.com/SimulatedGREG/electron-vue) boilerplate [project structure](https://simulatedgreg.gitbooks.io/electron-vue/content/en/project_structure.html).
 
 ## Installation
 
-`yarn add webpack electron-webpack electron-webpack-ts electron-webpack-vue --dev` 
+`yarn add webpack electron-webpack --dev`
+
+See [Languages and Frameworks](https://github.com/electron-userland/electron-webpack#languages-and-frameworks).
+
+[Yarn](http://yarnpkg.com/) is recommended instead of npm.
 
 ## Differences between electron-compile
 
-[electron-compile](https://github.com/electron/electron-compile):
-* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) not supported. [Live Reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
-* Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)) not supported.
-* Runtime dependencies.
+* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
+* Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)).
+* No runtime dependencies.
 * ... and so on. electron-compile is not comparable to [webpack](https://webpack.js.org) because webpack is widely used and popular. There are a lot features, loaders and plugins. And because community is big, answers to any question. Special tool for Electron not required, [electron](https://webpack.js.org/configuration/target/#string) is directly and explicitly supported by webpack.
 
-But keep things simple. For simple projects, direct usage of `typescript`/`babel` maybe enough ([example](https://github.com/develar/onshape-desktop-shell)).
-electron-compile offers you zero-config setup without predefined project structure and simple on the fly runtime transformation.
+But keep things simple. electron-compile offers you zero-config setup without predefined project structure and simple on the fly runtime transformation. And for simple projects, even direct usage of `typescript`/`babel` maybe enough ([example](https://github.com/develar/onshape-desktop-shell)).
 
-So, if you doubt what to use and no suitable [boilerplate](https://github.com/electron-userland/electron-builder#boilerplates) — use [electron-compile](https://github.com/electron/electron-compile#electron-compile). 
+So, if you doubt what to use and no suitable [boilerplate](https://github.com/electron-userland/electron-builder#boilerplates) — use [electron-compile](https://github.com/electron/electron-compile#electron-compile).
+If need, later you can easily migrate to webpack.
 
 ### Languages and Frameworks
 
@@ -34,11 +37,15 @@ Babel plugins and polyfills that you need based on your used version are determi
 
 ### TypeScript
 
-`yarn add electron-webpack-ts --dev`
+`yarn add typescript electron-webpack-ts --dev`
 
 ### Vue
 
-`yarn add electron-webpack-vue --dev`
+`yarn add vue electron-webpack-vue --dev`
+
+### iView
+
+"Import on demand" feature is supported out of the box.
 
 ### Less
 
@@ -71,7 +78,7 @@ Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-
 
 ## Debug
 
-Set the [DEBUG](https://github.com/visionmedia/debug#windows-note) environment variable to debug what electron-builder is doing:
+Set the [DEBUG](https://github.com/visionmedia/debug#windows-note) environment variable to debug what electron-webpack is doing:
 ```bash
 DEBUG=electron-webpack:*
 ```

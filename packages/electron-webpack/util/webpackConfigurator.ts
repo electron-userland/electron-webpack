@@ -3,7 +3,7 @@ import { readJson, stat } from "fs-extra-p"
 import * as path from "path"
 import { gte } from "semver"
 import "source-map-support/register"
-import { Configuration, DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NewModule, NoEmitOnErrorsPlugin, optimize } from "webpack"
+import { Configuration, DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NewModule, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { getBaseRendererConfig } from "./base.renderer.config"
 import { Lazy, PackageMetadata, WebpackRemoveOldAssetsPlugin } from "./util"
 
@@ -112,18 +112,29 @@ export async function configure(type: "main" | "renderer" | "test", env: ConfigE
     })
   }
 
+  const babelLoader = {
+    loader: "babel-loader",
+    options: {
+      presets: [
+        ["env", {
+          modules: false,
+          targets: computeBabelEnvTarget(type === "renderer", electronVersion),
+        }],
+      ]
+    }
+  }
+
+  if (type !== "main" && ("iview" in metadata.devDependencies || "iview" in metadata.dependencies)) {
+    rules.push({
+      test: /iview.src.*?js$/,
+      use: babelLoader
+    })
+  }
+
   rules.push({
     test: /\.js$/,
     exclude: /(node_modules|bower_components)/,
-    use: {
-      loader: "babel-loader",
-      options: {
-        presets: ["env", {
-          modules: false,
-          targets: computeBabelEnvTarget(type === "renderer", electronVersion),
-        }]
-      }
-    }
+    use: babelLoader
   })
 
   rules.push({
@@ -153,14 +164,15 @@ export async function configure(type: "main" | "renderer" | "test", env: ConfigE
       __static: `"${path.join(projectDir, "static").replace(/\\/g, "\\\\")}"`
     }))
 
-    if (type === "renderer") {
-      if (debug.enabled) {
-        debug("Add HotModuleReplacementPlugin")
-      }
-      plugins.push(new HotModuleReplacementPlugin())
+    if (debug.enabled) {
+      debug("Add HotModuleReplacementPlugin")
     }
+    plugins.push(new HotModuleReplacementPlugin())
   }
 
+  if (!isProduction) {
+    plugins.push(new NamedModulesPlugin())
+  }
   plugins.push(new NoEmitOnErrorsPlugin())
 
   if (env.autoClean !== false) {

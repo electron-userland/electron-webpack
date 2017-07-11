@@ -5,8 +5,10 @@ import { PackageMetadata } from "./util"
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 
+const debug = require("debug")(`electron-webpack:renderer`)
+
 export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: string, isProduction: boolean, isTest: boolean): Configuration {
-  const hasVue = "vue" in metadata.dependencies
+  const hasVue = "vue" in metadata.devDependencies || "vue" in metadata.dependencies
   const rules = [
     {
       test: /\.css$/,
@@ -28,6 +30,7 @@ export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: str
   ]
 
   if (hasVue) {
+    debug("Vue detected")
     rules.push(
       {
         test: /\.html$/,
@@ -72,7 +75,7 @@ export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: str
     },
   )
 
-  const config = {
+  const config: Configuration = {
     module: {rules},
     plugins: [
       new ExtractTextPlugin("styles.css"),
@@ -87,7 +90,7 @@ export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: str
   }
 
   if (!isTest) {
-    config.plugins.push(new HtmlWebpackPlugin({
+    config.plugins!.push(new HtmlWebpackPlugin({
       filename: "index.html",
       template: path.resolve(projectDir, "src/index.ejs"),
       minify: {
@@ -97,6 +100,15 @@ export function getBaseRendererConfig(metadata: PackageMetadata, projectDir: str
       },
       nodeModules: isProduction ? false : path.resolve(projectDir, "node_modules")
     }))
+
+    if (!isProduction) {
+      config.devServer = {
+        contentBase: projectDir,
+        port: 9080,
+        hot: true,
+        overlay: true,
+      }
+    }
   }
 
   return config
