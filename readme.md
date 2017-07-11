@@ -60,11 +60,24 @@ You can add following scripts to your `package.json`:
   "scripts": {
     "dev": "node node_modules/electron-webpack/dev-runner.js",
     "compile": "webpack --bail --env.production --config node_modules/electron-webpack/webpack.app.config.js",
-    "dist-dir": "yarn compile && electron-builder --dir -c.compression=store -c.mac.identity=null",
-    "dist": "yarn compile && electron-builder"
+    "dist": "yarn compile && electron-builder",
+    "dist-dir": "yarn compile && electron-builder --dir -c.compression=store -c.mac.identity=null"
   }
 }
 ```
+
+* `yarn dev` Run app in development.
+* `yarn compile` Compile app for production. No need to call this script explicitly, only if you want to inspect your compiled app.
+* `yarn dist` Build app and package in a distributable format for production.
+* `yarn dist-dir` Build app and quickly package in a distributable format for test how does the app work if packed.
+
+## Provided Configurations Files
+
+Webpack [documentation](https://webpack.js.org/api/cli/) is fully applicable. For example, to build for production, specify `--env.production`.
+
+* `node_modules/electron-webpack/webpack.main.config.js` Compile main.
+* `node_modules/electron-webpack/webpack.renderer.config.js` Compile renderer.
+* `node_modules/electron-webpack/webpack.app.config.js` Compile both main and renderer.
 
 ## White-listing Externals
 

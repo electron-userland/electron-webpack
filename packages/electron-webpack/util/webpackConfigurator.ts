@@ -64,6 +64,7 @@ export async function configure(type: "main" | "renderer" | "test", env: ConfigE
     },
     output: {
       filename: "[name].js",
+      chunkFilename: "[name].bundle.js",
       libraryTarget: "commonjs2",
       path: path.join(projectDir, "dist", type)
     },
@@ -77,6 +78,12 @@ export async function configure(type: "main" | "renderer" | "test", env: ConfigE
   }
 
   const plugins = getPlugins(config)
+
+  if (Object.keys(config.entry).length > 1) {
+    plugins.push(new optimize.CommonsChunkPlugin({
+      name: "common",
+    }))
+  }
 
   if (config.module == null) {
     config.module = {rules: []}
