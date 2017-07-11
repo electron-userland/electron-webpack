@@ -1558,7 +1558,7 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-electron-builder-tslint-config@^1.0.2:
+electron-builder-tslint-config@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/electron-builder-tslint-config/-/electron-builder-tslint-config-1.0.3.tgz#3fde180068f34314ab547476fe97144c6f6499a6"
 

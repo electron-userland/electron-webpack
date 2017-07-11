@@ -87,7 +87,7 @@ export async function configure(type: "main" | "renderer" | "test", env: ConfigE
 
   const hasTsChecker = "fork-ts-checker-webpack-plugin" in metadata.devDependencies
   if (hasTsChecker || "electron-webpack-ts" in metadata.devDependencies || "ts-loader" in metadata.devDependencies) {
-    extensions.push(".ts")
+    extensions.splice(1, 0, ".ts")
 
     // no sense to use fork-ts-checker-webpack-plugin for production build
     if (hasTsChecker && !isProduction && !isTest) {
@@ -254,7 +254,9 @@ function getExtensions(config: Configuration) {
     resolve.extensions = extensions
   }
 
-  extensions.push(".js", ".node", ".json")
+  // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
+  extensions.unshift(".js")
+  extensions.push(".node", ".json")
   return extensions
 }
 
