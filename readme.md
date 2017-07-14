@@ -84,21 +84,11 @@ Webpack [documentation](https://webpack.js.org/api/cli/) is fully applicable. Fo
 * `node_modules/electron-webpack/webpack.renderer.config.js` Compile renderer.
 * `node_modules/electron-webpack/webpack.app.config.js` Compile both main and renderer.
 
-## White-listing Externals
-
-Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals).
-`electron-webpack` supports setting this option in the `package.json`:
-```json
-"electronWebpack": {
-  "whiteListedModules": ["dependency-name"]
-} 
-```
-
 ## DLL
 
 The [Dll](https://webpack.js.org/plugins/dll-plugin/) provide means to split bundles in a way that can drastically [improve build time](https://robertknight.github.io/posts/webpack-dll-plugins/) performance.
 
-Supported out of the box:
+Supported out of the box, specify in the `package.json`:
 ```json
 "electronWebpack": {
   "renderer": {
@@ -108,6 +98,18 @@ Supported out of the box:
     ]
   }
 }
+```
+
+Please note — due to webpack [issue](https://github.com/webpack/webpack/issues/5095), not all libraries are supported for now.
+
+## White-listing Externals
+
+Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals).
+`electron-webpack` supports setting this option in the `package.json`:
+```json
+"electronWebpack": {
+  "whiteListedModules": ["dependency-name"]
+} 
 ```
 
 ## Debug

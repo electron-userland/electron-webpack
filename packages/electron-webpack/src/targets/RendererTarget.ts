@@ -92,9 +92,3 @@ export class RendererTarget extends BaseRendererTarget {
     await BaseRendererTarget.prototype.configurePlugins.call(this, configurator)
   }
 }
-
-export class TestRendererTarget extends BaseRendererTarget {
-  constructor() {
-    super()
-  }
-}

@@ -7,7 +7,7 @@ import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue"
 import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
-import { RendererTarget, TestRendererTarget } from "./targets/RendererTarget"
+import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
 import { Lazy } from "./util"
 
 const _debug = require("debug")
@@ -125,8 +125,8 @@ export class WebpackConfigurator {
     const target = (() => {
       switch (this.type) {
         case "renderer": return new RendererTarget()
-        case "renderer-dll": return new RendererTarget()
-        case "test": return new TestRendererTarget()
+        case "renderer-dll": return new BaseRendererTarget()
+        case "test": return new BaseRendererTarget()
         default: return new BaseTarget()
       }
     })()

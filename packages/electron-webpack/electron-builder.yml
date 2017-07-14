@@ -8,5 +8,7 @@ files:
   -
     from: "dist/renderer"
   -
+    from: "dist/renderer-dll"
+  -
     from: static
     to: static
