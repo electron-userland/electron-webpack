@@ -5,7 +5,7 @@ import * as path from "path"
 
 import "source-map-support/register"
 import { Compiler } from "webpack"
-import { configure } from "./util/webpackConfigurator"
+import { configure } from "./src/webpackConfigurator"
 
 const webpack = require("webpack")
 
@@ -191,10 +191,9 @@ function logStats(proc: any, data: any) {
 }
 
 function startElectron() {
-  const args = ["--inspect=5858", path.join(projectDir, "dist/main/main.js")]
-  if (process.env.IJ) {
-    args.push("--debug-brk")
-  }
+  const electronArgs = process.env.ELECTRON_ARGS
+  const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : ["--inspect=5858"]
+  args.push(path.join(projectDir, "dist/main/main.js"))
   electronProcess = spawn(require("electron").toString(), args)
 
   electronProcess.stdout.on("data", (data: string) => {

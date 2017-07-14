@@ -6,17 +6,7 @@ import { Compiler } from "webpack"
 export const MAX_FILE_REQUESTS = 8
 export const CONCURRENCY = {concurrency: MAX_FILE_REQUESTS}
 
-export interface PackageMetadata {
-  dependencies: { [key: string]: any }
-  devDependencies: { [key: string]: any }
-
-  electronWebpack?: ElectronWebpackConfig
-}
-
-export interface ElectronWebpackConfig {
-  whiteListedModules?: Array<string>
-  electronVersion?: string
-}
+const debug = require("debug")("electron-webpack:clean")
 
 export async function walk(initialDirPath: string, filter?: Filter | null): Promise<Array<string>> {
   const result: Array<string> = []
@@ -77,11 +67,19 @@ export async function walk(initialDirPath: string, filter?: Filter | null): Prom
 export type Filter = (file: string, stat: Stats) => boolean
 
 export class WebpackRemoveOldAssetsPlugin {
+  constructor(private readonly dllManifest: string | null) {
+  }
+
   apply(compiler: Compiler) {
     compiler.plugin("after-emit", (compilation: any, callback: (error?: Error) => void) => {
       const newlyCreatedAssets = compilation.assets
       const outDir = compiler.options.output!.path!
       walk(outDir, (file, stat) => {
+        // dll plugin
+        if (file === this.dllManifest) {
+          return false
+        }
+
         const relativePath = file.substring(outDir.length + 1)
         if (stat.isFile()) {
           return newlyCreatedAssets[relativePath] == null
@@ -96,7 +94,16 @@ export class WebpackRemoveOldAssetsPlugin {
         }
         return false
       })
-        .then(it => BluebirdPromise.map(it, it => remove(it), CONCURRENCY))
+        .then(it => {
+          if (it.length === 0) {
+            return null
+          }
+
+          if (debug.enabled) {
+            debug(`Remove outdated files:\n  ${it.join("\n  ")}`)
+          }
+          return BluebirdPromise.map(it, it => remove(it), CONCURRENCY)
+        })
         .then(() => callback())
         .catch()
     })

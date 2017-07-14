@@ -94,6 +94,22 @@ Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-
 } 
 ```
 
+## DLL
+
+The [Dll](https://webpack.js.org/plugins/dll-plugin/) provide means to split bundles in a way that can drastically [improve build time](https://robertknight.github.io/posts/webpack-dll-plugins/) performance.
+
+Supported out of the box:
+```json
+"electronWebpack": {
+  "renderer": {
+    "dll": [
+      "vue",
+      "iview/dist/styles/iview.css"
+    ]
+  }
+}
+```
+
 ## Debug
 
 Set the [DEBUG](https://github.com/visionmedia/debug#windows-note) environment variable to debug what electron-webpack is doing:

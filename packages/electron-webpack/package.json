@@ -10,6 +10,7 @@
   ],
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
+    "add-asset-html-webpack-plugin": "^2.0.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
@@ -34,7 +35,7 @@
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
-    "@types/node": "^8.0.10",
+    "@types/node": "^8.0.12",
     "@types/webpack": "^3.0.4"
   }
 }
