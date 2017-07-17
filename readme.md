@@ -35,6 +35,15 @@ Create `tsconfig.json` in the project root directory:
 }
 ```
 
+If you use Vue.js, create `vue-shims.d.ts` in the `src/renderer`
+
+```typescript
+declare module "*.vue" {
+  import Vue from "vue"
+  export default Vue
+}
+```
+
 ### Vue.js
 
 `yarn add vue electron-webpack-vue --dev`
