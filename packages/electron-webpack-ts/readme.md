@@ -1,7 +1,7 @@
-#electron-webpack-ts
+# electron-webpack-ts
 
-Typescript preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
+TypeScript preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
 
 ## Install
 
-`yarn add vue electron-webpack-ts --dev`
+Please see [TypeScript](https://github.com/electron-userland/electron-webpack#typescript).

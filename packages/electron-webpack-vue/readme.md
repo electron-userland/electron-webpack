@@ -1,4 +1,4 @@
-#electron-webpack-vue
+# electron-webpack-vue
 
 Vue.js preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
 
