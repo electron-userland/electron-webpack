@@ -2,25 +2,13 @@
 
 Configuration and scripts to compile Electron applications that use [electron-vue](https://github.com/SimulatedGREG/electron-vue) boilerplate [project structure](https://simulatedgreg.gitbooks.io/electron-vue/content/en/project_structure.html).
 
-## Installation
+## Install
 
 `yarn add webpack electron-webpack --dev`
 
-See [Languages and Frameworks](https://github.com/electron-userland/electron-webpack#languages-and-frameworks).
+And install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack#languages-and-frameworks) — [typescript](#typescript), [vue](#vue) and [less](#less) if need.
 
 [Yarn](http://yarnpkg.com/) is recommended instead of npm.
-
-## Differences between electron-compile
-
-* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
-* Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)).
-* No runtime dependencies.
-* ... and so on. electron-compile is not comparable to [webpack](https://webpack.js.org) because webpack is widely used and popular. There are a lot features, loaders and plugins. And because community is big, answers to any question. Special tool for Electron not required, [electron](https://webpack.js.org/configuration/target/#string) is directly and explicitly supported by webpack.
-
-But keep things simple. electron-compile offers you zero-config setup without predefined project structure and simple on the fly runtime transformation. And for simple projects, even direct usage of `typescript`/`babel` maybe enough ([example](https://github.com/develar/onshape-desktop-shell)).
-
-So, if you doubt what to use and no suitable [boilerplate](https://github.com/electron-userland/electron-builder#boilerplates) — use [electron-compile](https://github.com/electron/electron-compile#electron-compile).
-If need, later you can easily migrate to webpack.
 
 ### Languages and Frameworks
 
@@ -29,11 +17,6 @@ To keep your `devDependencies` size minimal, only JavaScript is supported out of
 
 Special presets are used to ensure that you don't need to specify all required packages explicitly, — for example, `electron-webpack-ts` includes `ts-loader` and `fork-ts-checker-webpack-plugin` for you.
 But if you want, you can install loaders/plugins explicitly (it will be still detected and appropriate config applied). 
-
-**Note:** All renderer dependencies should be in the `devDependencies`. e.g. `vue` and `vue-router` should be in the `devDependencies`.
-Because Webpack will smartly copy only required files and as result, application size will be minimal
-(electron-builder cannot do such filtering, because in general it is not applicable for node modules).
-No doubt, [files](https://github.com/electron-userland/electron-builder/wiki/Options#Config-files) allows you to filter out anything you want, but it is tedious to write and maintain.
 
 ### JavaScript
 
@@ -44,7 +27,7 @@ Babel plugins and polyfills that you need based on your used version are determi
 
 `yarn add typescript electron-webpack-ts --dev`
 
-### Vue
+### Vue.js
 
 `yarn add vue electron-webpack-vue --dev`
 
@@ -84,6 +67,13 @@ Webpack [documentation](https://webpack.js.org/api/cli/) is fully applicable. Fo
 * `node_modules/electron-webpack/webpack.renderer.config.js` Compile renderer.
 * `node_modules/electron-webpack/webpack.app.config.js` Compile both main and renderer.
 
+## Application Renderer Dependencies
+
+All renderer dependencies should be in the `devDependencies`. e.g. `vue` and `vue-router` should be in the `devDependencies`.
+Because Webpack will smartly copy only required files and as result, application size will be minimal
+(electron-builder cannot do such filtering, because in general it is not applicable for node modules).
+No doubt, [files](https://github.com/electron-userland/electron-builder/wiki/Options#Config-files) allows you to filter out anything you want, but it is tedious to write and maintain.
+
 ## DLL
 
 The [Dll](https://webpack.js.org/plugins/dll-plugin/) provide means to split bundles in a way that can drastically [improve build time](https://robertknight.github.io/posts/webpack-dll-plugins/) performance.
@@ -111,6 +101,18 @@ Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-
   "whiteListedModules": ["dependency-name"]
 } 
 ```
+
+## Differences between electron-compile
+
+* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
+* Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)).
+* No runtime dependencies.
+* ... and so on. electron-compile is not comparable to [webpack](https://webpack.js.org) because webpack is widely used and popular. There are a lot features, loaders and plugins. And because community is big, answers to any question. Special tool for Electron not required, [electron](https://webpack.js.org/configuration/target/#string) is directly and explicitly supported by webpack.
+
+But keep things simple. electron-compile offers you zero-config setup without predefined project structure and simple on the fly runtime transformation. And for simple projects, even direct usage of `typescript`/`babel` maybe enough ([example](https://github.com/develar/onshape-desktop-shell)).
+
+So, if you doubt what to use and no suitable [boilerplate](https://github.com/electron-userland/electron-builder#boilerplates) — use [electron-compile](https://github.com/electron/electron-compile#electron-compile).
+If need, later you can easily migrate to webpack.
 
 ## Debug
 
