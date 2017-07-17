@@ -1,20 +1,7 @@
 {
+  "extends": "./tsconfig-base.json",
   "compilerOptions": {
-    "module": "es2015",
-    "target": "es2017",
     "moduleResolution": "node",
-
-    "strict": true,
-    "noUnusedLocals": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-
-    "inlineSources": true,
-    "sourceMap": true,
-
-    "newLine": "LF",
-
-    "noEmitOnError": true,
     "outDir": "."
   },
   "include": [

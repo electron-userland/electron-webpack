@@ -23,7 +23,7 @@ export class WebpackConfigurator {
   readonly isProduction: boolean
   readonly isTest = this.type === "test"
 
-  readonly srcDir: string
+  readonly sourceDir: string
 
   metadata: PackageMetadata
   electronWebpackConfig: ElectronWebpackConfig
@@ -46,13 +46,13 @@ export class WebpackConfigurator {
     this.isProduction = this.env.production !== false && this.env.production !== "false" && (this.env.production === true || this.env.production === "true" || process.env.NODE_ENV === "production")
     this.debug(`isProduction: ${this.isProduction}`)
 
-    this.srcDir = path.join(this.projectDir, "src", this.type === "test" || this.isRenderer ? "renderer" : this.type)
+    this.sourceDir = path.join(this.projectDir, "src", this.type === "test" || this.isRenderer ? "renderer" : this.type)
   }
 
   async configure(entry?: { [key: string]: any } | null) {
     const projectInfo = await BluebirdPromise.all([
       readJson(path.join(this.projectDir, "package.json")),
-      entry == null ? computeEntryFile(this.srcDir, this.projectDir) : BluebirdPromise.resolve(),
+      entry == null ? computeEntryFile(this.sourceDir, this.projectDir) : BluebirdPromise.resolve(),
     ])
 
     this.metadata = projectInfo[0]
@@ -132,9 +132,7 @@ export class WebpackConfigurator {
     })()
     this.debug(`Target class: ${target.constructor.name}`)
     target.configureRules(this)
-    await target.configurePlugins(this)
-
-    configureTypescript(this)
+    await BluebirdPromise.all([target.configurePlugins(this), configureTypescript(this)])
     configureVue(this)
 
     if (this.debug.enabled) {

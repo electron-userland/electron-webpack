@@ -27,6 +27,14 @@ Babel plugins and polyfills that you need based on your used version are determi
 
 `yarn add typescript electron-webpack-ts --dev`
 
+Create `tsconfig.json` in the project root directory:
+
+```json
+{
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json"
+}
+```
+
 ### Vue.js
 
 `yarn add vue electron-webpack-vue --dev`
