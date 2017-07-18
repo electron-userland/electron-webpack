@@ -13,6 +13,13 @@ export class BaseRendererTarget extends BaseTarget {
   configureRules(configurator: WebpackConfigurator): void {
     super.configureRules(configurator)
 
+    function configureFileLoader(prefix: string) {
+      return {
+        limit: 10000,
+        name: `${prefix}/[name].[ext]`
+      }
+    }
+
     configurator.rules.push(
       {
         test: /\.css$/,
@@ -35,20 +42,14 @@ export class BaseRendererTarget extends BaseTarget {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: "url-loader",
-          query: {
-            limit: 10000,
-            name: "imgs/[name].[ext]"
-          }
+          query: configureFileLoader("imgs")
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         use: {
           loader: "url-loader",
-          query: {
-            limit: 10000,
-            name: "fonts/[name].[ext]"
-          }
+          query: configureFileLoader("fonts")
         }
       },
     )
@@ -81,8 +82,9 @@ export class RendererTarget extends BaseRendererTarget {
     }))
 
     if (!configurator.isProduction) {
+      const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")]
       configurator.config.devServer = {
-        contentBase: configurator.projectDir,
+        contentBase,
         port: 9080,
         hot: true,
         overlay: true,

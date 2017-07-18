@@ -49,6 +49,10 @@ export class WebpackConfigurator {
     this.sourceDir = path.join(this.projectDir, "src", this.type === "test" || this.isRenderer ? "renderer" : this.type)
   }
 
+  get commonDistDirectory() {
+    return path.join(this.projectDir, "dist")
+  }
+
   async configure(entry?: { [key: string]: any } | null) {
     const projectInfo = await BluebirdPromise.all([
       readJson(path.join(this.projectDir, "package.json")),
@@ -92,7 +96,7 @@ export class WebpackConfigurator {
         filename: "[name].js",
         chunkFilename: "[name].bundle.js",
         libraryTarget: "commonjs2",
-        path: path.join(this.projectDir, "dist", this.type)
+        path: path.join(this.commonDistDirectory, this.type)
       },
       target: this.isTest ? "node" : `electron-${this.type === "renderer-dll" ? "renderer" : this.type}`,
     })
@@ -110,9 +114,20 @@ export class WebpackConfigurator {
 
         this.config.entry = Array.isArray(dll) ? {vendor: dll} : dll
       }
+      else if (entry != null) {
+        this.config.entry = entry
+      }
       else {
-        this.config.entry = entry || {
-          [this.type]: projectInfo[1],
+        let mainEntry
+        if (!this.isProduction && this.type === "main") {
+          mainEntry = [path.join(this.projectDir, "src/main/index.dev.ts"), projectInfo[1]]
+        }
+        else {
+          mainEntry = projectInfo[1]
+        }
+
+        this.config.entry = {
+          [this.type]: mainEntry,
         }
       }
     }
@@ -149,8 +164,16 @@ export class WebpackConfigurator {
     }
 
     const filter = (name: string) => !name.startsWith("@types/") && (whiteListedModules == null || !whiteListedModules.has(name))
-    const externals = Object.keys(this.metadata.dependencies).filter(filter)
+    const externals: Array<string> = Object.keys(this.metadata.dependencies).filter(filter)
     externals.push("electron")
+    externals.push("webpack")
+    // because electron-devtools-installer specified in the devDependencies, but required in the index.dev
+    externals.push("electron-devtools-installer")
+    if (this.type === "main") {
+      externals.push("webpack/hot/log-apply-result")
+      externals.push("electron-webpack/electron-main-hmr/HmrClient")
+      externals.push("source-map-support/source-map-support.js")
+    }
     return externals
   }
 }

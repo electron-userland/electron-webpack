@@ -1,4 +1,4 @@
-# electron-webpack
+# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
 Configuration and scripts to compile Electron applications that use [electron-vue](https://github.com/SimulatedGREG/electron-vue) boilerplate [project structure](https://simulatedgreg.gitbooks.io/electron-vue/content/en/project_structure.html).
 
@@ -16,7 +16,7 @@ To keep your `devDependencies` size minimal, only JavaScript is supported out of
 (because even in a pure typescript project, JavaScript transpilation is required to import external dependencies on demand (e.g. ui libraries iView, Element)).
 
 Special presets are used to ensure that you don't need to specify all required packages explicitly, — for example, `electron-webpack-ts` includes `ts-loader` and `fork-ts-checker-webpack-plugin` for you.
-But if you want, you can install loaders/plugins explicitly (it will be still detected and appropriate config applied). 
+But if you want, you can install loaders/plugins explicitly (it will be still detected and appropriate config applied).
 
 ### JavaScript
 
@@ -121,7 +121,7 @@ Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-
 
 ## Differences between electron-compile
 
-* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
+* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything and even for main process. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
 * Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)).
 * No runtime dependencies.
 * ... and so on. electron-compile is not comparable to [webpack](https://webpack.js.org) because webpack is widely used and popular. There are a lot features, loaders and plugins. And because community is big, answers to any question. Special tool for Electron not required, [electron](https://webpack.js.org/configuration/target/#string) is directly and explicitly supported by webpack.
@@ -130,6 +130,10 @@ But keep things simple. electron-compile offers you zero-config setup without pr
 
 So, if you doubt what to use and no suitable [boilerplate](https://github.com/electron-userland/electron-builder#boilerplates) — use [electron-compile](https://github.com/electron/electron-compile#electron-compile).
 If need, later you can easily migrate to webpack.
+
+## Notes
+* [source-map-support](https://github.com/evanw/node-source-map-support) is recommended and supported out of the box, simply install it `yarn add source-map-support` and that's all.
+* [webpack-build-notifier](https://github.com/RoccoC/webpack-build-notifier) is supported, simply install it `yarn add webpack-build-notifier --dev` and it will automatically enabled for development.
 
 ## Debug
 

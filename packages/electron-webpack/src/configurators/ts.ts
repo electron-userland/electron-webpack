@@ -19,6 +19,7 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     // in the test mode also, because checked during dev or production build
     transpileOnly: isTranspileOnly,
     appendTsSuffixTo: [/\.vue$/],
+    logLevel: "warn" // no need to log used tsconfig file as info
   }
 
   const tsConfigFiles = await BluebirdPromise.filter([path.join(configurator.sourceDir, "tsconfig.json"), path.join(configurator.projectDir, "tsconfig.json")], it => statOrNull(it).then(it => it != null))
@@ -27,10 +28,22 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     throw new Error(`Please create tsconfig.json in the "${configurator.projectDir}":\n\n{\n  "extends": "./node_modules/electron-webpack/tsconfig-base.json"\n}\n\n`)
   }
 
+  configurator.debug(`Using ${tsConfigFiles[0]}`)
+
   // no sense to use fork-ts-checker-webpack-plugin for production build
   if (isTranspileOnly && !configurator.isTest) {
     const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
-    configurator.plugins.push(new ForkTsCheckerWebpackPlugin({tsconfig: tsConfigFiles[0]}))
+    configurator.plugins.push(new ForkTsCheckerWebpackPlugin({
+      tsconfig: tsConfigFiles[0],
+      logger: configurator.env.forkTsCheckerLogger || {
+            info: () => {
+              // ignore
+            },
+
+            warn: console.warn.bind(console),
+            error: console.error.bind(console),
+          }
+    }))
   }
 
   configurator.debug(`ts-loader options: ${JSON.stringify(tsLoaderOptions, null, 2)}`)

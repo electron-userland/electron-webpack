@@ -9,7 +9,7 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
   const projectDir = configurator.projectDir
 
   if (configurator.type === "renderer-dll") {
-    dllManifest = path.join(projectDir, "dist", configurator.type, "manifest.json")
+    dllManifest = path.join(configurator.commonDistDirectory, configurator.type, "manifest.json")
     configurator.plugins.push(new DllPlugin({
       name: "[name]",
       path: dllManifest,
@@ -22,7 +22,7 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
     output.library = "[name]"
   }
   else if (configurator.type === "renderer") {
-    const dllDir = path.join(projectDir, "dist", "renderer-dll")
+    const dllDir = path.join(configurator.commonDistDirectory, "renderer-dll")
     const dirStat = await statOrNull(dllDir)
     if (dirStat == null || !dirStat.isDirectory()) {
       configurator.debug("No DLL directory")

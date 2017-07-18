@@ -1,154 +1,105 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue, ChalkChain, red, white, yellow } from "chalk"
-import { ChildProcess, spawn } from "child_process"
+import { blue, red, yellow } from "chalk"
+import { spawn } from "child_process"
+import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
-
 import "source-map-support/register"
-import { Compiler } from "webpack"
+import { Compiler, Stats } from "webpack"
+import { HmrServer } from "./electron-main-hmr/HmrServer"
+import { logError, logProcess, logProcessErrorOutput } from "./src/DevRunnerUtil"
+import { orNullIfFileNotExist } from "./src/util"
 import { configure } from "./src/webpackConfigurator"
+import { startRenderer } from "./src/WebpackDevServerManager"
 
 const webpack = require("webpack")
 
 const projectDir = process.cwd()
 
-let electronProcess: ChildProcess | null = null
-let manualRestart = false
+let socketPath: string | null = null
 
 const debug = require("debug")("electron-webpack:dev-runner")
 
+// do not remove main.js to allow IDE to keep breakpoints
+async function emptyMainOutput() {
+  const files = await orNullIfFileNotExist(readdir(path.join(projectDir, "dist", "main")))
+  if (files == null) {
+    return
+  }
+
+  await BluebirdPromise.map(files.filter(it => !it.startsWith(".") && it !== "main.js"), it => remove(it))
+}
+
 class DevRunner {
   async start() {
-    await BluebirdPromise.all([this.startRenderer(), this.startMain()])
+    const hmrServer = new HmrServer()
+    await BluebirdPromise.all([
+      startRenderer(projectDir),
+      hmrServer.listen()
+        .then(it => {
+          socketPath = it
+        }),
+      emptyMainOutput()
+        .then(() => this.startMain(hmrServer)),
+    ])
+
+    hmrServer.ipc.on("error", (error: Error) => {
+      logError("Main", error)
+    })
+
+    // we should start only when both start and main are started
     startElectron()
   }
 
-  startRenderer() {
-    const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (process.platform === "win32" ? ".cmd" : ""))
-    debug(`Start webpack-dev-server ${webpackDevServerPath}`)
+  async startMain(hmrServer: HmrServer) {
+    const mainConfig = await configure("main", {
+      production: false, autoClean: false, forkTsCheckerLogger: {
+        info: () => {
+          // ignore
+        },
 
-    // 1. in another process to speedup compilation
-    // 2. some loaders detect webpack-dev-server hot mode only if run as CLI
-    return new BluebirdPromise((resolve, reject) => {
-      let _resolve: (() => void) | null = resolve
-      let _reject: ((error: Error) => void) | null = reject
-      let webpackDevServer: ChildProcess | null
-      try {
-        webpackDevServer = spawn(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "webpack.renderer.config.js")], {
-          // to force debug colors in the child process
-          env: {...process.env, DEBUG_COLORS: true, NODE_ENV: "development"}
-        })
+        warn: (message: string) => {
+          logProcess("Main", message, yellow)
+        },
+
+        error: (message: string) => {
+          logProcess("Main", message, red)
+        },
       }
-      catch (e) {
-        reject(e)
-        return
-      }
-
-      const killProcess = () => {
-        if (webpackDevServer != null) {
-          if (debug.enabled) {
-            debug("Kill webpackDevServer")
-          }
-          webpackDevServer.kill("SIGINT")
-          webpackDevServer = null
-        }
-      }
-      process.on("beforeExit", killProcess)
-      process.on("uncaughtException", killProcess)
-      process.on("exit", killProcess)
-      process.on("SIGINT", killProcess)
-      process.on("SIGQUIT", killProcess)
-
-      webpackDevServer.on("error", error => {
-        if (_reject == null) {
-          logProcess("Renderer", error.stack || error.toString(), red)
-        }
-        else {
-          _reject(error)
-          _reject = null
-        }
-      })
-
-      webpackDevServer.stdout.on("data", data => {
-        logProcess("Renderer", data, blue)
-
-        const r = _resolve
-        // we must resolve only after compilation, otherwise devtools disconnected
-        if (r != null && data.toString().includes("webpack: Compiled successfully.")) {
-          _resolve = null
-          r()
-        }
-      })
-
-      webpackDevServer.stderr.on("data", data => {
-        logProcess("Renderer", data, red)
-      })
-
-      webpackDevServer.on("close", code => {
-        webpackDevServer = null
-
-        process.removeListener("beforeExit", killProcess)
-        process.removeListener("uncaughtException", killProcess)
-        process.removeListener("exit", killProcess)
-        process.removeListener("SIGINT", killProcess)
-        process.removeListener("SIGQUIT", killProcess)
-
-        const message = `webpackDevServer process exited with code ${code}`
-
-        if (_resolve != null) {
-          _resolve = null
-        }
-        if (_reject != null) {
-          _reject(new Error(message))
-          _reject = null
-        }
-
-        if (code === 0) {
-          if (debug.enabled) {
-            debug(message)
-            // otherwise no newline in the terminal
-            process.stderr.write("\n")
-          }
-        }
-        else {
-          logProcess("Renderer", message, red)
-        }
-      })
     })
-  }
 
-  async startMain() {
-    const mainConfig = await configure("main", {production: false, autoClean: false})
-
-    const mainEntry = mainConfig.entry as any
-    mainEntry.main = [path.join(projectDir, "src/main/index.dev.ts")].concat(mainEntry.main)
-
-    await new BluebirdPromise((resolve, reject) => {
+    await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
       const compiler: Compiler = webpack(mainConfig)
-      compiler.plugin("watch-run", (compilation, done) => {
-        logStats("Main", white.bold("compiling..."))
-        done()
+      compiler.plugin("compile", () => {
+        hmrServer.beforeCompile()
+        logProcess("Main", "Compiling...", yellow)
       })
 
-      compiler.watch({}, (err, stats) => {
-        if (err) {
-          reject(err)
+      compiler.watch({
+        ignored: /(node_modules|bower_components|dist|static|.idea|test)/
+      }, (error, stats: Stats) => {
+        if (error != null) {
+          if (reject == null) {
+            logError("Main", error)
+          }
+          else {
+            reject(error)
+            reject = null
+          }
           return
         }
 
-        logStats("Main", stats)
+        logProcess("Main", stats.toString({
+          colors: true,
+          chunks: false
+        }), yellow)
 
-        if (electronProcess != null && electronProcess.kill) {
-          manualRestart = true
-          process.kill(electronProcess.pid)
-          electronProcess = null
-          startElectron()
-
-          setTimeout(() => {
-            manualRestart = false
-          }, 5000)
+        if (resolve != null) {
+          resolve()
+          resolve = null
+          return
         }
 
-        resolve()
+        hmrServer.built(stats)
       })
     })
   }
@@ -164,60 +115,49 @@ main()
     console.error(error)
   })
 
-function logStats(proc: any, data: any) {
-  let log = ""
-
-  log += yellow.bold(`┏ ${proc} Process ${new Array((19 - proc.length) + 1).join("-")}`)
-  log += "\n\n"
-
-  if (typeof data === "object") {
-    data
-      .toString({
-        colors: true,
-        chunks: false
-      })
-      .split(/\r?\n/)
-      .forEach((line: string) => {
-        log += "  " + line + "\n"
-      })
-  }
-  else {
-    log += `  ${data}\n`
-  }
-
-  log += "\n" + yellow.bold(`┗ ${new Array(28 + 1).join("-")}`) + "\n"
-
-  console.log(log)
-}
-
 function startElectron() {
   const electronArgs = process.env.ELECTRON_ARGS
   const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : ["--inspect=5858"]
   args.push(path.join(projectDir, "dist/main/main.js"))
-  electronProcess = spawn(require("electron").toString(), args)
+  const electronProcess = spawn(require("electron").toString(), args, {
+    env: {
+      ...process.env,
+      ELECTRON_HMR_SOCKET_PATH: socketPath,
+      NODE_ENV: "development",
+      DEBUG_COLORS: true,
+      // to force debug out to stdout
+      DEBUG_FD: "1",
+    }
+  })
 
-  electronProcess.stdout.on("data", (data: string) => {
+  let queuedData: string | null = null
+  electronProcess.stdout.on("data", data => {
+    data = data.toString()
+    // do not print the only line - doesn't make sense
+    if (data.trim() === "[HMR] Updated modules:") {
+      queuedData = data
+      return
+    }
+
+    if (queuedData != null) {
+      data = queuedData + data
+      queuedData = null
+    }
+
     logProcess("Electron", data, blue)
   })
-  electronProcess.stderr.on("data", (data: string) => {
-    logProcess("Electron", data, red)
-  })
 
-  electronProcess.on("close", () => {
-    if (!manualRestart) {
+  logProcessErrorOutput("Electron", electronProcess)
+
+  electronProcess.on("close", exitCode => {
+    debug(`Electron exited with exit code ${exitCode}`)
+    if (exitCode === 100) {
+      setImmediate(() => {
+        startElectron()
+      })
+    }
+    else {
       process.exit()
     }
   })
-}
-
-function logProcess(label: "Electron" | "Renderer", data: string | Buffer, color: ChalkChain) {
-  const log = "  " + data.toString().trim().split(/\r?\n/).join(`\n  `)
-  if (/[0-9A-z]+/.test(log)) {
-    process.stdout.write(
-      color.bold(`┏ ${label} -------------------`) +
-      "\n\n" + log + "\n\n" +
-      color.bold("┗ ----------------------------") +
-      "\n\n"
-    )
-  }
 }

@@ -23,4 +23,6 @@ export interface ConfigEnv {
   autoClean?: boolean
 
   noMinimize?: boolean
+
+  forkTsCheckerLogger?: any
 }
