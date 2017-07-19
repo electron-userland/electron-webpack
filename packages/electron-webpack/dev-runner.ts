@@ -21,12 +21,13 @@ const debug = require("debug")("electron-webpack:dev-runner")
 
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {
-  const files = await orNullIfFileNotExist(readdir(path.join(projectDir, "dist", "main")))
+  const outDir = path.join(projectDir, "dist", "main")
+  const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
   }
 
-  await BluebirdPromise.map(files.filter(it => !it.startsWith(".") && it !== "main.js"), it => remove(it))
+  await BluebirdPromise.map(files.filter(it => !it.startsWith(".") && it !== "main.js"), it => remove(outDir + path.sep + it))
 }
 
 class DevRunner {

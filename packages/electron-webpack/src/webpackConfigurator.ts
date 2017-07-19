@@ -8,7 +8,7 @@ import { configureVue } from "./configurators/vue"
 import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { Lazy } from "./util"
+import { Lazy, statOrNull } from "./util"
 
 const _debug = require("debug")
 
@@ -118,13 +118,16 @@ export class WebpackConfigurator {
         this.config.entry = entry
       }
       else {
-        let mainEntry
+        const mainEntry = []
         if (!this.isProduction && this.type === "main") {
-          mainEntry = [path.join(this.projectDir, "src/main/index.dev.ts"), projectInfo[1]]
+          mainEntry.push(path.join(__dirname, "../electron-main-hmr/main-hmr"))
+
+          const devIndexFile = path.join(this.projectDir, "src/main/index.dev.ts")
+          if ((await statOrNull(devIndexFile)) != null) {
+            mainEntry.push(devIndexFile)
+          }
         }
-        else {
-          mainEntry = projectInfo[1]
-        }
+        mainEntry.push(projectInfo[1])
 
         this.config.entry = {
           [this.type]: mainEntry,
