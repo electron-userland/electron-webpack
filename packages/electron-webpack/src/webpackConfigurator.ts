@@ -122,9 +122,9 @@ export class WebpackConfigurator {
         if (!this.isProduction && this.type === "main") {
           mainEntry.push(path.join(__dirname, "../electron-main-hmr/main-hmr"))
 
-          const devIndexFile = path.join(this.projectDir, "src/main/index.dev.ts")
-          if ((await statOrNull(devIndexFile)) != null) {
-            mainEntry.push(devIndexFile)
+          const devIndexFiles = await BluebirdPromise.filter([path.join(this.projectDir, "src/main/index.dev.ts"), path.join(this.projectDir, "src/main/index.dev.js")], it => statOrNull(it).then(it => it != null))
+          if (devIndexFiles.length !== 0) {
+            mainEntry.push(devIndexFiles[0])
           }
         }
         mainEntry.push(projectInfo[1])
@@ -186,7 +186,7 @@ export function configure(type: ConfigurationType, env: ConfigEnv | null, entry?
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string) {
-  for (const name of ["index.ts", "main.ts", "index.js", "main.ts"]) {
+  for (const name of ["index.ts", "main.ts", "index.js", "main.js"]) {
     const file = path.join(srcDir, name)
     try {
       await stat(file)
