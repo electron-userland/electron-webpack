@@ -1,7 +1,7 @@
 import * as path from "path"
 import { BannerPlugin, DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
-import { computeBabelEnvTarget } from "../configurators/js"
+import { createBabelLoader } from "../configurators/js"
 import { WebpackRemoveOldAssetsPlugin } from "../util"
 import { WebpackConfigurator } from "../webpackConfigurator"
 
@@ -9,18 +9,7 @@ export class BaseTarget {
   configureRules(configurator: WebpackConfigurator): void {
     const rules = configurator.rules
 
-    const babelLoader = {
-      loader: "babel-loader",
-      options: {
-        presets: [
-          ["env", {
-            modules: false,
-            targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
-          }],
-        ]
-      }
-    }
-
+    const babelLoader = createBabelLoader(configurator)
     if (configurator.type !== "main" && ("iview" in configurator.metadata.devDependencies || "iview" in configurator.metadata.dependencies)) {
       rules.push({
         test: /iview.src.*?js$/,
@@ -89,7 +78,7 @@ export class BaseTarget {
     const dllManifest = await configureDll(configurator)
     // https://github.com/webpack/webpack-dev-server/issues/949
     // https://github.com/webpack/webpack/issues/5095#issuecomment-314813438
-    if (configurator.isProduction && !configurator.type.endsWith("-dll")) {
+    if (configurator.isProduction && configurator.type !== "renderer") {
       debug("Add ModuleConcatenationPlugin")
       plugins.push(new optimize.ModuleConcatenationPlugin())
     }

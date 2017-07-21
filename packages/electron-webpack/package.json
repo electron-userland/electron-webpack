@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [
@@ -15,6 +15,7 @@
     "add-asset-html-webpack-plugin": "^2.0.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
     "babili-webpack-plugin": "^0.1.2",
     "bluebird-lst": "^1.0.2",

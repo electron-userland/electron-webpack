@@ -1,6 +1,24 @@
 import { gte } from "semver"
+import { WebpackConfigurator } from "../webpackConfigurator"
 
-export function computeBabelEnvTarget(isRenderer: boolean, electronVersion: string) {
+export function createBabelLoader(configurator: WebpackConfigurator) {
+  return {
+    loader: "babel-loader",
+    options: {
+      presets: [
+        ["env", {
+          modules: false,
+          targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
+        }],
+      ],
+      plugins: [
+        "babel-plugin-syntax-dynamic-import",
+      ]
+    }
+  }
+}
+
+function computeBabelEnvTarget(isRenderer: boolean, electronVersion: string) {
   if (isRenderer) {
     return {
       electron: electronVersion

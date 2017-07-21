@@ -43,3 +43,28 @@ export function logProcess(label: "Electron" | "Renderer" | "Main", data: string
     )
   }
 }
+
+export class DelayedFunction {
+  private readonly executor: () => void
+  private handle: NodeJS.Timer | null = null
+
+  constructor(executor: () => void) {
+    this.executor = () => {
+      this.handle = null
+      executor()
+    }
+  }
+
+  schedule() {
+    this.cancel()
+    this.handle = setTimeout(this.executor, 5000)
+  }
+
+  cancel() {
+    const handle = this.handle
+    if (handle != null) {
+      this.handle = null
+      clearTimeout(handle)
+    }
+  }
+}

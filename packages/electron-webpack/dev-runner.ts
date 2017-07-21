@@ -6,7 +6,7 @@ import * as path from "path"
 import "source-map-support/register"
 import { Compiler, Stats } from "webpack"
 import { HmrServer } from "./electron-main-hmr/HmrServer"
-import { logError, logProcess, logProcessErrorOutput } from "./src/DevRunnerUtil"
+import { DelayedFunction, logError, logProcess, logProcessErrorOutput } from "./src/DevRunnerUtil"
 import { orNullIfFileNotExist } from "./src/util"
 import { configure } from "./src/webpackConfigurator"
 import { startRenderer } from "./src/WebpackDevServerManager"
@@ -70,14 +70,20 @@ class DevRunner {
 
     await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
       const compiler: Compiler = webpack(mainConfig)
+
+      const printCompilingMessage = new DelayedFunction(() => {
+        logProcess("Main", "Compiling...", yellow)
+      })
       compiler.plugin("compile", () => {
         hmrServer.beforeCompile()
-        logProcess("Main", "Compiling...", yellow)
+        printCompilingMessage.schedule()
       })
 
       compiler.watch({
         ignored: /(node_modules|bower_components|dist|static|.idea|test)/
       }, (error, stats: Stats) => {
+        printCompilingMessage.cancel()
+
         if (error != null) {
           if (reject == null) {
             logError("Main", error)
