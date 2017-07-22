@@ -46,11 +46,19 @@ export class WebpackConfigurator {
     this.isProduction = this.env.production !== false && this.env.production !== "false" && (this.env.production === true || this.env.production === "true" || process.env.NODE_ENV === "production")
     this.debug(`isProduction: ${this.isProduction}`)
 
-    this.sourceDir = path.join(this.projectDir, "src", this.type === "test" || this.isRenderer ? "renderer" : this.type)
+    this.sourceDir = this.getSourceDirectory(this.type)
+  }
+
+  getSourceDirectory(type: ConfigurationType) {
+    return path.join(this.commonSourceDirectory, type.startsWith("renderer") || type === "test" ? "renderer" : type)
   }
 
   get commonDistDirectory() {
     return path.join(this.projectDir, "dist")
+  }
+
+  get commonSourceDirectory() {
+    return path.join(this.projectDir, "src")
   }
 
   async configure(entry?: { [key: string]: any } | null) {
@@ -75,7 +83,7 @@ export class WebpackConfigurator {
     const config: Configuration = this.type === "main" ? {} : {
       resolve: {
         alias: {
-          "@": path.join(this.projectDir, "src/renderer"),
+          "@": this.getSourceDirectory("renderer"),
           vue$: "vue/dist/vue.esm.js",
           "vue-router$": "vue-router/dist/vue-router.esm.js",
         },

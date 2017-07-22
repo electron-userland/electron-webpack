@@ -2,7 +2,8 @@ import * as path from "path"
 import { BannerPlugin, DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { createBabelLoader } from "../configurators/js"
-import { WebpackRemoveOldAssetsPlugin } from "../util"
+import { WatchFilterPlugin } from "../plugins/WatchMatchPlugin"
+import { WebpackRemoveOldAssetsPlugin } from "../plugins/WebpackRemoveOldAssetsPlugin"
 import { WebpackConfigurator } from "../webpackConfigurator"
 
 export class BaseTarget {
@@ -102,8 +103,37 @@ export class BaseTarget {
         const WebpackNotifierPlugin = require("webpack-notifier")
         plugins.push(new WebpackNotifierPlugin({title: `Webpack - ${configurator.type}`}))
       }
+
+      const watchIgnore = [
+        configurator.commonDistDirectory,
+        path.join(configurator.projectDir, "build"),
+        path.join(configurator.projectDir, "dist"),
+        path.join(configurator.projectDir, "node_modules"),
+        path.join(configurator.projectDir, "static"),
+        path.join(configurator.projectDir, ".idea"),
+        path.join(configurator.projectDir, ".vscode"),
+        configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
+      ]
+
+      if (configurator.type !== "test") {
+        watchIgnore.push(path.join(configurator.projectDir, "test"))
+      }
+
+      debug(`Watch ignore: ` + watchIgnore.join(", "))
+
+      // watch common code
+      const commonSourceDir = configurator.commonSourceDirectory
+      const alienSourceDir = configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
+
+      configurator.plugins.push(new WatchFilterPlugin(file => {
+        return file === commonSourceDir || (isAncestor(file, commonSourceDir) && !file.startsWith(alienSourceDir))
+      }, require("debug")(`electron-webpack:watch-${configurator.type}`)))
     }
 
     plugins.push(new NoEmitOnErrorsPlugin())
   }
+}
+
+function isAncestor(file: string, dir: string) {
+  return file.length > dir.length && file[dir.length] === path.sep && file.startsWith(dir)
 }

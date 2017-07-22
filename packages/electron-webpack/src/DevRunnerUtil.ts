@@ -36,10 +36,10 @@ export function logProcess(label: "Electron" | "Renderer" | "Main", data: string
   const log = joinLines(data.toString())
   if (log.length > 0 && /[0-9A-z]+/.test(log)) {
     process.stdout.write(
-      color.bold(`┏ ${label} -------------------`) +
+      color.bold(`┏ ${label} ${"-".repeat(28 - label.length - 1)}`) +
       "\n\n" + log + "\n" +
-      color.bold("┗ ----------------------------") +
-      "\n\n"
+      color.bold(`┗ ${"-".repeat(28)}`) +
+      "\n"
     )
   }
 }

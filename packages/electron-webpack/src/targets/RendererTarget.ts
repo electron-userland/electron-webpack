@@ -72,7 +72,7 @@ export class RendererTarget extends BaseRendererTarget {
     const plugins = configurator.plugins
     plugins.push(new HtmlWebpackPlugin({
       filename: "index.html",
-      template: path.resolve(configurator.projectDir, "src/index.ejs"),
+      template: path.join(configurator.commonSourceDirectory, "index.ejs"),
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,

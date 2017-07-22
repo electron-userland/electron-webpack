@@ -5,11 +5,11 @@ import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
 import "source-map-support/register"
 import { Compiler, Stats } from "webpack"
-import { HmrServer } from "./electron-main-hmr/HmrServer"
-import { DelayedFunction, logError, logProcess, logProcessErrorOutput } from "./src/DevRunnerUtil"
-import { orNullIfFileNotExist } from "./src/util"
-import { configure } from "./src/webpackConfigurator"
-import { startRenderer } from "./src/WebpackDevServerManager"
+import { HmrServer } from "../electron-main-hmr/HmrServer"
+import { DelayedFunction, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { orNullIfFileNotExist } from "./util"
+import { configure } from "./webpackConfigurator"
+import { startRenderer } from "./WebpackDevServerManager"
 
 const webpack = require("webpack")
 
@@ -79,9 +79,7 @@ class DevRunner {
         printCompilingMessage.schedule()
       })
 
-      compiler.watch({
-        ignored: /(node_modules|bower_components|dist|static|.idea|test)/
-      }, (error, stats: Stats) => {
+      compiler.watch({}, (error, stats: Stats) => {
         printCompilingMessage.cancel()
 
         if (error != null) {
@@ -97,7 +95,6 @@ class DevRunner {
 
         logProcess("Main", stats.toString({
           colors: true,
-          chunks: false
         }), yellow)
 
         if (resolve != null) {

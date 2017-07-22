@@ -4,57 +4,17 @@ Configuration and scripts to compile Electron applications that use [electron-vu
 
 ## Install
 
-`yarn add webpack electron-webpack --dev`
-
-And install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack#languages-and-frameworks) — [typescript](#typescript), [vue](#vue) and [less](#less) if need.
+1. `yarn add webpack electron-webpack --dev`
+2. Install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks) —
+[typescript](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#typescript),
+[vue](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#vue) and
+[less](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#less) if need.
 
 [Yarn](http://yarnpkg.com/) is recommended instead of npm.
 
-### Languages and Frameworks
+## Hot Module Replacement
 
-To keep your `devDependencies` size minimal, only JavaScript is supported out of the box
-(because even in a pure typescript project, JavaScript transpilation is required to import external dependencies on demand (e.g. ui libraries iView, Element)).
-
-Special presets are used to ensure that you don't need to specify all required packages explicitly, — for example, `electron-webpack-ts` includes `ts-loader` and `fork-ts-checker-webpack-plugin` for you.
-But if you want, you can install loaders/plugins explicitly (it will be still detected and appropriate config applied).
-
-### JavaScript
-
-Supported out of the box.
-Babel plugins and polyfills that you need based on your used version are determined automatically using [babel-preset-env](https://github.com/babel/babel-preset-env).
-
-### TypeScript
-
-`yarn add typescript electron-webpack-ts --dev`
-
-Create `tsconfig.json` in the project root directory:
-
-```json
-{
-  "extends": "./node_modules/electron-webpack/tsconfig-base.json"
-}
-```
-
-If you use Vue.js, create `vue-shims.d.ts` in the `src/renderer`
-
-```typescript
-declare module "*.vue" {
-  import Vue from "vue"
-  export default Vue
-}
-```
-
-### Vue.js
-
-`yarn add vue electron-webpack-vue --dev`
-
-### iView
-
-"Import on demand" feature is supported out of the box.
-
-### Less
-
-`yarn add less-loader less --dev`
+[Fast development](https://github.com/electron-userland/electron-webpack/wiki/HMR) without reloading is supported for both main and renderer processes.
 
 ## Package Scripts
 
@@ -63,10 +23,10 @@ You can add following scripts to your `package.json`:
 ```json
 {
   "scripts": {
-    "dev": "node node_modules/electron-webpack/dev-runner.js",
-    "compile": "webpack --bail --env.production --config node_modules/electron-webpack/webpack.app.config.js",
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
-    "dist-dir": "yarn compile && electron-builder --dir -c.compression=store -c.mac.identity=null"
+    "dist-dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
   }
 }
 ```
@@ -83,6 +43,7 @@ Webpack [documentation](https://webpack.js.org/api/cli/) is fully applicable. Fo
 * `node_modules/electron-webpack/webpack.main.config.js` Compile main.
 * `node_modules/electron-webpack/webpack.renderer.config.js` Compile renderer.
 * `node_modules/electron-webpack/webpack.app.config.js` Compile both main and renderer.
+* `node_modules/electron-webpack/webpack.renderer.dll.config.js` Compile DLL bundles for renderer.
 
 ## Application Renderer Dependencies
 
@@ -106,8 +67,6 @@ Supported out of the box, specify in the `package.json`:
   }
 }
 ```
-
-Please note — due to webpack [issue](https://github.com/webpack/webpack/issues/5095), not all libraries are supported for now.
 
 ## White-listing Externals
 
