@@ -77,10 +77,9 @@ export class BaseTarget {
     }
 
     const dllManifest = await configureDll(configurator)
+    // do not use ModuleConcatenationPlugin for HMR
     // https://github.com/webpack/webpack-dev-server/issues/949
-    // https://github.com/webpack/webpack/issues/5095#issuecomment-314813438
-    if (configurator.isProduction && configurator.type !== "renderer") {
-      debug("Add ModuleConcatenationPlugin")
+    if (configurator.isProduction) {
       plugins.push(new optimize.ModuleConcatenationPlugin())
     }
 
@@ -94,7 +93,7 @@ export class BaseTarget {
         const WebpackNotifierPlugin = require("webpack-build-notifier")
         plugins.push(new WebpackNotifierPlugin({
           title: `Webpack - ${configurator.type}`,
-          suppressSuccess: true,
+          suppressSuccess: "initial",
           sound: false,
         }))
       }
