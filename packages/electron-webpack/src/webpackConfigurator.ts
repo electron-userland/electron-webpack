@@ -111,6 +111,7 @@ export class WebpackConfigurator {
       resolve: {
         alias: {
           "@": this.sourceDir,
+          common: path.join(this.commonSourceDirectory, "common"),
         },
         extensions: this.extensions,
       },
