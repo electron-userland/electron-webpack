@@ -43,6 +43,7 @@ export class Lazy<T> {
   }
 }
 
-export function getFirstExistingFile(names: Array<string>, rootDir: string) {
-  return BluebirdPromise.filter(names, it => statOrNull(path.join(rootDir, it)).then(it => it != null))
+export function getFirstExistingFile(names: Array<string>, rootDir: string | null): Promise<string | null> {
+  return BluebirdPromise.filter(names.map(it => rootDir == null ? it : path.join(rootDir, it)), it => statOrNull(it).then(it => it != null))
+    .then(it => it.length > 0 ? it[0] : null)
 }

@@ -6,6 +6,13 @@ export function configureVue(configurator: WebpackConfigurator) {
     return
   }
 
+  configurator.extensions.push(".vue")
+
+  Object.assign(configurator.config.resolve!!.alias, {
+    vue$: "vue/dist/vue.esm.js",
+    "vue-router$": "vue-router/dist/vue-router.esm.js",
+  })
+
   if (!configurator.isProduction && configurator.type === "main") {
     configurator.entryFiles.push(path.join(__dirname, "vue-main-dev-entry.js"))
   }

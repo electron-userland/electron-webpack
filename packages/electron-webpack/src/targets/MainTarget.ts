@@ -16,9 +16,9 @@ export class MainTarget extends BaseTarget {
     }
 
     configurator.entryFiles.push(path.join(__dirname, "../../electron-main-hmr/main-hmr"))
-    const devIndexFiles = await getFirstExistingFile(["index.dev.ts", "index.dev.js"], path.join(configurator.projectDir, "src/main"))
-    if (devIndexFiles.length !== 0) {
-      configurator.entryFiles.push(devIndexFiles[0])
+    const devIndexFile = await getFirstExistingFile(["index.dev.ts", "index.dev.js"], path.join(configurator.projectDir, "src/main"))
+    if (devIndexFile != null) {
+      configurator.entryFiles.push(devIndexFile)
     }
   }
 }

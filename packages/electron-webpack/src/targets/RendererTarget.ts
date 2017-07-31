@@ -14,6 +14,8 @@ export class BaseRendererTarget extends BaseTarget {
   configureRules(configurator: WebpackConfigurator): void {
     super.configureRules(configurator)
 
+    configurator.extensions.push(".css")
+
     function configureFileLoader(prefix: string) {
       return {
         limit: 10000,

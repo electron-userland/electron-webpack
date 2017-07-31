@@ -1,15 +1,15 @@
 import BluebirdPromise from "bluebird-lst"
-import { readJson, stat } from "fs-extra-p"
+import { readJson } from "fs-extra-p"
 import * as path from "path"
 import "source-map-support/register"
-import { Configuration, NewModule, Plugin, Rule } from "webpack"
+import { Configuration, Plugin, Rule } from "webpack"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
 import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { Lazy } from "./util"
+import { getFirstExistingFile, Lazy } from "./util"
 
 const _debug = require("debug")
 
@@ -33,13 +33,15 @@ export class WebpackConfigurator {
 
   config: Configuration
 
-  rules: Array<Rule>
-  plugins: Array<Plugin>
-  extensions: Array<string>
+  readonly rules: Array<Rule> = []
+  readonly plugins: Array<Plugin> = []
+
+  // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
+  readonly extensions: Array<string> = [".js", ".json", ".node"]
 
   electronVersion: string
 
-  entryFiles: Array<string> = []
+  readonly entryFiles: Array<string> = []
 
   constructor(readonly type: ConfigurationType, env: ConfigEnv | null) {
     this.env = env || {}
@@ -91,19 +93,7 @@ export class WebpackConfigurator {
       this.electronWebpackConfig.renderer = {}
     }
 
-    const config: Configuration = this.type === "main" ? {} : {
-      resolve: {
-        alias: {
-          "@": this.getSourceDirectory("renderer"),
-          vue$: "vue/dist/vue.esm.js",
-          "vue-router$": "vue-router/dist/vue-router.esm.js",
-        },
-        extensions: [".vue", ".css"]
-      },
-    }
-
-    this.config = config
-    Object.assign(this.config, {
+    this.config = {
       context: this.projectDir,
       devtool: this.isProduction || this.isTest ? "nosources-source-map" : "eval-source-map",
       externals: this.computeExternals(),
@@ -117,20 +107,22 @@ export class WebpackConfigurator {
         libraryTarget: "commonjs2",
         path: path.join(this.commonDistDirectory, this.type)
       },
-      target: this.isTest ? "node" : `electron-${this.type === "renderer-dll" ? "renderer" : this.type}`,
-    })
-
-    if (this.config.module == null) {
-      this.config.module = {rules: []}
+      target: this.isTest ? "node" : `electron-${this.type === "renderer-dll" ? "renderer" : this.type}` as any,
+      resolve: {
+        alias: {
+          "@": this.sourceDir,
+        },
+        extensions: this.extensions,
+      },
+      module: {
+        rules: this.rules,
+      },
+      plugins: this.plugins,
     }
 
     if (entry != null) {
       this.config.entry = entry
     }
-
-    this.rules = (this.config.module as NewModule).rules
-    this.plugins = getPlugins(this.config)
-    this.extensions = getExtensions(config)
 
     this.electronVersion = this.electronWebpackConfig.electronVersion || await this.electronVersionPromise.value
     const target = (() => {
@@ -148,11 +140,11 @@ export class WebpackConfigurator {
     configureVue(this)
 
     if (this.debug.enabled) {
-      this.debug(`\n\n${this.type} config:` + JSON.stringify(config, null, 2) + "\n\n")
+      this.debug(`\n\n${this.type} config:` + JSON.stringify(this.config, null, 2) + "\n\n")
     }
 
     if (this.config.entry == null) {
-      this.entryFiles.push(projectInfo[1])
+      this.entryFiles.push(projectInfo[1]!!)
       this.config.entry = {
         [this.type]: this.entryFiles,
       }
@@ -191,45 +183,11 @@ export function configure(type: ConfigurationType, env: ConfigEnv | null) {
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string) {
-  for (const name of ["index.ts", "main.ts", "index.js", "main.js"]) {
-    const file = path.join(srcDir, name)
-    try {
-      await stat(file)
-      return file
-    }
-    catch (e) {
-      // ignore
-    }
+  const file = getFirstExistingFile(["index.ts", "main.ts", "index.js", "main.js"], srcDir)
+  if (file == null) {
+    throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or .js)`)
   }
-  throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))}`)
-}
-
-function getPlugins(config: Configuration) {
-  let plugins = config.plugins
-  if (plugins == null) {
-    plugins = []
-    config.plugins = plugins
-  }
-  return plugins
-}
-
-function getExtensions(config: Configuration) {
-  let resolve = config.resolve
-  if (resolve == null) {
-    resolve = {}
-    config.resolve = resolve
-  }
-
-  let extensions = resolve.extensions
-  if (extensions == null) {
-    extensions = []
-    resolve.extensions = extensions
-  }
-
-  // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
-  extensions.unshift(".js")
-  extensions.push(".node", ".json")
-  return extensions
+  return file
 }
 
 async function getInstalledElectronVersion(projectDir: string) {

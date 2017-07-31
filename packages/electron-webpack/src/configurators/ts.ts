@@ -1,6 +1,5 @@
-import BluebirdPromise from "bluebird-lst"
 import * as path from "path"
-import { statOrNull } from "../util"
+import { getFirstExistingFile } from "../util"
 import { WebpackConfigurator } from "../webpackConfigurator"
 
 export async function configureTypescript(configurator: WebpackConfigurator) {
@@ -9,6 +8,7 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     return
   }
 
+  // add after js
   configurator.extensions.splice(1, 0, ".ts")
 
   const isTranspileOnly = configurator.isTest || (hasTsChecker && !configurator.isProduction)
@@ -21,19 +21,19 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     logLevel: "warn" // no need to log used tsconfig file as info
   }
 
-  const tsConfigFiles = await BluebirdPromise.filter([path.join(configurator.sourceDir, "tsconfig.json"), path.join(configurator.projectDir, "tsconfig.json")], it => statOrNull(it).then(it => it != null))
+  const tsConfigFile = await getFirstExistingFile([path.join(configurator.sourceDir, "tsconfig.json"), path.join(configurator.projectDir, "tsconfig.json")], null)
   // check even if we currently doesn't pass path to ts-loader — to produce clear error message if no tsconfig.json
-  if (tsConfigFiles.length === 0) {
+  if (tsConfigFile == null) {
     throw new Error(`Please create tsconfig.json in the "${configurator.projectDir}":\n\n{\n  "extends": "./node_modules/electron-webpack/tsconfig-base.json"\n}\n\n`)
   }
 
-  configurator.debug(`Using ${tsConfigFiles[0]}`)
+  configurator.debug(`Using ${tsConfigFile}`)
 
   // no sense to use fork-ts-checker-webpack-plugin for production build
   if (isTranspileOnly && !configurator.isTest) {
     const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
     configurator.plugins.push(new ForkTsCheckerWebpackPlugin({
-      tsconfig: tsConfigFiles[0],
+      tsconfig: tsConfigFile,
       logger: configurator.env.forkTsCheckerLogger || {
         info: () => {
           // ignore
