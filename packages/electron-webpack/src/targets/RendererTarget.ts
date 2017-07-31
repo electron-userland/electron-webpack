@@ -1,4 +1,5 @@
 import * as path from "path"
+import { DefinePlugin } from "webpack"
 import { WebpackConfigurator } from "../webpackConfigurator"
 import { BaseTarget } from "./BaseTarget"
 
@@ -58,6 +59,13 @@ export class BaseRendererTarget extends BaseTarget {
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
     configurator.debug("Add ExtractTextPlugin plugin")
     configurator.plugins.push(new ExtractTextPlugin(`${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`))
+
+    // https://github.com/electron-userland/electrify/issues/1
+    if (!configurator.isProduction) {
+      configurator.plugins.push(new DefinePlugin({
+        "process.env.NODE_ENV": "\"development\""
+      }))
+    }
 
     await BaseTarget.prototype.configurePlugins.call(this, configurator)
   }

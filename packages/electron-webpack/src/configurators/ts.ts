@@ -4,9 +4,8 @@ import { statOrNull } from "../util"
 import { WebpackConfigurator } from "../webpackConfigurator"
 
 export async function configureTypescript(configurator: WebpackConfigurator) {
-  const metadata = configurator.metadata
-  const hasTsChecker = "fork-ts-checker-webpack-plugin" in metadata.devDependencies || "electron-webpack-ts" in metadata.devDependencies
-  if (!(hasTsChecker || "ts-loader" in metadata.devDependencies)) {
+  const hasTsChecker = configurator.hasDevDependency("fork-ts-checker-webpack-plugin") || configurator.hasDevDependency("electron-webpack-ts")
+  if (!(hasTsChecker || configurator.hasDevDependency("ts-loader"))) {
     return
   }
 
@@ -36,13 +35,13 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     configurator.plugins.push(new ForkTsCheckerWebpackPlugin({
       tsconfig: tsConfigFiles[0],
       logger: configurator.env.forkTsCheckerLogger || {
-            info: () => {
-              // ignore
-            },
+        info: () => {
+          // ignore
+        },
 
-            warn: console.warn.bind(console),
-            error: console.error.bind(console),
-          }
+        warn: console.warn.bind(console),
+        error: console.error.bind(console),
+      }
     }))
   }
 

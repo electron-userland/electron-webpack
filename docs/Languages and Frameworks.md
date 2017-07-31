@@ -34,6 +34,8 @@ declare module "*.vue" {
 
 `yarn add vue electron-webpack-vue --dev`
 
+Please note — [Chrome devtools extension for debugging Vue.js applications](https://github.com/vuejs/vue-devtools) is automatically installed in a dev mode. 
+
 ## iView
 
 "Import on demand" feature is supported out of the box.

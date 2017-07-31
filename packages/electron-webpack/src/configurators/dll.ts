@@ -9,6 +9,13 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
   const projectDir = configurator.projectDir
 
   if (configurator.type === "renderer-dll") {
+    const dll = configurator.electronWebpackConfig.renderer!!.dll
+    if (dll == null) {
+      throw new Error(`renderer-dll requires DLL configuration`)
+    }
+
+    configurator.config.entry = Array.isArray(dll) ? {vendor: dll} : dll
+
     dllManifest = path.join(configurator.commonDistDirectory, configurator.type, "manifest.json")
     configurator.plugins.push(new DllPlugin({
       name: "[name]",

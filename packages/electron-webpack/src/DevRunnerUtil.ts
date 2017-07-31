@@ -68,3 +68,13 @@ export class DelayedFunction {
     }
   }
 }
+
+export function getCommonEnv() {
+  return {
+    ...process.env,
+    NODE_ENV: "development",
+    // to force debug colors in the child process
+    DEBUG_COLORS: true,
+    DEBUG_FD: "1",
+  }
+}

@@ -4,11 +4,12 @@ import * as path from "path"
 import "source-map-support/register"
 import { Configuration, NewModule, Plugin, Rule } from "webpack"
 import { configureTypescript } from "./configurators/ts"
-import { configureVue } from "./configurators/vue"
+import { configureVue } from "./configurators/vue/vue"
 import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
+import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { Lazy, statOrNull } from "./util"
+import { Lazy } from "./util"
 
 const _debug = require("debug")
 
@@ -38,6 +39,8 @@ export class WebpackConfigurator {
 
   electronVersion: string
 
+  entryFiles: Array<string> = []
+
   constructor(readonly type: ConfigurationType, env: ConfigEnv | null) {
     this.env = env || {}
     this.isRenderer = type.startsWith("renderer")
@@ -59,6 +62,14 @@ export class WebpackConfigurator {
 
   get commonSourceDirectory() {
     return path.join(this.projectDir, "src")
+  }
+
+  hasDependency(name: string) {
+    return name in this.metadata.dependencies || this.hasDevDependency(name)
+  }
+
+  hasDevDependency(name: string) {
+    return name in this.metadata.devDependencies
   }
 
   async configure(entry?: { [key: string]: any } | null) {
@@ -113,34 +124,8 @@ export class WebpackConfigurator {
       this.config.module = {rules: []}
     }
 
-    if (this.config.entry == null) {
-      if (this.type === "renderer-dll") {
-        const dll = this.electronWebpackConfig.renderer.dll
-        if (dll == null) {
-          throw new Error(`renderer-dll requires DLL configuration`)
-        }
-
-        this.config.entry = Array.isArray(dll) ? {vendor: dll} : dll
-      }
-      else if (entry != null) {
-        this.config.entry = entry
-      }
-      else {
-        const mainEntry = []
-        if (!this.isProduction && this.type === "main") {
-          mainEntry.push(path.join(__dirname, "../electron-main-hmr/main-hmr"))
-
-          const devIndexFiles = await BluebirdPromise.filter([path.join(this.projectDir, "src/main/index.dev.ts"), path.join(this.projectDir, "src/main/index.dev.js")], it => statOrNull(it).then(it => it != null))
-          if (devIndexFiles.length !== 0) {
-            mainEntry.push(devIndexFiles[0])
-          }
-        }
-        mainEntry.push(projectInfo[1])
-
-        this.config.entry = {
-          [this.type]: mainEntry,
-        }
-      }
+    if (entry != null) {
+      this.config.entry = entry
     }
 
     this.rules = (this.config.module as NewModule).rules
@@ -153,6 +138,7 @@ export class WebpackConfigurator {
         case "renderer": return new RendererTarget()
         case "renderer-dll": return new BaseRendererTarget()
         case "test": return new BaseRendererTarget()
+        case "main": return new MainTarget()
         default: return new BaseTarget()
       }
     })()
@@ -165,6 +151,12 @@ export class WebpackConfigurator {
       this.debug(`\n\n${this.type} config:` + JSON.stringify(config, null, 2) + "\n\n")
     }
 
+    if (this.config.entry == null) {
+      this.entryFiles.push(projectInfo[1])
+      this.config.entry = {
+        [this.type]: this.entryFiles,
+      }
+    }
     return this.config
   }
 
@@ -185,12 +177,17 @@ export class WebpackConfigurator {
       externals.push("electron-webpack/electron-main-hmr/HmrClient")
       externals.push("source-map-support/source-map-support.js")
     }
+
+    if (this.electronWebpackConfig.externals != null) {
+      return externals.concat(this.electronWebpackConfig.externals)
+    }
+
     return externals
   }
 }
 
-export function configure(type: ConfigurationType, env: ConfigEnv | null, entry?: { [key: string]: any } | null) {
-  return new WebpackConfigurator(type, env).configure(entry)
+export function configure(type: ConfigurationType, env: ConfigEnv | null) {
+  return new WebpackConfigurator(type, env).configure()
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string) {

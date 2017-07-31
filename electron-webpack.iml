@@ -6,6 +6,7 @@
       <excludePattern pattern="*.js" />
       <excludePattern pattern="*.js.map" />
       <excludePattern pattern="yarn.lock" />
+      <excludePattern pattern="!vue-renderer-dev-entry.js" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

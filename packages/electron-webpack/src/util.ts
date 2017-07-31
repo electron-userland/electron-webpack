@@ -1,4 +1,6 @@
+import BluebirdPromise from "bluebird-lst"
 import { stat, Stats } from "fs-extra-p"
+import * as path from "path"
 
 export async function statOrNull(file: string): Promise<Stats | null> {
   return orNullIfFileNotExist(stat(file))
@@ -39,4 +41,8 @@ export class Lazy<T> {
   constructor(creator: () => Promise<T>) {
     this.creator = creator
   }
+}
+
+export function getFirstExistingFile(names: Array<string>, rootDir: string) {
+  return BluebirdPromise.filter(names, it => statOrNull(path.join(rootDir, it)).then(it => it != null))
 }

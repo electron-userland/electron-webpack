@@ -1,13 +1,20 @@
-import { WebpackConfigurator } from "../webpackConfigurator"
+import * as path from "path"
+import { WebpackConfigurator } from "../../webpackConfigurator"
 
 export function configureVue(configurator: WebpackConfigurator) {
+  if (!configurator.hasDependency("vue")) {
+    return
+  }
+
+  if (!configurator.isProduction && configurator.type === "main") {
+    configurator.entryFiles.push(path.join(__dirname, "vue-main-dev-entry.js"))
+  }
+
   if (!configurator.type.startsWith("renderer")) {
     return
   }
 
-  if (!("vue" in configurator.metadata.devDependencies || "vue" in configurator.metadata.dependencies)) {
-    return
-  }
+  configurator.entryFiles.push(path.join(__dirname, "vue-renderer-entry.js"))
 
   configurator.debug("Vue detected")
   configurator.rules.push(

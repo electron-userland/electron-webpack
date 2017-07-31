@@ -6,7 +6,7 @@ import * as path from "path"
 import "source-map-support/register"
 import { Compiler, Stats } from "webpack"
 import { HmrServer } from "../electron-main-hmr/HmrServer"
-import { DelayedFunction, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
 import { orNullIfFileNotExist } from "./util"
 import { configure } from "./webpackConfigurator"
 import { startRenderer } from "./WebpackDevServerManager"
@@ -125,12 +125,8 @@ function startElectron() {
   args.push(path.join(projectDir, "dist/main/main.js"))
   const electronProcess = spawn(require("electron").toString(), args, {
     env: {
-      ...process.env,
+      ...getCommonEnv(),
       ELECTRON_HMR_SOCKET_PATH: socketPath,
-      NODE_ENV: "development",
-      DEBUG_COLORS: true,
-      // to force debug out to stdout
-      DEBUG_FD: "1",
     }
   })
 

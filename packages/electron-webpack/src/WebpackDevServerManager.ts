@@ -2,7 +2,7 @@ import BluebirdPromise from "bluebird-lst"
 import { blue, red } from "chalk"
 import { ChildProcess, spawn } from "child_process"
 import * as path from "path"
-import { logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
 
 const debug = require("debug")("electron-webpack:dev-runner")
 
@@ -10,14 +10,7 @@ function spawnWds(projectDir: string) {
   const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (process.platform === "win32" ? ".cmd" : ""))
   debug(`Start webpack-dev-server ${webpackDevServerPath}`)
   return spawn(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../webpack.renderer.config.js")], {
-    env: {
-      ...process.env,
-      // to force debug colors in the child process
-      DEBUG_COLORS: true,
-      NODE_ENV: "development",
-      // to force debug out to stdout
-      DEBUG_FD: "1",
-    },
+    env: getCommonEnv(),
   })
 }
 

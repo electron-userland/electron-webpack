@@ -7,6 +7,7 @@ export interface PackageMetadata {
 
 export interface ElectronWebpackConfig {
   whiteListedModules?: Array<string>
+  externals?: Array<string>
   electronVersion?: string
 
   renderer?: PartConfig

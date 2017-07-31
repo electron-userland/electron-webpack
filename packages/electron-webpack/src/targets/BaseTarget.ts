@@ -11,7 +11,7 @@ export class BaseTarget {
     const rules = configurator.rules
 
     const babelLoader = createBabelLoader(configurator)
-    if (configurator.type !== "main" && ("iview" in configurator.metadata.devDependencies || "iview" in configurator.metadata.dependencies)) {
+    if (configurator.type !== "main" && configurator.hasDependency("iview")) {
       rules.push({
         test: /iview.src.*?js$/,
         use: babelLoader
@@ -36,7 +36,7 @@ export class BaseTarget {
     const debug = configurator.debug
 
     // do not add for main dev (to avoid adding to hot update chunks), our main-hmr install it
-    if ((configurator.isProduction || configurator.type !== "main") && ("source-map-support" in configurator.metadata.dependencies || (configurator.isRenderer && "source-map-support" in configurator.metadata.devDependencies))) {
+    if ((configurator.isProduction || configurator.type !== "main") && ("source-map-support" in configurator.metadata.dependencies || (configurator.isRenderer && configurator.hasDevDependency("source-map-support")))) {
       plugins.push(new BannerPlugin({
         banner: 'require("source-map-support/source-map-support.js").install();',
         test: /\.js$/,
@@ -70,13 +70,8 @@ export class BaseTarget {
       plugins.push(new HotModuleReplacementPlugin())
     }
 
-    if ((configurator.isTest || configurator.isRenderer) && Object.keys(configurator.config.entry).length > 1) {
-      plugins.push(new optimize.CommonsChunkPlugin({
-        name: "common",
-      }))
-    }
-
     const dllManifest = await configureDll(configurator)
+
     // do not use ModuleConcatenationPlugin for HMR
     // https://github.com/webpack/webpack-dev-server/issues/949
     if (configurator.isProduction) {
@@ -89,7 +84,7 @@ export class BaseTarget {
     }
 
     if (!configurator.isProduction) {
-      if ("webpack-build-notifier" in configurator.metadata.devDependencies) {
+      if (configurator.hasDevDependency("webpack-build-notifier")) {
         const WebpackNotifierPlugin = require("webpack-build-notifier")
         plugins.push(new WebpackNotifierPlugin({
           title: `Webpack - ${configurator.type}`,
@@ -98,7 +93,7 @@ export class BaseTarget {
         }))
       }
 
-      if ("webpack-notifier" in configurator.metadata.devDependencies) {
+      if (configurator.hasDevDependency("webpack-notifier")) {
         const WebpackNotifierPlugin = require("webpack-notifier")
         plugins.push(new WebpackNotifierPlugin({title: `Webpack - ${configurator.type}`}))
       }
@@ -118,7 +113,9 @@ export class BaseTarget {
         watchIgnore.push(path.join(configurator.projectDir, "test"))
       }
 
-      debug(`Watch ignore: ` + watchIgnore.join(", "))
+      if (debug.enabled) {
+        debug(`Watch ignore: ${watchIgnore.join(", ")}`)
+      }
 
       // watch common code
       const commonSourceDir = configurator.commonSourceDirectory
