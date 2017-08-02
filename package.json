@@ -8,6 +8,7 @@
     "compile": "ts-babel packages/electron-webpack",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && npm publish packages/electron-webpack",
+    "test": "jest",
     "update-wiki": "(git branch -D wiki || true) && git subtree split -b wiki --prefix docs/ && git push -f wiki wiki:master"
   },
   "devDependencies": {

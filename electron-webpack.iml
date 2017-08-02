@@ -4,7 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/test/src/__snapshots__" />
-      <excludePattern pattern="*.js" />
+      <excludePattern pattern="*packages/*.js" />
       <excludePattern pattern="*.js.map" />
       <excludePattern pattern="yarn.lock" />
     </content>

@@ -1,6 +1,6 @@
 # electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
-Configuration and scripts to compile Electron applications that use [electron-vue](https://github.com/SimulatedGREG/electron-vue) boilerplate [project structure](https://simulatedgreg.gitbooks.io/electron-vue/content/en/project_structure.html).
+Configurations and scripts to compile Electron applications.
 
 ## Install
 
@@ -12,6 +12,21 @@ Configuration and scripts to compile Electron applications that use [electron-vu
 [less](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#less) if need.
 
 [Yarn](http://yarnpkg.com/) is recommended instead of npm.
+
+## Project Structure
+
+```
+├─ src
+│  ├─ main # main process sources
+│  │  └─ index.js
+│  ├─ renderer # renderer process sources
+│  │  └─ index.js
+├─ static # static assets (optional directory)
+```
+
+Index file expected to be named as `index.js` or `main.js` (`.ts` if [typescript support](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#typescript) installed)
+
+Real project example — [electrify](https://github.com/electron-userland/electrify).
 
 ## Hot Module Replacement
 

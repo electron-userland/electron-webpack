@@ -5,7 +5,7 @@ import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
-import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
+import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
@@ -18,7 +18,7 @@ export class WebpackConfigurator {
 
   private electronVersionPromise = new Lazy(() => getInstalledElectronVersion(this.projectDir))
 
-  readonly env: ConfigEnv
+  readonly env: ConfigurationEnv
 
   readonly isRenderer: boolean
   readonly isProduction: boolean
@@ -43,7 +43,7 @@ export class WebpackConfigurator {
 
   readonly entryFiles: Array<string> = []
 
-  constructor(readonly type: ConfigurationType, env: ConfigEnv | null) {
+  constructor(readonly type: ConfigurationType, env: ConfigurationEnv | null) {
     this.env = env || {}
     this.projectDir = this.env.projectDir || process.cwd()
     this.isRenderer = type.startsWith("renderer")
@@ -89,7 +89,7 @@ export class WebpackConfigurator {
       this.metadata.devDependencies = {}
     }
 
-    this.electronWebpackConfig = this.metadata.electronWebpack || {}
+    this.electronWebpackConfig = this.env.configuration || this.metadata.electronWebpack || {}
     if (this.electronWebpackConfig.renderer == null) {
       this.electronWebpackConfig.renderer = {}
     }
@@ -151,6 +151,24 @@ export class WebpackConfigurator {
       this.config.entry = {
         [this.type]: this.entryFiles,
       }
+
+      if (this.type === "main" && this.electronWebpackConfig.main != null) {
+        let extraEntries = this.electronWebpackConfig.main.extraEntries
+        if (extraEntries != null) {
+          if (typeof extraEntries === "string") {
+            extraEntries = [extraEntries]
+          }
+
+          if (Array.isArray(extraEntries)) {
+            for (const p of extraEntries) {
+              this.config.entry[path.basename(p, path.extname(p))] = p
+            }
+          }
+          else {
+            Object.assign(this.config.entry, extraEntries)
+          }
+        }
+      }
     }
     return this.config
   }
@@ -181,7 +199,7 @@ export class WebpackConfigurator {
   }
 }
 
-export function configure(type: ConfigurationType, env: ConfigEnv | null) {
+export function configure(type: ConfigurationType, env: ConfigurationEnv | null) {
   return new WebpackConfigurator(type, env).configure()
 }
 
