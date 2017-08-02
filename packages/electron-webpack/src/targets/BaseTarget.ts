@@ -1,5 +1,5 @@
 import * as path from "path"
-import { BannerPlugin, DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
+import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { createBabelLoader } from "../configurators/js"
 import { WatchFilterPlugin } from "../plugins/WatchMatchPlugin"
@@ -34,16 +34,6 @@ export class BaseTarget {
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
     const plugins = configurator.plugins
     const debug = configurator.debug
-
-    // do not add for main dev (to avoid adding to hot update chunks), our main-hmr install it
-    if ((configurator.isProduction || configurator.type !== "main") && ("source-map-support" in configurator.metadata.dependencies || (configurator.isRenderer && configurator.hasDevDependency("source-map-support")))) {
-      plugins.push(new BannerPlugin({
-        banner: 'require("source-map-support/source-map-support.js").install();',
-        test: /\.js$/,
-        raw: true,
-        entryOnly: true,
-      }))
-    }
 
     if (configurator.isProduction) {
       if (configurator.env.noMinimize !== true) {

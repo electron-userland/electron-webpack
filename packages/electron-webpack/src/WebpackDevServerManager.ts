@@ -2,7 +2,7 @@ import BluebirdPromise from "bluebird-lst"
 import { blue, red } from "chalk"
 import { ChildProcess, spawn } from "child_process"
 import * as path from "path"
-import { getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
 
 const debug = require("debug")("electron-webpack:dev-runner")
 
@@ -17,6 +17,10 @@ function spawnWds(projectDir: string) {
 // 1. in another process to speedup compilation
 // 2. some loaders detect webpack-dev-server hot mode only if run as CLI
 export function startRenderer(projectDir: string) {
+  const lineFilter = new CompoundRendererLineFilter([
+    new OneTimeLineFilter("Project is running at "),
+    new OneTimeLineFilter("webpack output is served from "),
+  ])
   return new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
     let webpackDevServer: ChildProcess | null
     try {
@@ -50,7 +54,7 @@ export function startRenderer(projectDir: string) {
     })
 
     webpackDevServer.stdout.on("data", (data: string) => {
-      logProcess("Renderer", data, blue)
+      logProcess("Renderer", data, blue, lineFilter)
 
       const r = resolve
       // we must resolve only after compilation, otherwise devtools disconnected
@@ -87,6 +91,31 @@ export function startRenderer(projectDir: string) {
       }
     })
   })
+}
+
+class OneTimeLineFilter implements LineFilter {
+  private filtered = false
+
+  constructor(private readonly prefix: string) {
+  }
+
+  filter(line: string) {
+    if (!this.filtered && line.startsWith(this.prefix)) {
+      this.filtered = true
+      return false
+
+    }
+    return true
+  }
+}
+
+class CompoundRendererLineFilter implements LineFilter {
+  constructor(private readonly filters: Array<LineFilter>) {
+  }
+
+  filter(line: string) {
+    return !this.filters.some(it => !it.filter(line))
+  }
 }
 
 function onDeath(handler: (eventName: string) => void) {

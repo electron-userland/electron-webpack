@@ -1,11 +1,19 @@
 import { ChalkChain, red } from "chalk"
 import { ChildProcess } from "child_process"
 
-function joinLines(s: string) {
+export interface LineFilter {
+  filter(line: string): boolean
+}
+
+function filterText(s: string, lineFilter: LineFilter | null) {
   const lines = s
     .trim()
     .split(/\r?\n/)
     .filter(it => {
+      if (lineFilter != null && !lineFilter.filter(it)) {
+        return false
+      }
+
       // https://github.com/electron/electron/issues/4420
       // this warning can be safely ignored
       if (it.includes("Couldn't set selectedTextBackgroundColor from default ()")) {
@@ -17,7 +25,7 @@ function joinLines(s: string) {
     })
 
   if (lines.length === 0) {
-    return ""
+    return null
   }
   return "  " + lines.join(`\n  `) + "\n"
 }
@@ -32,16 +40,20 @@ export function logError(label: "Electron" | "Renderer" | "Main", error: Error) 
   logProcess(label, error.stack || error.toString(), red)
 }
 
-export function logProcess(label: "Electron" | "Renderer" | "Main", data: string | Buffer, color: ChalkChain) {
-  const log = joinLines(data.toString())
-  if (log.length > 0 && /[0-9A-z]+/.test(log)) {
-    process.stdout.write(
-      color.bold(`┏ ${label} ${"-".repeat(28 - label.length - 1)}`) +
-      "\n\n" + log + "\n" +
-      color.bold(`┗ ${"-".repeat(28)}`) +
-      "\n"
-    )
+const LABEL_LENGTH = 28
+
+export function logProcess(label: "Electron" | "Renderer" | "Main", data: string | Buffer, labelColor: ChalkChain, lineFilter: LineFilter | null = null) {
+  const log = filterText(data.toString(), lineFilter)
+  if (log == null || log.length === 0) {
+    return
   }
+
+  process.stdout.write(
+    labelColor.bold(`┏ ${label} ${"-".repeat(LABEL_LENGTH - label.length - 1)}`) +
+    "\n\n" + log + "\n" +
+    labelColor.bold(`┗ ${"-".repeat(LABEL_LENGTH)}`) +
+    "\n"
+  )
 }
 
 export class DelayedFunction {

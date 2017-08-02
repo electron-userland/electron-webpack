@@ -13,9 +13,13 @@
   "devDependencies": {
     "babel-preset-ts-node4-bluebird": "^0.1.0",
     "electron-builder-tslint-config": "^1.0.3",
+    "jest-cli": "^20.0.4",
+    "jest-environment-node-debug": "^2.0.0",
+    "memory-fs": "^0.4.1",
     "ts-babel": "^3.1.2",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.1"
+    "typescript": "^2.4.1",
+    "webpack": "^3.4.1"
   },
   "babel": {
     "presets": [
@@ -24,5 +28,14 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "test/src"
+    ],
+    "modulePaths": [
+      "<rootDir>/packages"
+    ]
+  }
 }

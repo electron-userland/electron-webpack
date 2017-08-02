@@ -1,0 +1,13 @@
+- &defaults
+  files: ["test/src/**/*", "!**/helpers/**/*"]
+  script: "node_modules/jest-cli/bin/jest.js"
+  scriptArgs: ["-i", "--env", "jest-environment-node-debug", &filePattern '--testPathPattern=[/\\]{1}${fileNameWithoutExt}\.\w+$']
+  rcName: "${fileNameWithoutExt}"
+
+-
+  <<: *defaults
+  lineRegExp: '^\s*(?:test|it|testAndIgnoreApiRate)(?:\.[\w.]+)?\("([^"'']+)'
+  scriptArgs: ["-i", "--env", "jest-environment-node-debug", "-t", "${0regExp}", *filePattern]
+  rcName: "${fileNameWithoutExt}.${0}"
+  env:
+#    DEBUG: electron-webpack*

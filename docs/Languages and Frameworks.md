@@ -43,3 +43,7 @@ Please note — [Chrome devtools extension for debugging Vue.js applications](ht
 ## Less
 
 `yarn add less-loader less --dev`
+
+## EJS
+
+`yarn add ejs ejs-html-loader --dev`

@@ -1,9 +1,10 @@
 import * as path from "path"
 import { DefinePlugin } from "webpack"
+import { getDllAssets } from "../configurators/dll"
+import { statOrNull } from "../util"
 import { WebpackConfigurator } from "../webpackConfigurator"
 import { BaseTarget } from "./BaseTarget"
 
-const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 export class BaseRendererTarget extends BaseTarget {
@@ -42,6 +43,10 @@ export class BaseRendererTarget extends BaseTarget {
         })
       },
       {
+        test: /\.ejs$/,
+        loader: "ejs-html-loader",
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: "url-loader",
@@ -65,7 +70,7 @@ export class BaseRendererTarget extends BaseTarget {
     // https://github.com/electron-userland/electrify/issues/1
     if (!configurator.isProduction) {
       configurator.plugins.push(new DefinePlugin({
-        "process.env.NODE_ENV": "\"development\""
+        "process.env.NODE_ENV": "\"development\"",
       }))
     }
 
@@ -79,19 +84,27 @@ export class RendererTarget extends BaseRendererTarget {
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
-    const plugins = configurator.plugins
-    plugins.push(new HtmlWebpackPlugin({
+    const customTemplateFile = path.join(configurator.commonSourceDirectory, "index.ejs")
+    const HtmlWebpackPlugin = require("html-webpack-plugin")
+    const nodeModulePath = configurator.isProduction ? null : path.resolve(configurator.projectDir, "node_modules")
+
+    configurator.plugins.push(new HtmlWebpackPlugin({
       filename: "index.html",
-      template: path.join(configurator.commonSourceDirectory, "index.ejs"),
+      template: (await statOrNull(customTemplateFile)) == null ? (await generateIndexFile(configurator, nodeModulePath)) : customTemplateFile,
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
         removeComments: true
       },
-      nodeModules: configurator.isProduction ? false : path.resolve(configurator.projectDir, "node_modules")
+      nodeModules: nodeModulePath
     }))
 
-    if (!configurator.isProduction) {
+    if (configurator.isProduction) {
+      configurator.plugins.push(new DefinePlugin({
+        __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`
+      }))
+    }
+    else {
       const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")]
       configurator.config.devServer = {
         contentBase,
@@ -103,4 +116,46 @@ export class RendererTarget extends BaseRendererTarget {
 
     await BaseRendererTarget.prototype.configurePlugins.call(this, configurator)
   }
+}
+
+async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePath: string | null) {
+  // do not use add-asset-html-webpack-plugin - no need to copy vendor files to output (in dev mode will be served directly, in production copied)
+  const assets = await getDllAssets(path.join(configurator.commonDistDirectory, "renderer-dll"), configurator)
+  const scripts: Array<string> = []
+  const css: Array<string> = []
+  for (const asset of assets) {
+    if (asset.endsWith(".js")) {
+      scripts.push(`<script type="text/javascript" src="${asset}"></script>`)
+    }
+    else {
+      css.push(`<link rel="stylesheet" href="${asset}">`)
+    }
+  }
+
+  const virtualFilePath = "/__virtual__/renderer-index.html"
+
+  // add node_modules to global paths so "require" works properly in development
+  const VirtualModulePlugin = require("virtual-module-webpack-plugin")
+  configurator.plugins.push(new VirtualModulePlugin({
+    moduleName: virtualFilePath,
+    contents: `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>${configurator.metadata.name || ""}</title>
+    <script>
+      ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "\\\\")}")`}
+      require("source-map-support/source-map-support.js").install()
+    </script>
+    ${scripts.join("")}
+  ${css.join("")}
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>`,
+  }))
+
+  return `!!html-loader!${virtualFilePath}`
 }

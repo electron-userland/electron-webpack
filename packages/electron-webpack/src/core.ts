@@ -1,4 +1,6 @@
 export interface PackageMetadata {
+  name?: string
+
   dependencies: { [key: string]: any }
   devDependencies: { [key: string]: any }
 
@@ -20,6 +22,8 @@ export interface PartConfig {
 }
 
 export interface ConfigEnv {
+  projectDir?: string | null
+
   production?: boolean | "true" | "false"
   autoClean?: boolean
 

@@ -40,7 +40,7 @@ class DevRunner {
           socketPath = it
         }),
       emptyMainOutput()
-        .then(() => this.startMain(hmrServer)),
+        .then(() => this.startMainCompilation(hmrServer)),
     ])
 
     hmrServer.ipc.on("error", (error: Error) => {
@@ -51,7 +51,7 @@ class DevRunner {
     startElectron()
   }
 
-  async startMain(hmrServer: HmrServer) {
+  async startMainCompilation(hmrServer: HmrServer) {
     const mainConfig = await configure("main", {
       production: false, autoClean: false, forkTsCheckerLogger: {
         info: () => {

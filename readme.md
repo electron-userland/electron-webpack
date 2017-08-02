@@ -5,7 +5,8 @@ Configuration and scripts to compile Electron applications that use [electron-vu
 ## Install
 
 1. `yarn add webpack electron-webpack --dev`
-2. Install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks) —
+2. `yarn add source-map-support`
+3. Install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks) —
 [typescript](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#typescript),
 [vue](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#vue) and
 [less](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#less) if need.

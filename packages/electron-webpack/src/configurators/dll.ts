@@ -1,7 +1,7 @@
 import { readdir, readJson } from "fs-extra-p"
 import * as path from "path"
 import { DllPlugin, DllReferencePlugin } from "webpack"
-import { statOrNull } from "../util"
+import { orNullIfFileNotExist, statOrNull } from "../util"
 import { WebpackConfigurator } from "../webpackConfigurator"
 
 export async function configureDll(configurator: WebpackConfigurator): Promise<string | null> {
@@ -41,31 +41,16 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
       context: projectDir,
       manifest: await readJson(path.join(dllDir, "manifest.json")),
     }))
-
-    await addDllAssets(dllDir, configurator)
   }
 
   return dllManifest
 }
 
-async function addDllAssets(dllDir: string, configurator: WebpackConfigurator) {
-  const assets = (await readdir(dllDir)).filter(it => it.endsWith(".js") || it.endsWith(".css"))
-  const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin")
-  configurator.plugins.push(new AddAssetHtmlPlugin(assets.map(asset => {
-    const meta: Asset = {
-      filepath: path.join(dllDir, asset),
-      includeSourcemap: false,
-    }
-    if (asset.endsWith(".css")) {
-      meta.typeOfAsset = "css"
-    }
+export async function getDllAssets(dllDir: string, configurator: WebpackConfigurator) {
+  if (configurator.electronWebpackConfig.renderer!!.dll == null) {
+    return []
+  }
 
-    return meta
-  })))
-}
-
-interface Asset {
-  filepath: string
-  includeSourcemap: boolean
-  typeOfAsset?: "js" | "css"
+  const files = await orNullIfFileNotExist(readdir(dllDir))
+  return files == null ? [] : files.filter(it => it.endsWith(".js") || it.endsWith(".css")).sort()
 }

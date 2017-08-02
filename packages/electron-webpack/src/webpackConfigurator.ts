@@ -9,12 +9,12 @@ import { ConfigEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } 
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, Lazy } from "./util"
+import { getFirstExistingFile, Lazy, orNullIfFileNotExist } from "./util"
 
 const _debug = require("debug")
 
 export class WebpackConfigurator {
-  readonly projectDir = process.cwd()
+  readonly projectDir: string
 
   private electronVersionPromise = new Lazy(() => getInstalledElectronVersion(this.projectDir))
 
@@ -45,6 +45,7 @@ export class WebpackConfigurator {
 
   constructor(readonly type: ConfigurationType, env: ConfigEnv | null) {
     this.env = env || {}
+    this.projectDir = this.env.projectDir || process.cwd()
     this.isRenderer = type.startsWith("renderer")
     process.env.BABEL_ENV = type
 
@@ -76,11 +77,11 @@ export class WebpackConfigurator {
 
   async configure(entry?: { [key: string]: any } | null) {
     const projectInfo = await BluebirdPromise.all([
-      readJson(path.join(this.projectDir, "package.json")),
+      orNullIfFileNotExist(readJson(path.join(this.projectDir, "package.json"))),
       entry == null ? computeEntryFile(this.sourceDir, this.projectDir) : BluebirdPromise.resolve(),
     ])
 
-    this.metadata = projectInfo[0]
+    this.metadata = projectInfo[0] || {}
     if (this.metadata.dependencies == null) {
       this.metadata.dependencies = {}
     }
@@ -125,7 +126,8 @@ export class WebpackConfigurator {
       this.config.entry = entry
     }
 
-    this.electronVersion = this.electronWebpackConfig.electronVersion || await this.electronVersionPromise.value
+    // if electronVersion not specified, use latest
+    this.electronVersion = this.electronWebpackConfig.electronVersion || await this.electronVersionPromise.value || "1.7.5"
     const target = (() => {
       switch (this.type) {
         case "renderer": return new RendererTarget()
@@ -183,8 +185,8 @@ export function configure(type: ConfigurationType, env: ConfigEnv | null) {
   return new WebpackConfigurator(type, env).configure()
 }
 
-async function computeEntryFile(srcDir: string, projectDir: string) {
-  const file = getFirstExistingFile(["index.ts", "main.ts", "index.js", "main.js"], srcDir)
+async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
+  const file = await getFirstExistingFile(["index.ts", "main.ts", "index.js", "main.js"], srcDir)
   if (file == null) {
     throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or .js)`)
   }
