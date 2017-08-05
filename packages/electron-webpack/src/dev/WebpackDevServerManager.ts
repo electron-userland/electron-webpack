@@ -2,14 +2,14 @@ import BluebirdPromise from "bluebird-lst"
 import { blue, red } from "chalk"
 import { ChildProcess, spawn } from "child_process"
 import * as path from "path"
-import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput, onDeath } from "./DevRunnerUtil"
 
 const debug = require("debug")("electron-webpack:dev-runner")
 
 function spawnWds(projectDir: string) {
   const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (process.platform === "win32" ? ".cmd" : ""))
   debug(`Start webpack-dev-server ${webpackDevServerPath}`)
-  return spawn(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../webpack.renderer.config.js")], {
+  return spawn(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
     env: getCommonEnv(),
   })
 }
@@ -116,20 +116,4 @@ class CompoundRendererLineFilter implements LineFilter {
   filter(line: string) {
     return !this.filters.some(it => !it.filter(line))
   }
-}
-
-function onDeath(handler: (eventName: string) => void) {
-  function registerListener(eventName: string) {
-    process.on(eventName as any, () => handler(eventName))
-  }
-
-  registerListener("beforeExit")
-  registerListener("exit")
-  registerListener("SIGINT")
-  registerListener("SIGQUIT")
-
-  process.on("uncaughtException", error => {
-    process.stderr.write(error.stack || error.toString())
-    handler("uncaughtException")
-  })
 }

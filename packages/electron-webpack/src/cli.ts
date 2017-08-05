@@ -29,5 +29,5 @@ function build(configFile: string) {
 }
 
 function runInDevMode() {
-  require("./dev-runner")
+  require("./dev/dev-runner")
 }

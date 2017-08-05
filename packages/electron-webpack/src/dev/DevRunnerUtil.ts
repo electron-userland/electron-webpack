@@ -90,3 +90,19 @@ export function getCommonEnv() {
     DEBUG_FD: "1",
   }
 }
+
+export function onDeath(handler: (eventName: string) => void) {
+  function registerListener(eventName: string) {
+    process.on(eventName as any, () => handler(eventName))
+  }
+
+  registerListener("beforeExit")
+  registerListener("exit")
+  registerListener("SIGINT")
+  registerListener("SIGQUIT")
+
+  process.on("uncaughtException", error => {
+    process.stderr.write(error.stack || error.toString())
+    handler("uncaughtException")
+  })
+}

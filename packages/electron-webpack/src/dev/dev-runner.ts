@@ -8,7 +8,7 @@ import { Compiler, Stats } from "webpack"
 import { HmrServer } from "../../electron-main-hmr/HmrServer"
 import { orNullIfFileNotExist } from "../util"
 import { configure } from "../webpackConfigurator"
-import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
+import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput, onDeath } from "./DevRunnerUtil"
 import { startRenderer } from "./WebpackDevServerManager"
 
 const webpack = require("webpack")
@@ -79,8 +79,13 @@ class DevRunner {
         printCompilingMessage.schedule()
       })
 
-      compiler.watch({}, (error, stats: Stats) => {
+      let watcher: Compiler.Watching | null = compiler.watch({}, (error, stats: Stats) => {
         printCompilingMessage.cancel()
+
+        if (watcher == null) {
+          process.exit(0)
+          return
+        }
 
         if (error != null) {
           if (reject == null) {
@@ -104,6 +109,16 @@ class DevRunner {
         }
 
         hmrServer.built(stats)
+      })
+
+      onDeath(() => {
+        const w = watcher
+        if (w == null) {
+          return
+        }
+
+        watcher = null;
+        (w as any).close()
       })
     })
   }

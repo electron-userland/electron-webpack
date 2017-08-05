@@ -43,10 +43,6 @@ export class BaseRendererTarget extends BaseTarget {
         })
       },
       {
-        test: /\.ejs$/,
-        loader: "ejs-html-loader",
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: "url-loader",
@@ -61,6 +57,13 @@ export class BaseRendererTarget extends BaseTarget {
         }
       },
     )
+
+    if (configurator.hasDevDependency("ejs-html-loader")) {
+      configurator.rules.push({
+        test: /\.ejs$/,
+        loader: "ejs-html-loader",
+      })
+    }
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
