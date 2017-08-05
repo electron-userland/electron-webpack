@@ -5,10 +5,10 @@ import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
 import "source-map-support/register"
 import { Compiler, Stats } from "webpack"
-import { HmrServer } from "../electron-main-hmr/HmrServer"
+import { HmrServer } from "../../electron-main-hmr/HmrServer"
+import { orNullIfFileNotExist } from "../util"
+import { configure } from "../webpackConfigurator"
 import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./DevRunnerUtil"
-import { orNullIfFileNotExist } from "./util"
-import { configure } from "./webpackConfigurator"
 import { startRenderer } from "./WebpackDevServerManager"
 
 const webpack = require("webpack")
