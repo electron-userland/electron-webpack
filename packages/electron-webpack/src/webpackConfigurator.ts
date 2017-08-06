@@ -1,5 +1,6 @@
 import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
+import { Lazy } from "lazy-val"
 import * as path from "path"
 import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
@@ -9,7 +10,7 @@ import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfig, PackageMeta
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, Lazy, orNullIfFileNotExist } from "./util"
+import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
 
 const _debug = require("debug")
 

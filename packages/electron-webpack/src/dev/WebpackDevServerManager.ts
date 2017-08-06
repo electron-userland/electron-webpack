@@ -2,7 +2,7 @@ import BluebirdPromise from "bluebird-lst"
 import { blue, red } from "chalk"
 import { ChildProcess, spawn } from "child_process"
 import * as path from "path"
-import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput, onDeath } from "./DevRunnerUtil"
+import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
 const debug = require("debug")("electron-webpack:dev-runner")
 
@@ -22,28 +22,32 @@ export function startRenderer(projectDir: string) {
     new OneTimeLineFilter("webpack output is served from "),
   ])
   return new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
-    let webpackDevServer: ChildProcess | null
+    let devServerProcess: ChildProcess | null
     try {
-      webpackDevServer = spawnWds(projectDir)
+      devServerProcess = spawnWds(projectDir)
     }
     catch (e) {
       reject!(e)
       return
     }
 
-    onDeath(eventName => {
-      if (webpackDevServer == null) {
+    require("async-exit-hook")(() => {
+      const server = devServerProcess
+      if (server == null) {
         return
       }
 
-      if (debug.enabled) {
-        debug(`Kill webpackDevServer on ${eventName}`)
+      devServerProcess = null
+
+      const r = resolve
+      if (r != null) {
+        resolve = null
+        r()
       }
-      webpackDevServer.kill("SIGINT")
-      webpackDevServer = null
+      server.kill("SIGINT")
     })
 
-    webpackDevServer.on("error", error => {
+    devServerProcess.on("error", error => {
       if (reject == null) {
         logError("Renderer", error)
       }
@@ -53,7 +57,7 @@ export function startRenderer(projectDir: string) {
       }
     })
 
-    webpackDevServer.stdout.on("data", (data: string) => {
+    devServerProcess.stdout.on("data", (data: string) => {
       logProcess("Renderer", data, blue, lineFilter)
 
       const r = resolve
@@ -64,10 +68,14 @@ export function startRenderer(projectDir: string) {
       }
     })
 
-    logProcessErrorOutput("Renderer", webpackDevServer)
+    logProcessErrorOutput("Renderer", devServerProcess)
 
-    webpackDevServer.on("close", code => {
-      webpackDevServer = null
+    devServerProcess.on("close", code => {
+      if (devServerProcess == null) {
+        return
+      }
+
+      devServerProcess = null
 
       const message = `webpackDevServer process exited with code ${code}`
 

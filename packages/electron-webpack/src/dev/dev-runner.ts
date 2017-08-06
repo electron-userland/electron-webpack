@@ -8,7 +8,7 @@ import { Compiler, Stats } from "webpack"
 import { HmrServer } from "../../electron-main-hmr/HmrServer"
 import { orNullIfFileNotExist } from "../util"
 import { configure } from "../webpackConfigurator"
-import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput, onDeath } from "./DevRunnerUtil"
+import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 import { startRenderer } from "./WebpackDevServerManager"
 
 const webpack = require("webpack")
@@ -83,7 +83,6 @@ class DevRunner {
         printCompilingMessage.cancel()
 
         if (watcher == null) {
-          process.exit(0)
           return
         }
 
@@ -111,14 +110,14 @@ class DevRunner {
         hmrServer.built(stats)
       })
 
-      onDeath(() => {
+      require("async-exit-hook")((callback: () => void) => {
         const w = watcher
         if (w == null) {
           return
         }
 
-        watcher = null;
-        (w as any).close()
+        watcher = null
+        w.close(() => callback())
       })
     })
   }
