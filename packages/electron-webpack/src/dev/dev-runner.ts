@@ -171,7 +171,7 @@ function startElectron() {
       })
     }
     else {
-      process.exit()
+      (process as any).emit("message", "shutdown")
     }
   })
 }

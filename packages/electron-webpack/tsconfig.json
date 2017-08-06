@@ -4,6 +4,7 @@
     "moduleResolution": "node",
     "outDir": "."
   },
+  "declaration": false,
   "include": [
     "**/*.ts", "typings/*.d.ts"
   ],

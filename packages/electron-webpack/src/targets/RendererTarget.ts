@@ -1,4 +1,6 @@
+import { Lazy } from "lazy-val"
 import * as path from "path"
+import { getConfig } from "read-config-file"
 import { DefinePlugin } from "webpack"
 import { getDllAssets } from "../configurators/dll"
 import { statOrNull } from "../util"
@@ -137,6 +139,14 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   const virtualFilePath = "/__virtual__/renderer-index.html"
 
+  let title: string | null = (configurator.metadata as any).productName
+  if (title == null) {
+    const electronBuilderConfig = await getConfig<any>({key: "build", projectDir: configurator.projectDir, packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))})
+    if (electronBuilderConfig != null) {
+      title = electronBuilderConfig.productName
+    }
+  }
+
   // add node_modules to global paths so "require" works properly in development
   const VirtualModulePlugin = require("virtual-module-webpack-plugin")
   configurator.plugins.push(new VirtualModulePlugin({
@@ -146,7 +156,7 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 <html>
   <head>
     <meta charset="utf-8">
-    <title>${configurator.metadata.name || ""}</title>
+    <title>${title || configurator.metadata.name || ""}</title>
     <script>
       ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "\\\\")}")`}
       require("source-map-support/source-map-support.js").install()
