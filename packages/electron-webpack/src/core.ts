@@ -15,6 +15,8 @@ export interface ElectronWebpackConfig {
   renderer?: PartConfig
 
   main?: ElectronWebpackConfigMain
+
+  title?: string | boolean | null
 }
 
 export type ConfigurationType = "main" | "renderer" | "renderer-dll" | "test"
@@ -36,7 +38,7 @@ export interface ConfigurationEnv {
   production?: boolean | "true" | "false"
   autoClean?: boolean
 
-  noMinimize?: boolean
+  minify?: boolean
 
   forkTsCheckerLogger?: any
 

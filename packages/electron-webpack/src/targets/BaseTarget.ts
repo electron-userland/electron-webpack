@@ -36,7 +36,7 @@ export class BaseTarget {
     const debug = configurator.debug
 
     if (configurator.isProduction) {
-      if (configurator.env.noMinimize !== true) {
+      if (configurator.env.minify !== false) {
         const BabiliWebpackPlugin = require("babili-webpack-plugin")
         plugins.push(new BabiliWebpackPlugin({
           // removeConsole: true,

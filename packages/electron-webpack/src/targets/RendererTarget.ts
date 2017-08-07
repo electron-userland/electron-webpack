@@ -97,7 +97,7 @@ export class RendererTarget extends BaseRendererTarget {
       filename: "index.html",
       template: (await statOrNull(customTemplateFile)) == null ? (await generateIndexFile(configurator, nodeModulePath)) : customTemplateFile,
       minify: {
-        collapseWhitespace: true,
+        collapseWhitespace: configurator.env.minify !== false,
         removeAttributeQuotes: true,
         removeComments: true
       },
@@ -123,6 +123,34 @@ export class RendererTarget extends BaseRendererTarget {
   }
 }
 
+async function computeTitle(configurator: WebpackConfigurator): Promise<string | null | undefined> {
+  const titleFromOptions = configurator.electronWebpackConfig.title
+  if (titleFromOptions == null || titleFromOptions === false) {
+    return null
+  }
+
+  if (titleFromOptions !== true) {
+    return titleFromOptions
+  }
+
+  let title: string | null | undefined = (configurator.metadata as any).productName
+  if (title == null) {
+    const electronBuilderConfig = await getConfig<any>({
+      key: "build",
+      projectDir: configurator.projectDir,
+      packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))
+    })
+    if (electronBuilderConfig != null) {
+      title = electronBuilderConfig.productName
+    }
+  }
+
+  if (title == null) {
+    title = configurator.metadata.name
+  }
+  return title
+}
+
 async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePath: string | null) {
   // do not use add-asset-html-webpack-plugin - no need to copy vendor files to output (in dev mode will be served directly, in production copied)
   const assets = await getDllAssets(path.join(configurator.commonDistDirectory, "renderer-dll"), configurator)
@@ -139,13 +167,7 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   const virtualFilePath = "/__virtual__/renderer-index.html"
 
-  let title: string | null = (configurator.metadata as any).productName
-  if (title == null) {
-    const electronBuilderConfig = await getConfig<any>({key: "build", projectDir: configurator.projectDir, packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))})
-    if (electronBuilderConfig != null) {
-      title = electronBuilderConfig.productName
-    }
-  }
+  const title = await computeTitle(configurator)
 
   // add node_modules to global paths so "require" works properly in development
   const VirtualModulePlugin = require("virtual-module-webpack-plugin")
@@ -156,7 +178,7 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 <html>
   <head>
     <meta charset="utf-8">
-    <title>${title || configurator.metadata.name || ""}</title>
+    ${title == null ? "" : `<title>${title}</title>`}
     <script>
       ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "\\\\")}")`}
       require("source-map-support/source-map-support.js").install()
