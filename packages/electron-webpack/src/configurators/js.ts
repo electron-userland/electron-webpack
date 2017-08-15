@@ -6,13 +6,13 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     loader: "babel-loader",
     options: {
       presets: [
-        ["env", {
+        [require("babel-preset-env"), {
           modules: false,
           targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
         }],
       ],
       plugins: [
-        "babel-plugin-syntax-dynamic-import",
+        require("babel-plugin-syntax-dynamic-import"),
       ]
     }
   }

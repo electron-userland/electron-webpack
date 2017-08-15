@@ -22,7 +22,7 @@
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",
     "css-loader": "^0.28.4",
-    "debug": "^2.6.8",
+    "debug": "^3.0.0",
     "electron-devtools-installer": "^2.2.0",
     "electron-webpack-js": "^1.0.2",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -42,12 +42,12 @@
     "yargs": "^8.0.2"
   },
   "peerDependencies": {
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.3"
   },
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/node": "^8.0.20",
-    "@types/webpack": "^3.0.6"
+    "@types/webpack": "^3.0.7"
   }
 }

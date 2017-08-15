@@ -95,7 +95,7 @@ export class WebpackRemoveOldAssetsPlugin {
         }
         return false
       })
-        .then(it => {
+        .then((it): any => {
           if (it.length === 0) {
             return null
           }

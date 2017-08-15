@@ -96,11 +96,7 @@ export class RendererTarget extends BaseRendererTarget {
     configurator.plugins.push(new HtmlWebpackPlugin({
       filename: "index.html",
       template: (await statOrNull(customTemplateFile)) == null ? (await generateIndexFile(configurator, nodeModulePath)) : customTemplateFile,
-      minify: {
-        collapseWhitespace: configurator.env.minify !== false,
-        removeAttributeQuotes: true,
-        removeComments: true
-      },
+      minify: false,
       nodeModules: nodeModulePath
     }))
 
@@ -136,7 +132,8 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
   let title: string | null | undefined = (configurator.metadata as any).productName
   if (title == null) {
     const electronBuilderConfig = await getConfig<any>({
-      key: "build",
+      packageKey: "build",
+      configFilename: "electron-builder",
       projectDir: configurator.projectDir,
       packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))
     })
@@ -192,5 +189,5 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 </html>`,
   }))
 
-  return `!!html-loader!${virtualFilePath}`
+  return `!!html-loader?minimize=false!${virtualFilePath}`
 }

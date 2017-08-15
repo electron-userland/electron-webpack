@@ -1,0 +1,7 @@
+.f1 {
+  background: image("static/a/foo.png")
+}
+
+.f2 {
+  background: image("static/b/foo.png")
+}
