@@ -1,13 +1,14 @@
 {
   "name": "electron-webpack",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [
     "**/*.js",
     "**/*.js.map",
     "electron-builder.yml",
-    "tsconfig-base.json"
+    "tsconfig-base.json",
+    "vendor"
   ],
   "bin": {
     "electron-webpack": "./src/cli.js"
