@@ -4,7 +4,7 @@ import { spawn } from "child_process"
 import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
 import "source-map-support/register"
-import { Compiler, Stats } from "webpack"
+import { Compiler } from "webpack"
 import { HmrServer } from "../../electron-main-hmr/HmrServer"
 import { orNullIfFileNotExist } from "../util"
 import { configure } from "../webpackConfigurator"
@@ -17,7 +17,7 @@ const projectDir = process.cwd()
 
 let socketPath: string | null = null
 
-const debug = require("debug")("electron-webpack:dev-runner")
+const debug = require("debug")("electron-webpack")
 
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {
@@ -79,7 +79,7 @@ class DevRunner {
         printCompilingMessage.schedule()
       })
 
-      let watcher: Compiler.Watching | null = compiler.watch({}, (error, stats: Stats) => {
+      let watcher: Compiler.Watching | null = compiler.watch({}, (error, stats) => {
         printCompilingMessage.cancel()
 
         if (watcher == null) {
@@ -111,6 +111,7 @@ class DevRunner {
       })
 
       require("async-exit-hook")((callback: () => void) => {
+        debug(`async-exit-hook: ${callback == null}`)
         const w = watcher
         if (w == null) {
           return
@@ -142,6 +143,11 @@ function startElectron() {
       ...getCommonEnv(),
       ELECTRON_HMR_SOCKET_PATH: socketPath,
     }
+  })
+
+  // required on windows
+  require("async-exit-hook")(() => {
+    electronProcess.kill("SIGINT")
   })
 
   let queuedData: string | null = null

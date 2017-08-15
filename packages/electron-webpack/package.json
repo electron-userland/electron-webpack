@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [
@@ -18,7 +18,7 @@
     "@types/webpack-env": "^1.13.0",
     "async-exit-hook": "^2.0.1",
     "babili-webpack-plugin": "^0.1.2",
-    "bluebird-lst": "^1.0.2",
+    "bluebird-lst": "^1.0.3",
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",
     "css-loader": "^0.28.4",
@@ -32,7 +32,7 @@
     "html-webpack-plugin": "^2.30.1",
     "lazy-val": "^1.0.2",
     "node-loader": "^0.6.0",
-    "read-config-file": "^1.0.4",
+    "read-config-file": "^1.0.5",
     "semver": "^5.4.1",
     "source-map-support": "^0.4.15",
     "style-loader": "^0.18.2",
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.20",
-    "@types/webpack": "^3.0.7"
+    "@types/node": "^8.0.22",
+    "@types/webpack": "^3.0.9"
   }
 }

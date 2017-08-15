@@ -1,15 +1,21 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue, red } from "chalk"
+import { blue } from "chalk"
 import { ChildProcess, spawn } from "child_process"
 import * as path from "path"
+import { ChildProcessManager, PromiseNotifier } from "./ChildProcessManager"
 import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
-const debug = require("debug")("electron-webpack:dev-runner")
+const debug = require("debug")("electron-webpack")
 
 function spawnWds(projectDir: string) {
-  const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (process.platform === "win32" ? ".cmd" : ""))
-  debug(`Start webpack-dev-server ${webpackDevServerPath}`)
-  return spawn(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
+  const isWin = process.platform === "win32"
+  const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (isWin ? ".cmd" : ""))
+  debug(`Start renderer WDS ${webpackDevServerPath}`)
+  const args = ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")]
+  if (isWin) {
+    args.unshift(webpackDevServerPath)
+  }
+  return spawn(isWin ? path.join(__dirname, "../../vendor/runnerw.exe") : webpackDevServerPath, args, {
     env: getCommonEnv(),
   })
 }
@@ -31,22 +37,8 @@ export function startRenderer(projectDir: string) {
       return
     }
 
-    require("async-exit-hook")(() => {
-      const server = devServerProcess
-      if (server == null) {
-        return
-      }
-
-      devServerProcess = null
-
-      const r = resolve
-      if (r != null) {
-        resolve = null
-        r()
-      }
-      server.kill("SIGINT")
-    })
-
+    //tslint:disable-next-line:no-unused-expression
+    new ChildProcessManager(devServerProcess, "Renderer WDS", new PromiseNotifier(resolve, reject))
     devServerProcess.on("error", error => {
       if (reject == null) {
         logError("Renderer", error)
@@ -69,35 +61,6 @@ export function startRenderer(projectDir: string) {
     })
 
     logProcessErrorOutput("Renderer", devServerProcess)
-
-    devServerProcess.on("close", code => {
-      if (devServerProcess == null) {
-        return
-      }
-
-      devServerProcess = null
-
-      const message = `webpackDevServer process exited with code ${code}`
-
-      if (resolve != null) {
-        resolve = null
-      }
-      if (reject != null) {
-        reject(new Error(message))
-        reject = null
-      }
-
-      if (code === 0) {
-        if (debug.enabled) {
-          debug(message)
-          // otherwise no newline in the terminal
-          process.stderr.write("\n")
-        }
-      }
-      else {
-        logProcess("Renderer", message, red)
-      }
-    })
   })
 }
 
