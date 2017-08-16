@@ -1,6 +1,12 @@
-import { ChildProcess } from "child_process"
+import { ChildProcess, spawn, SpawnOptions } from "child_process"
+import * as path from "path"
 
 const debug = require("debug")("electron-webpack")
+
+export function run(programm: string, args: Array<string>, options: SpawnOptions) {
+  const isWin = process.platform === "win32"
+  return spawn(isWin ? path.join(__dirname, "../../vendor/runnerw.exe") : programm, isWin ? [programm].concat(args) : args, options)
+}
 
 export class ChildProcessManager {
   private mainProcessExitCleanupCallback: (() => void) | null = null

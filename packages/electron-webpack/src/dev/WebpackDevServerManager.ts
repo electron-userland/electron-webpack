@@ -1,36 +1,42 @@
 import BluebirdPromise from "bluebird-lst"
 import { blue } from "chalk"
-import { ChildProcess, spawn } from "child_process"
+import { ChildProcess } from "child_process"
 import * as path from "path"
-import { ChildProcessManager, PromiseNotifier } from "./ChildProcessManager"
+import { statOrNull } from "../util"
+import { WebpackConfigurator } from "../webpackConfigurator"
+import { ChildProcessManager, PromiseNotifier, run } from "./ChildProcessManager"
 import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
 const debug = require("debug")("electron-webpack")
 
-function spawnWds(projectDir: string) {
+function runWds(projectDir: string) {
   const isWin = process.platform === "win32"
   const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (isWin ? ".cmd" : ""))
   debug(`Start renderer WDS ${webpackDevServerPath}`)
-  const args = ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")]
-  if (isWin) {
-    args.unshift(webpackDevServerPath)
-  }
-  return spawn(isWin ? path.join(__dirname, "../../vendor/runnerw.exe") : webpackDevServerPath, args, {
+  return run(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
     env: getCommonEnv(),
+    cwd: projectDir,
   })
 }
 
 // 1. in another process to speedup compilation
 // 2. some loaders detect webpack-dev-server hot mode only if run as CLI
-export function startRenderer(projectDir: string) {
+export async function startRenderer(projectDir: string) {
+  const webpackConfigurator = new WebpackConfigurator("renderer", {production: false, projectDir})
+  const dirStat = await statOrNull(webpackConfigurator.sourceDir)
+  if (dirStat == null || !dirStat.isDirectory()) {
+    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, webpackConfigurator.sourceDir)})`, blue)
+    return
+  }
+
   const lineFilter = new CompoundRendererLineFilter([
     new OneTimeLineFilter("Project is running at "),
     new OneTimeLineFilter("webpack output is served from "),
   ])
-  return new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
+  return await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
     let devServerProcess: ChildProcess | null
     try {
-      devServerProcess = spawnWds(projectDir)
+      devServerProcess = runWds(projectDir)
     }
     catch (e) {
       reject!(e)

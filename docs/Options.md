@@ -7,7 +7,7 @@ electron-webpack configuration can be defined in the `package.json` file of your
 
 ## Browser Window Title
 
-`title` String (optional) - Default window title. Set to `true` to automatically set to package name (or product name in the electron-builder).
+`title` String | Boolean (optional) - Default window title. Set to `true` to automatically set to package name (or product name in the electron-builder).
 
 By default, `title` tag is not added to html template. Because:
 
@@ -27,6 +27,18 @@ mainWindow.on("page-title-updated", event => {
   event.preventDefault()
 })
 ```
+
+## Extra Main Entry Points
+
+```json
+"electronWebpack": {
+  "main": {
+      "extraEntries": ["@/foo.js"]
+    }
+}
+```
+
+(`@` it is alias to source root, no need to use here full or relative path).
 
 ## Application Renderer Dependencies
 
