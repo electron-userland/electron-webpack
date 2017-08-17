@@ -1,3 +1,5 @@
+extraMetadata:
+  main: main.js
 files:
   -
     from: .
