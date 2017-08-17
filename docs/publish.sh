@@ -6,10 +6,15 @@ set -e
 # But for what, if you are already configure Git access?
 # Also, this approach allows us to manage access using GitHub and easily give access to publish to project members.
 
-cd _book
-git init
-git add .
-git commit -m 'First commit'
 
-git remote add origin git@github.com:develar/generated-gitbook-electron-webpack.git
-git push -f origin master:en
+# https://stackoverflow.com/questions/3311774/how-to-convert-existing-non-empty-directory-into-a-git-working-directory-and-pus
+
+cd _book
+
+# do not use force push - netlify doesn't trigger deploy for forced push
+git clone --no-checkout --branch en --single-branch git@github.com:develar/generated-gitbook-electron-webpack.git ./repo.tmp
+mv ./repo.tmp/.git ./
+rmdir ./repo.tmp
+git add --all .
+git commit -m "update"
+git push
