@@ -1,5 +1,6 @@
 {
   "root": "./docs/en",
+  "title": "electron-webpack",
   "plugins": ["edit-link", "github", "github-buttons"],
   "pluginsConfig": {
     "edit-link": {

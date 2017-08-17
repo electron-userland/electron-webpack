@@ -35,5 +35,5 @@ But keep things simple. electron-compile offers you zero-config setup without pr
 
 Set the [DEBUG](https://github.com/visionmedia/debug#windows-note) environment variable to debug what electron-webpack is doing:
 ```bash
-DEBUG=electron-webpack:*
+DEBUG=electron-webpack*
 ```

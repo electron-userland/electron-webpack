@@ -9,11 +9,8 @@
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && npm publish packages/electron-webpack && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "jest",
-    "update-wiki": "(git branch -D wiki || true) && git subtree split -b wiki --prefix docs/ && git push -f wiki wiki:master",
-    "update-docs": "(git branch -D gitbook-en || true) && git subtree split -b gitbook-en --prefix _book/ && git push -f gitbook-en gitbook:en",
-    "docs": "rm -rf '_book/*' && gitbook build && ./docs/publish.sh"
+    "docs": "gitbook build && ./docs/publish.sh"
   },
-  "// docs": "git remote add gitbook git@github.com:develar/generated-gitbook-electron-webpack.git",
   "devDependencies": {
     "babel-preset-ts-node4-bluebird": "^0.1.0",
     "electron-builder-tslint-config": "^1.0.3",
