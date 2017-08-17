@@ -1,58 +1,22 @@
-<!-- "Further Reading" is removed in this version of main readme.md file -->
-
 # electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
 Configurations and scripts to compile Electron applications.
 
 ## Install
-
 1. `yarn add webpack electron-webpack --dev`
 2. `yarn add source-map-support`
-3. Install support for various [languages and frameworks](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks) —
-[typescript](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#typescript),
-[vue](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#vue) and
-[less](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#less) if need.
+3. Install support for various [languages and frameworks](./languages-and-frameworks.md) —
+[TypeScript](./languages-and-frameworks.md#typescript),
+[Vue.js](./languages-and-frameworks.md#vuejs) and
+[Less](./languages-and-frameworks.md#less) if need.
 
 [Yarn](http://yarnpkg.com/) is recommended instead of npm.
-
-## Project Structure
-
-```
-├─ src
-│  ├─ main # main process sources
-│  │  └─ index.js
-│  ├─ renderer # renderer process sources
-│  │  └─ index.js
-├─ static # static assets (optional directory)
-```
-
-Index file expected to be named as `index.js` or `main.js` (`.ts` if [typescript support](https://github.com/electron-userland/electron-webpack/wiki/Languages-and-Frameworks#typescript) installed)
 
 Real project example — [electrify](https://github.com/electron-userland/electrify).
 
 ## Hot Module Replacement
 
-[Fast development](https://github.com/electron-userland/electron-webpack/wiki/HMR) without reloading is supported for both main and renderer processes.
-
-## Package Scripts
-
-You can add following scripts to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "dev": "electron-webpack dev",
-    "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
-    "dist-dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
-  }
-}
-```
-
-* `yarn dev` Run app in development.
-* `yarn compile` Compile app for production. No need to call this script explicitly, only if you want to inspect your compiled app.
-* `yarn dist` Build app and package in a distributable format for production.
-* `yarn dist-dir` Build app and quickly package in a distributable format for test how does the app work if packed.
+[Fast development](./HMR.md) without reloading is supported for both main and renderer processes.
 
 ## Differences between electron-compile
 
