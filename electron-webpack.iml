@@ -3,6 +3,8 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/_book" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/electron-webpack/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/test/src/__snapshots__" />
       <excludePattern pattern="*.js" />
       <excludePattern pattern="*.js.map" />

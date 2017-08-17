@@ -1,0 +1,28 @@
+{
+  "root": "./docs/en",
+  "plugins": ["edit-link", "github", "github-buttons"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/electron-userland/electron-webpack/tree/master/docs"
+    },
+    "github": {
+      "url": "https://github.com/electron-userland/electron-webpack"
+    },
+    "github-buttons": {
+      "repo": "electron-userland/electron-webpack",
+      "types": [
+        "star"
+      ],
+      "size": "small"
+    }
+  },
+  "links": {
+    "sharing": {
+      "facebook": false,
+      "twitter": true
+    }
+  },
+  "structure": {
+    "readme": "readme.md"
+  }
+}

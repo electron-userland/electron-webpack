@@ -5,3 +5,4 @@
 node_modules/
 lerna-debug.log
 packages/electron-webpack/readme.md
+_book/
