@@ -1,4 +1,4 @@
-electron-webpack configuration can be defined in the `package.json` file of your project using the `build` key on the top level:
+electron-webpack configuration can be defined in the `package.json` file of your project using the `electronWebpack` key on the top level:
  ```json
  "electronWebpack": {
    "title": true
@@ -30,6 +30,8 @@ mainWindow.on("page-title-updated", event => {
 
 ## Extra Main Entry Points
 
+If need, you can add additional [entry points](https://webpack.js.org/concepts/entry-points/).
+
 ```json
 "electronWebpack": {
   "main": {
@@ -51,7 +53,6 @@ No doubt, [files](https://github.com/electron-userland/electron-builder/wiki/Opt
 
 The [Dll](https://webpack.js.org/plugins/dll-plugin/) provide means to split bundles in a way that can drastically [improve build time](https://robertknight.github.io/posts/webpack-dll-plugins/) performance.
 
-Supported out of the box, specify in the `package.json`:
 ```json
 "electronWebpack": {
   "renderer": {
@@ -65,8 +66,9 @@ Supported out of the box, specify in the `package.json`:
 
 ## White-listing Externals
 
-Please see [White-listing Externals](https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals).
-`electron-webpack` supports setting this option in the `package.json`:
+One important thing to consider about this config is that you can whitelist specific modules to not treat as webpack [externals](https://webpack.js.org/configuration/externals/).
+There aren't many use cases where this functionality is need, but for the case of Vue UI libraries that provide raw `*.vue` components they will need to be whitelisted, so `vue-loader` is able to compile them. `vue` is already in the whitelist.
+
 ```json
 "electronWebpack": {
   "whiteListedModules": ["dependency-name"]
