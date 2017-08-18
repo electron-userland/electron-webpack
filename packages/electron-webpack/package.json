@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [
@@ -17,15 +17,17 @@
   "//": "@types/webpack-env in the dependencies because used by clients",
   "dependencies": {
     "@types/webpack-env": "^1.13.0",
+    "ajv": "^5.2.2",
+    "ajv-keywords": "^2.1.0",
     "async-exit-hook": "^2.0.1",
     "babili-webpack-plugin": "^0.1.2",
     "bluebird-lst": "^1.0.3",
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",
-    "css-loader": "^0.28.4",
+    "css-loader": "^0.28.5",
     "debug": "^3.0.0",
     "electron-devtools-installer": "^2.2.0",
-    "electron-webpack-js": "^1.0.2",
+    "electron-webpack-js": "^1.0.3",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "fs-extra-p": "^4.4.0",
@@ -35,7 +37,7 @@
     "node-loader": "^0.6.0",
     "read-config-file": "^1.0.5",
     "semver": "^5.4.1",
-    "source-map-support": "^0.4.15",
+    "source-map-support": "^0.4.16",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "virtual-module-webpack-plugin": "^0.3.0",
@@ -48,7 +50,7 @@
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.23",
+    "@types/node": "^8.0.24",
     "@types/webpack": "^3.0.9"
   }
 }

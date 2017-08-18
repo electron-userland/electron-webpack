@@ -1,0 +1,16 @@
+dist: trusty
+sudo: false
+language: node_js
+node_js: "8"
+
+cache:
+  directories:
+  - node_modules
+
+before_install:
+  - curl -L https://yarnpkg.com/latest.tar.gz | tar xvz && mv dist $HOME/.yarn
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"

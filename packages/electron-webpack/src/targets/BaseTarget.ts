@@ -107,11 +107,16 @@ export class BaseTarget {
       }
 
       // watch common code
-      const commonSourceDir = configurator.commonSourceDirectory
+      let commonSourceDir = configurator.electronWebpackConfiguration.commonSourceDirectory
+      if (commonSourceDir == null) {
+        // not src/common, because it is convenient to just put some code into src to use it
+        commonSourceDir = path.join(configurator.projectDir, "src")
+      }
+
       const alienSourceDir = configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
 
       configurator.plugins.push(new WatchFilterPlugin(file => {
-        return file === commonSourceDir || (isAncestor(file, commonSourceDir) && !file.startsWith(alienSourceDir))
+        return file === commonSourceDir || (isAncestor(file, commonSourceDir!!) && !file.startsWith(alienSourceDir))
       }, require("debug")(`electron-webpack:watch-${configurator.type}`)))
     }
 

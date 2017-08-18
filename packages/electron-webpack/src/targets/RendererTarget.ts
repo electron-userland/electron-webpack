@@ -1,3 +1,4 @@
+import BluebirdPromise from "bluebird-lst"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { getConfig } from "read-config-file"
@@ -89,7 +90,8 @@ export class RendererTarget extends BaseRendererTarget {
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
-    const customTemplateFile = path.join(configurator.commonSourceDirectory, "index.ejs")
+    // not configurable for now, as in the electron-vue
+    const customTemplateFile = path.join(configurator.projectDir, "src/index.ejs")
     const HtmlWebpackPlugin = require("html-webpack-plugin")
     const nodeModulePath = configurator.isProduction ? null : path.resolve(configurator.projectDir, "node_modules")
 
@@ -120,7 +122,7 @@ export class RendererTarget extends BaseRendererTarget {
 }
 
 async function computeTitle(configurator: WebpackConfigurator): Promise<string | null | undefined> {
-  const titleFromOptions = configurator.electronWebpackConfig.title
+  const titleFromOptions = configurator.electronWebpackConfiguration.title
   if (titleFromOptions == null || titleFromOptions === false) {
     return null
   }
@@ -135,7 +137,7 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
       packageKey: "build",
       configFilename: "electron-builder",
       projectDir: configurator.projectDir,
-      packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))
+      packageMetadata: new Lazy(() => BluebirdPromise.resolve(configurator.metadata))
     })
     if (electronBuilderConfig != null) {
       title = electronBuilderConfig.productName

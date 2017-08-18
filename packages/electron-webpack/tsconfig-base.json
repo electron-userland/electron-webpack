@@ -15,7 +15,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
 
-    "newLine": "LF",
+    "newLine": "lf",
 
     "noEmitOnError": true
   }

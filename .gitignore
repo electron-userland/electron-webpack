@@ -1,8 +1,9 @@
 .DS_Store
-*.js
-*.js.map
+packages/**/*.js
+packages/**/*.js.map
 !vue-renderer-entry.js
 node_modules/
 lerna-debug.log
 packages/electron-webpack/readme.md
 _book/
+packages/electron-webpack/scheme.json

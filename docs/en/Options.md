@@ -4,6 +4,23 @@ electron-webpack configuration can be defined in the `package.json` file of your
    "title": true
  }
    ```
+   
+## Source Directories
+
+(`main` or `renderer`) `.sourceDirectory` String (optional) The relative to project directory path. `renderer.sourceDirectory` can be set to `null` to completely disable handling of renderer code (do not show even info message about missing directory).
+   
+```json
+"electronWebpack": {
+ "main": {
+   "sourceDirectory": "yourPath, defaults to src/main"
+ },
+ "renderer": {
+   "sourceDirectory": "yourPath, defaults to src/renderer"
+ },
+} 
+```
+
+`commonSourceDirectory` String (optional) - Common sources root. Defaults to `src/commmon`.
 
 ## Browser Window Title
 

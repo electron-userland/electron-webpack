@@ -4,28 +4,35 @@ export interface PackageMetadata {
   dependencies: { [key: string]: any }
   devDependencies: { [key: string]: any }
 
-  electronWebpack?: ElectronWebpackConfig
+  electronWebpack?: ElectronWebpackConfiguration
 }
 
-export interface ElectronWebpackConfig {
+export interface ElectronWebpackConfiguration {
   whiteListedModules?: Array<string>
   externals?: Array<string>
   electronVersion?: string
 
-  renderer?: PartConfig
+  renderer?: ElectronWebpackConfigurationRenderer
+  main?: ElectronWebpackConfigurationMain
 
-  main?: ElectronWebpackConfigMain
+  commonSourceDirectory?: string | null
 
   title?: string | boolean | null
+
+  projectDir?: string | null
 }
 
 export type ConfigurationType = "main" | "renderer" | "renderer-dll" | "test"
 
-export interface PartConfig {
+export interface PartConfiguration {
+  sourceDirectory?: string | null
+}
+
+export interface ElectronWebpackConfigurationRenderer extends PartConfiguration {
   dll?: Array<string> | { [key: string]: any } | null
 }
 
-export interface ElectronWebpackConfigMain {
+export interface ElectronWebpackConfigurationMain extends PartConfiguration {
   /**
    * The extra [entry points](https://webpack.js.org/concepts/entry-points/).
    */
@@ -33,8 +40,6 @@ export interface ElectronWebpackConfigMain {
 }
 
 export interface ConfigurationEnv {
-  projectDir?: string | null
-
   production?: boolean | "true" | "false"
   autoClean?: boolean
 
@@ -42,5 +47,5 @@ export interface ConfigurationEnv {
 
   forkTsCheckerLogger?: any
 
-  configuration?: ElectronWebpackConfig
+  configuration?: ElectronWebpackConfiguration
 }

@@ -3,7 +3,7 @@ import { blue } from "chalk"
 import { ChildProcess } from "child_process"
 import * as path from "path"
 import { statOrNull } from "../util"
-import { WebpackConfigurator } from "../webpackConfigurator"
+import { createConfigurator } from "../webpackConfigurator"
 import { ChildProcessManager, PromiseNotifier, run } from "./ChildProcessManager"
 import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
@@ -22,10 +22,16 @@ function runWds(projectDir: string) {
 // 1. in another process to speedup compilation
 // 2. some loaders detect webpack-dev-server hot mode only if run as CLI
 export async function startRenderer(projectDir: string) {
-  const webpackConfigurator = new WebpackConfigurator("renderer", {production: false, projectDir})
-  const dirStat = await statOrNull(webpackConfigurator.sourceDir)
+  const webpackConfigurator = await createConfigurator("renderer", {production: false, configuration: {projectDir}})
+  const sourceDir = webpackConfigurator.sourceDir
+  // explicitly set to null - do not handle at all and do not show info message
+  if (sourceDir === null) {
+    return
+  }
+
+  const dirStat = await statOrNull(sourceDir)
   if (dirStat == null || !dirStat.isDirectory()) {
-    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, webpackConfigurator.sourceDir)})`, blue)
+    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, sourceDir)})`, blue)
     return
   }
 

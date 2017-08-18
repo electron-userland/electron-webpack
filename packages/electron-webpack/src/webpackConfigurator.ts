@@ -1,12 +1,15 @@
+import Ajv, { AdditionalPropertiesParams, ErrorObject, TypeParams } from "ajv"
 import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
+import { getConfig } from "read-config-file"
+import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
-import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfig, PackageMetadata } from "./core"
+import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, PackageMetadata } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
@@ -19,16 +22,14 @@ export class WebpackConfigurator {
 
   private electronVersionPromise = new Lazy(() => getInstalledElectronVersion(this.projectDir))
 
-  readonly env: ConfigurationEnv
-
   readonly isRenderer: boolean
   readonly isProduction: boolean
   readonly isTest = this.type === "test"
 
   readonly sourceDir: string
+  readonly commonSourceDirectory: string
 
   metadata: PackageMetadata
-  electronWebpackConfig: ElectronWebpackConfig
 
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
@@ -44,9 +45,15 @@ export class WebpackConfigurator {
 
   readonly entryFiles: Array<string> = []
 
-  constructor(readonly type: ConfigurationType, env: ConfigurationEnv | null) {
-    this.env = env || {}
-    this.projectDir = this.env.projectDir || process.cwd()
+  constructor(readonly type: ConfigurationType, readonly env: ConfigurationEnv, readonly electronWebpackConfiguration: ElectronWebpackConfiguration) {
+    if (electronWebpackConfiguration.renderer == null) {
+      electronWebpackConfiguration.renderer = {}
+    }
+    if (electronWebpackConfiguration.main == null) {
+      electronWebpackConfiguration.main = {}
+    }
+
+    this.projectDir = electronWebpackConfiguration.projectDir || process.cwd()
     this.isRenderer = type.startsWith("renderer")
     process.env.BABEL_ENV = type
 
@@ -54,18 +61,29 @@ export class WebpackConfigurator {
     this.debug(`isProduction: ${this.isProduction}`)
 
     this.sourceDir = this.getSourceDirectory(this.type)
+
+    const commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory
+    this.commonSourceDirectory = commonSourceDirectory == null ? path.join(this.projectDir, "src", "common") : path.resolve(this.projectDir, commonSourceDirectory)
   }
 
   getSourceDirectory(type: ConfigurationType) {
-    return path.join(this.commonSourceDirectory, type.startsWith("renderer") || type === "test" ? "renderer" : type)
+    const isRenderer = type.startsWith("renderer") || type === "test"
+    let result: string | null | undefined
+    if (isRenderer) {
+      result = this.electronWebpackConfiguration.renderer!!.sourceDirectory
+    }
+    else if (type === "main") {
+      result = this.electronWebpackConfiguration.main!!.sourceDirectory
+    }
+
+    if (result != null) {
+      return path.resolve(this.projectDir, result)
+    }
+    return path.join(this.projectDir, "src", isRenderer ? "renderer" : type)
   }
 
   get commonDistDirectory() {
     return path.join(this.projectDir, "dist")
-  }
-
-  get commonSourceDirectory() {
-    return path.join(this.projectDir, "src")
   }
 
   hasDependency(name: string) {
@@ -90,11 +108,6 @@ export class WebpackConfigurator {
       this.metadata.devDependencies = {}
     }
 
-    this.electronWebpackConfig = this.env.configuration || this.metadata.electronWebpack || {}
-    if (this.electronWebpackConfig.renderer == null) {
-      this.electronWebpackConfig.renderer = {}
-    }
-
     this.config = {
       context: this.projectDir,
       devtool: this.isProduction || this.isTest ? "nosources-source-map" : "eval-source-map",
@@ -113,7 +126,7 @@ export class WebpackConfigurator {
       resolve: {
         alias: {
           "@": this.sourceDir,
-          common: path.join(this.commonSourceDirectory, "common"),
+          common: this.commonSourceDirectory,
         },
         extensions: this.extensions,
       },
@@ -128,7 +141,7 @@ export class WebpackConfigurator {
     }
 
     // if electronVersion not specified, use latest
-    this.electronVersion = this.electronWebpackConfig.electronVersion || await this.electronVersionPromise.value || "1.7.5"
+    this.electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "1.7.5"
     const target = (() => {
       switch (this.type) {
         case "renderer": return new RendererTarget()
@@ -153,8 +166,8 @@ export class WebpackConfigurator {
         [this.type]: this.entryFiles,
       }
 
-      if (this.type === "main" && this.electronWebpackConfig.main != null) {
-        let extraEntries = this.electronWebpackConfig.main.extraEntries
+      if (this.type === "main" && this.electronWebpackConfiguration.main != null) {
+        let extraEntries = this.electronWebpackConfiguration.main.extraEntries
         if (extraEntries != null) {
           if (typeof extraEntries === "string") {
             extraEntries = [extraEntries]
@@ -175,7 +188,7 @@ export class WebpackConfigurator {
   }
 
   private computeExternals() {
-    const whiteListedModules = new Set(this.electronWebpackConfig.whiteListedModules || [])
+    const whiteListedModules = new Set(this.electronWebpackConfiguration.whiteListedModules || [])
     if (this.isRenderer) {
       whiteListedModules.add("vue")
     }
@@ -192,16 +205,56 @@ export class WebpackConfigurator {
       externals.push("source-map-support/source-map-support.js")
     }
 
-    if (this.electronWebpackConfig.externals != null) {
-      return externals.concat(this.electronWebpackConfig.externals)
+    if (this.electronWebpackConfiguration.externals != null) {
+      return externals.concat(this.electronWebpackConfiguration.externals)
     }
 
     return externals
   }
 }
 
-export function configure(type: ConfigurationType, env: ConfigurationEnv | null) {
-  return new WebpackConfigurator(type, env).configure()
+const validatorPromise = new Lazy(async () => {
+  const ajv = new Ajv({allErrors: true, coerceTypes: true})
+  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"))
+  require("ajv-keywords")(ajv, ["typeof"])
+  const schema = await readJson(path.join(__dirname, "..", "scheme.json"))
+  return ajv.compile(schema)
+})
+
+export async function createConfigurator(type: ConfigurationType, env: ConfigurationEnv | null) {
+  if (env == null) {
+    env = {}
+  }
+
+  const projectDir = (env.configuration || {}).projectDir || process.cwd()
+  const electronWebpackConfig = await getConfig({
+    packageKey: "electron-webpack",
+    configFilename: "electron-webpack",
+    projectDir,
+    packageMetadata: new Lazy(() => orNullIfFileNotExist(readJson(path.join(projectDir, "package.json"))))
+  })
+  if (env.configuration != null) {
+    deepAssign(electronWebpackConfig, env.configuration)
+  }
+
+  const validator = await validatorPromise.value
+  if (!validator(electronWebpackConfig)) {
+    throw new Error(`Configuration is invalid:
+${JSON.stringify(normaliseErrorMessages(validator.errors!), null, 2)}
+
+How to fix:
+  1. Open https://webpack.electron.build/options
+  2. Search the option name on the page.
+    * Not found? The option was deprecated or not exists (check spelling).
+    * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
+`)
+  }
+
+  return new WebpackConfigurator(type, env, electronWebpackConfig)
+}
+
+export async function configure(type: ConfigurationType, env: ConfigurationEnv | null) {
+  return (await createConfigurator(type, env)).configure()
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
@@ -223,4 +276,68 @@ async function getInstalledElectronVersion(projectDir: string) {
       }
     }
   }
+}
+
+function normaliseErrorMessages(errors: Array<ErrorObject>) {
+  const result: any = Object.create(null)
+  for (const e of errors) {
+    if (e.keyword === "type" && (e.params as TypeParams).type === "null") {
+      // ignore - no sense to report that type accepts null
+      continue
+    }
+
+    const dataPath = e.dataPath.length === 0 ? [] : e.dataPath.substring(1).split(".")
+    if (e.keyword === "additionalProperties") {
+      dataPath.push((e.params as AdditionalPropertiesParams).additionalProperty)
+    }
+
+    let o = result
+    let lastName: string | null = null
+    for (const p of dataPath) {
+      if (p === dataPath[dataPath.length - 1]) {
+        lastName = p
+        break
+      }
+      else {
+        if (o[p] == null) {
+          o[p] = Object.create(null)
+        }
+        else if (typeof o[p] === "string") {
+          o[p] = [o[p]]
+        }
+        o = o[p]
+      }
+    }
+
+    if (lastName == null) {
+      lastName = "unknown"
+    }
+
+    let message = e.message!.toUpperCase()[0] + e.message!.substring(1)
+    switch (e.keyword) {
+      case "additionalProperties":
+        message = "Unknown option"
+        break
+
+      case "required":
+        message = "Required option"
+        break
+
+      case "anyOf":
+        message = "Invalid option object"
+        break
+    }
+
+    if (o[lastName] != null && !Array.isArray(o[lastName])) {
+      o[lastName] = [o[lastName]]
+    }
+
+    if (Array.isArray(o[lastName])) {
+      o[lastName].push(message)
+    }
+    else {
+      o[lastName] = message
+    }
+  }
+  return result
 }

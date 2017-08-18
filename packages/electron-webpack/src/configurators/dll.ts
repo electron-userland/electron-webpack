@@ -9,7 +9,7 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
   const projectDir = configurator.projectDir
 
   if (configurator.type === "renderer-dll") {
-    const dll = configurator.electronWebpackConfig.renderer!!.dll
+    const dll = configurator.electronWebpackConfiguration.renderer!!.dll
     if (dll == null) {
       throw new Error(`renderer-dll requires DLL configuration`)
     }
@@ -47,7 +47,7 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
 }
 
 export async function getDllAssets(dllDir: string, configurator: WebpackConfigurator) {
-  if (configurator.electronWebpackConfig.renderer!!.dll == null) {
+  if (configurator.electronWebpackConfiguration.renderer!!.dll == null) {
     return []
   }
 
