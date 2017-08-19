@@ -1,8 +1,9 @@
 {
   "name": "electron-webpack",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
+  "main": "src/webpackConfigurator.js",
   "files": [
     "**/*.js",
     "**/*.js.map",
@@ -21,7 +22,7 @@
     "ajv": "^5.2.2",
     "ajv-keywords": "^2.1.0",
     "async-exit-hook": "^2.0.1",
-    "babili-webpack-plugin": "^0.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
     "bluebird-lst": "^1.0.3",
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",

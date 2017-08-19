@@ -228,7 +228,7 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
 
   const projectDir = (env.configuration || {}).projectDir || process.cwd()
   const electronWebpackConfig = await getConfig({
-    packageKey: "electron-webpack",
+    packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir,
     packageMetadata: new Lazy(() => orNullIfFileNotExist(readJson(path.join(projectDir, "package.json"))))

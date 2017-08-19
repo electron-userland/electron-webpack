@@ -6,7 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_book" />
       <excludeFolder url="file://$MODULE_DIR$/packages/electron-webpack/vendor" />
       <excludeFolder url="file://$MODULE_DIR$/test/src/__snapshots__" />
-      <excludePattern pattern="*packages/*.js" />
+      <excludePattern pattern="*.js" />
       <excludePattern pattern="*.js.map" />
       <excludePattern pattern="yarn.lock" />
     </content>
