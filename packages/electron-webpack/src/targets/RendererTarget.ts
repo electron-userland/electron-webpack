@@ -23,7 +23,7 @@ export class BaseRendererTarget extends BaseTarget {
     function configureFileLoader(prefix: string) {
       return {
         limit: 10000,
-        name: `${prefix}/[name].[ext]`
+        name: `${prefix}/[name]--[folder].[ext]`
       }
     }
 
@@ -50,6 +50,14 @@ export class BaseRendererTarget extends BaseTarget {
         use: {
           loader: "url-loader",
           query: configureFileLoader("imgs")
+        }
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          name: configureFileLoader("media")
         }
       },
       {
