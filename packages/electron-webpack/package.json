@@ -1,11 +1,12 @@
 {
   "name": "electron-webpack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/webpackConfigurator.js",
   "files": [
     "out",
+    "*.js",
     "scheme.json",
     "electron-builder.yml",
     "tsconfig-base.json",
