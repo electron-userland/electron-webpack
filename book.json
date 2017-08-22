@@ -1,7 +1,7 @@
 {
   "root": "./docs/en",
   "title": "electron-webpack",
-  "plugins": ["edit-link", "github", "github-buttons"],
+  "plugins": ["edit-link", "github", "github-buttons", "analytics"],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/electron-userland/electron-webpack/tree/master/docs"
@@ -15,6 +15,15 @@
         "star"
       ],
       "size": "small"
+    },
+    "analytics": {
+      "context": [
+        {
+          "vendor": "google",
+          "token": "UA-104881670-1",
+          "base": "https"
+        }
+      ]
     }
   },
   "links": {
