@@ -11,7 +11,7 @@ Configurations and scripts to compile Electron applications.
 [Vue.js](https://webpack.electron.build/languages-and-frameworks#vuejs),
 [Less](https://webpack.electron.build/languages-and-frameworks#less) if need.
 
-[Yarn](http://yarnpkg.com/) is recommended instead of npm.
+Please use [Yarn](http://yarnpkg.com/), npm is strongly not recommended.
 
 Check out the [detailed documentation](https://webpack.electron.build).
 

@@ -10,7 +10,7 @@ Configurations and scripts to compile Electron applications.
 [Vue.js](./languages-and-frameworks.md#vuejs) and
 [Less](./languages-and-frameworks.md#less) if need.
 
-[Yarn](http://yarnpkg.com/) is recommended instead of npm.
+Please use [Yarn](http://yarnpkg.com/), npm is strongly not recommended.
 
 Real project example — [electrify](https://github.com/electron-userland/electrify).
 

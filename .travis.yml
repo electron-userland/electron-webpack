@@ -11,6 +11,11 @@ before_install:
   - curl -L https://yarnpkg.com/latest.tar.gz | tar xvz && mv dist $HOME/.yarn
   - export PATH="$HOME/.yarn/bin:$PATH"
 
+
+script:
+  # otherwise travis uses "npm test"
+  - yarn test
+
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"

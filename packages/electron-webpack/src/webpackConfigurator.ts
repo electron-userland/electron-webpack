@@ -1,4 +1,4 @@
-import Ajv, { AdditionalPropertiesParams, ErrorObject, TypeParams } from "ajv"
+import Ajv from "ajv"
 import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
@@ -13,9 +13,33 @@ import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, Pack
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
+import { getFirstExistingFile, normaliseErrorMessages, orNullIfFileNotExist } from "./util"
 
 const _debug = require("debug")
+
+export function getAppConfiguration(env: ConfigurationEnv) {
+  return BluebirdPromise.all([configure("main", env), configure("renderer", env)])
+}
+
+export function getMainConfiguration(env: ConfigurationEnv) {
+  return configure("main", env)
+}
+
+export function getRendererConfiguration(env: ConfigurationEnv) {
+  return configure("renderer", env)
+}
+
+// in the future, if need, isRenderer = true arg can be added
+export function getDllConfiguration(env: ConfigurationEnv) {
+  return configure("renderer-dll", env)
+}
+
+export async function getTestConfiguration(env: ConfigurationEnv) {
+  return (await createConfigurator("test", env))
+    .configure({
+      testComponents: path.join(process.cwd(), "src/renderer/components/testComponents.ts"),
+    })
+}
 
 export class WebpackConfigurator {
   readonly projectDir: string
@@ -201,7 +225,7 @@ export class WebpackConfigurator {
     externals.push("electron-devtools-installer")
     if (this.type === "main") {
       externals.push("webpack/hot/log-apply-result")
-      externals.push("electron-webpack/electron-main-hmr/HmrClient")
+      externals.push("electron-webpack/out/electron-main-hmr/HmrClient")
       externals.push("source-map-support/source-map-support.js")
     }
 
@@ -276,68 +300,4 @@ async function getInstalledElectronVersion(projectDir: string) {
       }
     }
   }
-}
-
-function normaliseErrorMessages(errors: Array<ErrorObject>) {
-  const result: any = Object.create(null)
-  for (const e of errors) {
-    if (e.keyword === "type" && (e.params as TypeParams).type === "null") {
-      // ignore - no sense to report that type accepts null
-      continue
-    }
-
-    const dataPath = e.dataPath.length === 0 ? [] : e.dataPath.substring(1).split(".")
-    if (e.keyword === "additionalProperties") {
-      dataPath.push((e.params as AdditionalPropertiesParams).additionalProperty)
-    }
-
-    let o = result
-    let lastName: string | null = null
-    for (const p of dataPath) {
-      if (p === dataPath[dataPath.length - 1]) {
-        lastName = p
-        break
-      }
-      else {
-        if (o[p] == null) {
-          o[p] = Object.create(null)
-        }
-        else if (typeof o[p] === "string") {
-          o[p] = [o[p]]
-        }
-        o = o[p]
-      }
-    }
-
-    if (lastName == null) {
-      lastName = "unknown"
-    }
-
-    let message = e.message!.toUpperCase()[0] + e.message!.substring(1)
-    switch (e.keyword) {
-      case "additionalProperties":
-        message = "Unknown option"
-        break
-
-      case "required":
-        message = "Required option"
-        break
-
-      case "anyOf":
-        message = "Invalid option object"
-        break
-    }
-
-    if (o[lastName] != null && !Array.isArray(o[lastName])) {
-      o[lastName] = [o[lastName]]
-    }
-
-    if (Array.isArray(o[lastName])) {
-      o[lastName].push(message)
-    }
-    else {
-      o[lastName] = message
-    }
-  }
-  return result
 }

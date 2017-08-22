@@ -21,7 +21,7 @@ export function configureVue(configurator: WebpackConfigurator) {
     return
   }
 
-  configurator.entryFiles.push(path.join(__dirname, "vue-renderer-entry.js"))
+  configurator.entryFiles.push(path.join(__dirname, "../../../vue-renderer-entry.js"))
 
   configurator.debug("Vue detected")
   configurator.rules.push(

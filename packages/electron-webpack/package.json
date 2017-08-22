@@ -3,17 +3,16 @@
   "version": "0.14.2",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
-  "main": "src/webpackConfigurator.js",
+  "main": "out/webpackConfigurator.js",
   "files": [
-    "**/*.js",
-    "**/*.js.map",
+    "out",
     "scheme.json",
     "electron-builder.yml",
     "tsconfig-base.json",
     "vendor"
   ],
   "bin": {
-    "electron-webpack": "./src/cli.js"
+    "electron-webpack": "./out/cli.js"
   },
   "repository": "electron-userland/electron-webpack",
   "//": "@types/webpack-env in the dependencies because used by clients",

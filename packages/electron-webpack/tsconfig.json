@@ -1,14 +1,11 @@
 {
   "extends": "./tsconfig-base.json",
   "compilerOptions": {
-    "moduleResolution": "node",
-    "outDir": "."
+    "stripInternal": true,
+    "outDir": "out"
   },
   "declaration": false,
   "include": [
     "**/*.ts", "typings/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

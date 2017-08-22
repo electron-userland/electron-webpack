@@ -13,7 +13,7 @@ afterEach(() => tmpDir.cleanup())
 async function doTest(configurationFile, electronWebpackConfuguration) {
   const projectDir = await getMutableProjectDir()
   const finalConfiguration = Object.assign({projectDir}, electronWebpackConfuguration)
-  const configuration = await require(`electron-webpack/${configurationFile}`).default({configuration: finalConfiguration, production: true})
+  const configuration = await require(`electron-webpack/${configurationFile}`)({configuration: finalConfiguration, production: true})
   await testWebpack(configuration, projectDir)
 }
 
@@ -24,7 +24,7 @@ test("main production", () => doTest("webpack.main.config.js"))
 test("renderer custom sourceDirectory", async () => {
   const projectDir = await getMutableProjectDir()
   await move(path.join(projectDir, "src/renderer"), path.join(projectDir, "customRenderer"))
-  const configuration = await require("electron-webpack/webpack.renderer.config.js").default({production: true, configuration: {
+  const configuration = await require("electron-webpack/webpack.renderer.config.js")({production: true, configuration: {
     projectDir,
     renderer: {
       sourceDirectory: "customRenderer"
@@ -36,7 +36,7 @@ test("renderer custom sourceDirectory", async () => {
 test("main extra entry point and custom source dir", async () => {
   const projectDir = await getMutableProjectDir()
   await move(path.join(projectDir, "src/main"), path.join(projectDir, "customMain"))
-  const configuration = await require("electron-webpack/webpack.main.config.js").default({production: true, configuration: {
+  const configuration = await require("electron-webpack/webpack.main.config.js")({production: true, configuration: {
     projectDir,
     main: {
       extraEntries: ["@/foo.js"],
@@ -66,7 +66,9 @@ test("renderer production", async () => {
     createTestAsset("b"),
   ])
 
-  const configuration = await require("electron-webpack/webpack.renderer.config.js").default({configuration: {projectDir}, production: true})
+  let tt = require("electron-webpack/webpack.renderer.config.js")
+  debugger
+  const configuration = await tt({configuration: {projectDir}, production: true})
   await testWebpack(configuration, projectDir)
 })
 
@@ -82,10 +84,10 @@ test("title null", () => testTitle(null))
 
 async function testTitle(title) {
   const projectDir = path.join(__dirname, "../fixtures")
-  const configuration = await require("electron-webpack/webpack.renderer.config.js").default({production: true, minify: false, configuration: {
+  const configuration = await require("electron-webpack/webpack.renderer.config")({production: true, minify: false, configuration: {
     projectDir, title}})
   const fs = await testWebpack(configuration, projectDir, false)
-  expect(bufferToString(fs.meta(projectDir + "/dist/renderer/index.html")).toString()).toMatchSnapshot()
+  expect(bufferToString(fs.meta(`${projectDir}/dist/renderer/index.html`)).toString()).toMatchSnapshot()
 }
 
 async function testWebpack(configuration, projectDir, checkCompilation = true) {
