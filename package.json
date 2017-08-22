@@ -8,7 +8,7 @@
     "compile": "ts-babel packages/electron-webpack && yarn schema",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && npm publish packages/electron-webpack && conventional-changelog -p angular -i CHANGELOG.md -s",
-    "test": "yarn compile && jest",
+    "test": "yarn compile && yarn lint && jest",
     "docs": "gitbook build && ./docs/publish.sh",
     "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required"
   },

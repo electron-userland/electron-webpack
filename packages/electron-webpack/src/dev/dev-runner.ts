@@ -53,7 +53,9 @@ class DevRunner {
 
   async startMainCompilation(hmrServer: HmrServer) {
     const mainConfig = await configure("main", {
-      production: false, autoClean: false, forkTsCheckerLogger: {
+      production: false,
+      autoClean: false,
+      forkTsCheckerLogger: {
         info: () => {
           // ignore
         },
@@ -65,7 +67,7 @@ class DevRunner {
         error: (message: string) => {
           logProcess("Main", message, red)
         },
-      }
+      },
     })
 
     await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {

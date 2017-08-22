@@ -13,7 +13,7 @@ function runWds(projectDir: string) {
   const isWin = process.platform === "win32"
   const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (isWin ? ".cmd" : ""))
   debug(`Start renderer WDS ${webpackDevServerPath}`)
-  return run(webpackDevServerPath, ["--color", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
+  return run(webpackDevServerPath, ["--color", "--env.autoClean=false", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
     env: getCommonEnv(),
     cwd: projectDir,
   })

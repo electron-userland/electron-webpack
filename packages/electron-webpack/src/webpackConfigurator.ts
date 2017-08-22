@@ -250,6 +250,14 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
     env = {}
   }
 
+  // allow to pass as `--env.autoClean=false` webpack arg
+  if ((env.autoClean as any) === "true") {
+    env.autoClean = true
+  }
+  else if ((env.autoClean as any) === "false") {
+    env.autoClean = false
+  }
+
   const projectDir = (env.configuration || {}).projectDir || process.cwd()
   const electronWebpackConfig = await getConfig({
     packageKey: "electronWebpack",

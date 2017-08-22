@@ -106,7 +106,7 @@ export class WebpackRemoveOldAssetsPlugin {
           return BluebirdPromise.map(it, it => remove(it), CONCURRENCY)
         })
         .then(() => callback())
-        .catch()
+        .catch(callback)
     })
   }
 }
