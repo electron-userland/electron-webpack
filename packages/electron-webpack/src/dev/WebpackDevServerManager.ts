@@ -35,6 +35,11 @@ export async function startRenderer(projectDir: string) {
     return
   }
 
+  if (webpackConfigurator.hasDependency("electron-next")) {
+    debug(`Renderer WDS is not started - there is electron-next dependency`)
+    return
+  }
+
   const lineFilter = new CompoundRendererLineFilter([
     new OneTimeLineFilter("Project is running at "),
     new OneTimeLineFilter("webpack output is served from "),

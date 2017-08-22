@@ -22,7 +22,6 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-github-buttons": "^2.1.0",
     "jest-cli": "^20.0.4",
-    "jest-environment-node-debug": "^2.0.0",
     "memory-fs": "^0.4.1",
     "temp-file": "^2.0.2",
     "ts-babel": "^4.0.1",
@@ -36,7 +35,8 @@
     ]
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "test/fixtures/electron-next"
   ],
   "jest": {
     "testEnvironment": "node",

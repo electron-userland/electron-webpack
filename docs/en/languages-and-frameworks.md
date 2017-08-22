@@ -47,3 +47,9 @@ Please note — [Chrome devtools extension for debugging Vue.js applications](ht
 ## EJS
 
 `yarn add ejs ejs-html-loader --dev`
+
+## Next.js
+
+If project has [electron-next](https://github.com/leo/electron-next) dependency, `electron-webpack dev` will not start webpack-dev-server.
+
+To compile only main process, use `electron-webpack main`.

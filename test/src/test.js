@@ -48,7 +48,7 @@ test("main extra entry point and custom source dir", async () => {
 
 async function getMutableProjectDir() {
   const projectDir = await tmpDir.getTempDir()
-  await copy(path.join(__dirname, "../fixtures"), projectDir)
+  await copy(path.join(__dirname, "../fixtures/simple"), projectDir)
   return projectDir
 }
 
@@ -83,7 +83,7 @@ test("title false", () => testTitle(false))
 test("title null", () => testTitle(null))
 
 async function testTitle(title) {
-  const projectDir = path.join(__dirname, "../fixtures")
+  const projectDir = path.join(__dirname, "../fixtures/simple")
   const configuration = await require("electron-webpack/webpack.renderer.config")({production: true, minify: false, configuration: {
     projectDir, title}})
   const fs = await testWebpack(configuration, projectDir, false)

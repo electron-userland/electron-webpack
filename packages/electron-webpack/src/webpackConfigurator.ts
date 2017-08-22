@@ -53,8 +53,6 @@ export class WebpackConfigurator {
   readonly sourceDir: string
   readonly commonSourceDirectory: string
 
-  metadata: PackageMetadata
-
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
   config: Configuration
@@ -69,12 +67,19 @@ export class WebpackConfigurator {
 
   readonly entryFiles: Array<string> = []
 
-  constructor(readonly type: ConfigurationType, readonly env: ConfigurationEnv, readonly electronWebpackConfiguration: ElectronWebpackConfiguration) {
+  constructor(readonly type: ConfigurationType, readonly env: ConfigurationEnv, readonly electronWebpackConfiguration: ElectronWebpackConfiguration, readonly metadata: PackageMetadata) {
     if (electronWebpackConfiguration.renderer == null) {
       electronWebpackConfiguration.renderer = {}
     }
     if (electronWebpackConfiguration.main == null) {
       electronWebpackConfiguration.main = {}
+    }
+
+    if (metadata.dependencies == null) {
+      metadata.dependencies = {}
+    }
+    if (metadata.devDependencies == null) {
+      metadata.devDependencies = {}
     }
 
     this.projectDir = electronWebpackConfiguration.projectDir || process.cwd()
@@ -119,19 +124,6 @@ export class WebpackConfigurator {
   }
 
   async configure(entry?: { [key: string]: any } | null) {
-    const projectInfo = await BluebirdPromise.all([
-      orNullIfFileNotExist(readJson(path.join(this.projectDir, "package.json"))),
-      entry == null ? computeEntryFile(this.sourceDir, this.projectDir) : BluebirdPromise.resolve(),
-    ])
-
-    this.metadata = projectInfo[0] || {}
-    if (this.metadata.dependencies == null) {
-      this.metadata.dependencies = {}
-    }
-    if (this.metadata.devDependencies == null) {
-      this.metadata.devDependencies = {}
-    }
-
     this.config = {
       context: this.projectDir,
       devtool: this.isProduction || this.isTest ? "nosources-source-map" : "eval-source-map",
@@ -185,7 +177,7 @@ export class WebpackConfigurator {
     }
 
     if (this.config.entry == null) {
-      this.entryFiles.push(projectInfo[1]!!)
+      this.entryFiles.push((await computeEntryFile(this.sourceDir, this.projectDir))!!)
       this.config.entry = {
         [this.type]: this.entryFiles,
       }
@@ -259,11 +251,12 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
   }
 
   const projectDir = (env.configuration || {}).projectDir || process.cwd()
+  const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
   const electronWebpackConfig = await getConfig({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir,
-    packageMetadata: new Lazy(() => orNullIfFileNotExist(readJson(path.join(projectDir, "package.json"))))
+    packageMetadata: new Lazy(() => BluebirdPromise.resolve(packageMetadata))
   })
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
@@ -282,7 +275,7 @@ How to fix:
 `)
   }
 
-  return new WebpackConfigurator(type, env, electronWebpackConfig)
+  return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
 }
 
 export async function configure(type: ConfigurationType, env: ConfigurationEnv | null) {
