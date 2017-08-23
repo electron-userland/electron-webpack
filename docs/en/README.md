@@ -1,39 +1,65 @@
 # electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
-Configurations and scripts to compile Electron applications.
+> Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
-## Install
-1. `yarn add webpack electron-webpack --dev`
-2. `yarn add source-map-support`
-3. Install support for various [languages and frameworks](./languages-and-frameworks.md) —
-[TypeScript](./languages-and-frameworks.md#typescript),
-[Vue.js](./languages-and-frameworks.md#vuejs) and
-[Less](./languages-and-frameworks.md#less) if need.
+## Overview
+Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunaly when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
 
-Please use [Yarn](http://yarnpkg.com/), npm is strongly not recommended.
+> Why create a module and not a full boilerplate?
 
-Real project example — [electrify](https://github.com/electron-userland/electrify).
+If you've been in the JavaScript world for even a short period of time, you are very aware that things are always changing, and development setup is no exclusion. Putting all development scrtips into a single **updatable** module just makes sense. Sure a full featured boilerplate works to, but doing also involves needing to manually update those pesky `webpack` configuration files that some may call *magic* when something new comes out.
 
-## Hot Module Replacement
+Here are some of the awesome features you'll find using `electron-webpack`...
 
-[Fast development](./HMR.md) without reloading is supported for both main and renderer processes.
+* Detailed [documentation](https://webpack.electron.build)
+* Use of [`webpack`](https://webpack.js.org/) for source code bundling
+* Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
+* HMR for both `renderer` and `main` processes
+* Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
+* Support for pre-proccessors like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), & [EJS](http://www.embeddedjs.com/)
 
-## Differences between electron-compile
-
-* [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/) for virtually anything and even for main process. electron-compile [live reload](https://github.com/electron/electron-compile#live-reload--hot-module-reloading) is limited and works only for some file types.
-* Faster Builds (e.g. [typescript](https://github.com/TypeStrong/ts-loader#faster-builds) or [generic](https://github.com/amireh/happypack)).
-* No runtime dependencies.
-* ... and so on. electron-compile is not comparable to [webpack](https://webpack.js.org) because webpack is widely used and popular. There are a lot features, loaders and plugins. And because community is big, answers to any question. Special tool for Electron not required, [electron](https://webpack.js.org/configuration/target/#string) is directly and explicitly supported by webpack.
-
-But keep things simple. electron-compile offers you zero-config setup without predefined project structure and simple on the fly runtime transformation. And for simple projects, even direct usage of `typescript`/`babel` maybe enough ([example](https://github.com/develar/onshape-desktop-shell)).
-
-## Notes
-* [source-map-support](https://github.com/evanw/node-source-map-support) is recommended and supported out of the box, simply install it `yarn add source-map-support` and that's all.
-* [webpack-build-notifier](https://github.com/RoccoC/webpack-build-notifier) is supported, simply install it `yarn add webpack-build-notifier --dev` and it will automatically enabled for development.
-
-## Debug
-
-Set the [DEBUG](https://github.com/visionmedia/debug#windows-note) environment variable to debug what electron-webpack is doing:
-```bash
-DEBUG=electron-webpack*
+## Quick Start
+#### Setup basic project structure
 ```
+my-project/
+├─ src
+│  ├─ main # main process sources
+│  │  └─ index.js
+│  ├─ renderer # renderer process sources*
+│  │  └─ index.js
+│  └─ common # common sources*
+└─ static # static assets*
+```
+\* Denotes an **optional** directory
+
+#### Install dependencies
+The use of the [yarn](https://yarnpkg.com/) package manager is strongly recommended, as opposed to using `npm`.
+
+```bash
+yarn init
+yarn add -D webpack electron-webpack
+```
+
+#### Add development scripts
+package.json
+```json
+"scripts": {
+  "dev": "electron-webpack dev",
+  "compile": "electron-webpack",
+  "dist": "yarn compile && electron-builder",
+  "dist-dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
+}
+```
+
+#### Launch application
+```bash
+yarn dev
+```
+
+### Next Steps
+Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, further configurations, and building your application.
+
+---
+
+### Technical differences between `electron-compile`
+// TODO
