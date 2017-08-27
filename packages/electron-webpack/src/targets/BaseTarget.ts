@@ -29,6 +29,13 @@ export class BaseTarget {
         use: "node-loader"
       },
     )
+
+    if (configurator.hasDevDependency("nunjucks-loader")) {
+      rules.push({
+        test: /\.(njk|nunjucks)$/,
+        loader: "nunjucks-loader"
+      })
+    }
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {

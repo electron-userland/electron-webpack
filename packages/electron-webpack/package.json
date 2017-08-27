@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "1.0.1",
+  "version": "1.1.o",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/webpackConfigurator.js",
