@@ -1,7 +1,7 @@
 import webpack from "webpack"
 import * as path from "path"
 import { TmpDir } from "temp-file"
-import { copy, mkdir, move, writeFile } from "fs-extra-p"
+import { copy, mkdir, move, outputJson, writeFile } from "fs-extra-p"
 import { randomBytes } from "crypto"
 
 const MemoryFS = require("memory-fs")
@@ -46,9 +46,9 @@ test("main extra entry point and custom source dir", async () => {
   await testWebpack(configuration, projectDir)
 })
 
-async function getMutableProjectDir() {
+async function getMutableProjectDir(fixtureName = "simple") {
   const projectDir = await tmpDir.getTempDir()
-  await copy(path.join(__dirname, "../fixtures/simple"), projectDir)
+  await copy(path.join(__dirname, "../fixtures", fixtureName), projectDir)
   return projectDir
 }
 
@@ -67,7 +67,6 @@ test("renderer production", async () => {
   ])
 
   let tt = require("electron-webpack/webpack.renderer.config.js")
-  debugger
   const configuration = await tt({configuration: {projectDir}, production: true})
   await testWebpack(configuration, projectDir)
 })
@@ -89,6 +88,20 @@ async function testTitle(title) {
   const fs = await testWebpack(configuration, projectDir, false)
   expect(bufferToString(fs.meta(`${projectDir}/dist/renderer/index.html`)).toString()).toMatchSnapshot()
 }
+
+test("typescript", async () => {
+  const projectDir = await getMutableProjectDir("typescript")
+  await outputJson(path.join(projectDir, "tsconfig.json"), {
+    extends: path.join(__dirname, "..", "..", ).replace(/\\/g, "/") + "/packages/electron-webpack/tsconfig-base.json",
+    compilerOptions: {
+      baseUrl: "src",
+    },
+  })
+  const configuration = await require("electron-webpack/webpack.main.config.js")({production: true, configuration: {
+    projectDir,
+  }})
+  await testWebpack(configuration, projectDir)
+})
 
 async function testWebpack(configuration, projectDir, checkCompilation = true) {
   if (Array.isArray(configuration)) {
