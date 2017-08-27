@@ -1,8 +1,8 @@
 import { readdir, readJson } from "fs-extra-p"
 import * as path from "path"
 import { DllPlugin, DllReferencePlugin } from "webpack"
+import { WebpackConfigurator } from "../main"
 import { orNullIfFileNotExist, statOrNull } from "../util"
-import { WebpackConfigurator } from "../webpackConfigurator"
 
 export async function configureDll(configurator: WebpackConfigurator): Promise<string | null> {
   let dllManifest: string | null = null

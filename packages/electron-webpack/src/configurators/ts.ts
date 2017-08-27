@@ -1,6 +1,6 @@
 import * as path from "path"
+import { WebpackConfigurator } from "../main"
 import { getFirstExistingFile } from "../util"
-import { WebpackConfigurator } from "../webpackConfigurator"
 
 export async function configureTypescript(configurator: WebpackConfigurator) {
   const hasTsChecker = configurator.hasDevDependency("fork-ts-checker-webpack-plugin") || configurator.hasDevDependency("electron-webpack-ts")

@@ -1,5 +1,5 @@
 import { gte } from "semver"
-import { WebpackConfigurator } from "../webpackConfigurator"
+import { WebpackConfigurator } from "../main"
 
 export function createBabelLoader(configurator: WebpackConfigurator) {
   return {

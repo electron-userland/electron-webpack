@@ -227,66 +227,6 @@ Object {
 }
 `;
 
-exports[`title false 1`] = `
-"
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset=\\"utf-8\\">
-    
-    <script>
-      
-      require(\\"source-map-support/source-map-support.js\\").install()
-    </script>
-    
-  
-  <link href=\\"styles.css\\" rel=\\"stylesheet\\"></head>
-  <body>
-    <div id=\\"app\\"></div>
-  <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
-</html>"
-`;
-
-exports[`title null 1`] = `
-"
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset=\\"utf-8\\">
-    
-    <script>
-      
-      require(\\"source-map-support/source-map-support.js\\").install()
-    </script>
-    
-  
-  <link href=\\"styles.css\\" rel=\\"stylesheet\\"></head>
-  <body>
-    <div id=\\"app\\"></div>
-  <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
-</html>"
-`;
-
-exports[`title true 1`] = `
-"
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset=\\"utf-8\\">
-    <title>Test</title>
-    <script>
-      
-      require(\\"source-map-support/source-map-support.js\\").install()
-    </script>
-    
-  
-  <link href=\\"styles.css\\" rel=\\"stylesheet\\"></head>
-  <body>
-    <div id=\\"app\\"></div>
-  <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
-</html>"
-`;
-
 exports[`typescript 1`] = `
 "      Asset       Size  Chunks             Chunk Names
     main.js  640 bytes       0  [emitted]  main
@@ -302,7 +242,7 @@ Object {
       "main.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(){'use strict'}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap a2fa3f9712ed1ffe3a85\\",\\"webpack:///./src/main/index.ts\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,yDC3DC\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap 2404dd5ee2759bb96058\\",\\"webpack:///./src/main/index.ts\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,yDC3DC\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }

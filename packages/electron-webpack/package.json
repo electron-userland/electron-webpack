@@ -1,9 +1,9 @@
 {
   "name": "electron-webpack",
-  "version": "1.1.o",
+  "version": "1.1.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
-  "main": "out/webpackConfigurator.js",
+  "main": "out/main.js",
   "files": [
     "out",
     "*.js",
@@ -54,5 +54,6 @@
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/node": "^8.0.25",
     "@types/webpack": "^3.0.10"
-  }
+  },
+  "typings": "./out/main.d.ts"
 }

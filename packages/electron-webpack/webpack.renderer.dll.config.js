@@ -1,1 +1,1 @@
-module.exports = env => require("./out/webpackConfigurator").getDllConfiguration(env)
+module.exports = env => require("./out/main").getDllConfiguration(env)

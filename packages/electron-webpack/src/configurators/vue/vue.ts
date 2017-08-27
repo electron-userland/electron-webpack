@@ -1,5 +1,5 @@
 import * as path from "path"
-import { WebpackConfigurator } from "../../webpackConfigurator"
+import { WebpackConfigurator } from "../../main"
 
 export function configureVue(configurator: WebpackConfigurator) {
   if (!configurator.hasDependency("vue")) {

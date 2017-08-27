@@ -1,7 +1,7 @@
 import * as path from "path"
 import { BannerPlugin } from "webpack"
+import { WebpackConfigurator } from "../main"
 import { getFirstExistingFile } from "../util"
-import { WebpackConfigurator } from "../webpackConfigurator"
 import { BaseTarget } from "./BaseTarget"
 
 export class MainTarget extends BaseTarget {

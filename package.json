@@ -5,7 +5,7 @@
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "scripts": {
     "update-deps": "lerna exec -- npm-check-updates -a",
-    "compile": "ts-babel packages/electron-webpack && yarn schema",
+    "compile": "ts-babel packages/electron-webpack test && yarn schema",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && npm publish packages/electron-webpack && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "yarn compile && yarn lint && jest",
@@ -13,6 +13,8 @@
     "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required"
   },
   "devDependencies": {
+    "@types/jest": "^20.0.8",
+    "@types/memory-fs": "^0.3.0",
     "babel-preset-ts-node4-bluebird": "^0.1.0",
     "develar-typescript-json-schema": "^0.17.0",
     "electron-builder-tslint-config": "^1.0.4",
@@ -38,9 +40,27 @@
     "packages/*"
   ],
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "test/tsconfig.json"
+      }
+    },
+    "transform": {
+      "^.+\\.js$": "<rootDir>/test/babel-jest.js"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "testRegex": "(/test/out/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "[\\/]{1}helpers[\\/]{1}"
+    ],
     "roots": [
-      "test/src"
+      "test/out"
     ],
     "modulePaths": [
       "<rootDir>/packages/electron-webpack/node_modules",

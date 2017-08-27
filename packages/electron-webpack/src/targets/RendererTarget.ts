@@ -4,8 +4,8 @@ import * as path from "path"
 import { getConfig } from "read-config-file"
 import { DefinePlugin } from "webpack"
 import { getDllAssets } from "../configurators/dll"
+import { WebpackConfigurator } from "../main"
 import { statOrNull } from "../util"
-import { WebpackConfigurator } from "../webpackConfigurator"
 import { BaseTarget } from "./BaseTarget"
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
