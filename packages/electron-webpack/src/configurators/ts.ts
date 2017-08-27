@@ -13,21 +13,15 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
 
   const isTranspileOnly = configurator.isTest || (hasTsChecker && !configurator.isProduction)
 
-  const tsLoaderOptions: any = {
-    // use transpileOnly mode to speed-up compilation
-    // in the test mode also, because checked during dev or production build
-    transpileOnly: isTranspileOnly,
-    appendTsSuffixTo: [/\.vue$/],
-    logLevel: "warn" // no need to log used tsconfig file as info
-  }
-
   const tsConfigFile = await getFirstExistingFile([path.join(configurator.sourceDir, "tsconfig.json"), path.join(configurator.projectDir, "tsconfig.json")], null)
-  // check even if we currently doesn't pass path to ts-loader — to produce clear error message if no tsconfig.json
+  // check to produce clear error message if no tsconfig.json
   if (tsConfigFile == null) {
     throw new Error(`Please create tsconfig.json in the "${configurator.projectDir}":\n\n{\n  "extends": "./node_modules/electron-webpack/tsconfig-base.json"\n}\n\n`)
   }
 
-  configurator.debug(`Using ${tsConfigFile}`)
+  if (configurator.debug.enabled) {
+    configurator.debug(`Using ${tsConfigFile}`)
+  }
 
   // no sense to use fork-ts-checker-webpack-plugin for production build
   if (isTranspileOnly && !configurator.isTest) {
@@ -45,7 +39,18 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     }))
   }
 
-  configurator.debug(`ts-loader options: ${JSON.stringify(tsLoaderOptions, null, 2)}`)
+  const tsLoaderOptions: any = {
+    // use transpileOnly mode to speed-up compilation
+    // in the test mode also, because checked during dev or production build
+    transpileOnly: isTranspileOnly,
+    appendTsSuffixTo: [/\.vue$/],
+    logLevel: "warn", // no need to log used tsconfig file as info
+    configFile: tsConfigFile,
+  }
+
+  if (configurator.debug.enabled) {
+    configurator.debug(`ts-loader options: ${JSON.stringify(tsLoaderOptions, null, 2)}`)
+  }
 
   configurator.rules.push({
     test: /\.tsx?$/,

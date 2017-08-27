@@ -53,3 +53,7 @@ Please note — [Chrome devtools extension for debugging Vue.js applications](ht
 If project has [electron-next](https://github.com/leo/electron-next) dependency, `electron-webpack dev` will not start webpack-dev-server.
 
 To compile only main process, use `electron-webpack main`.
+
+## Nunjucks
+
+`yarn add nunjucks-loader nunjucks --dev`

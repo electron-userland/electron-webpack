@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "1.0.1",
+  "version": "1.1.o",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/webpackConfigurator.js",
@@ -27,7 +27,7 @@
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",
     "css-loader": "^0.28.5",
-    "debug": "^3.0.0",
+    "debug": "^3.0.1",
     "electron-devtools-installer": "^2.2.0",
     "electron-webpack-js": "^1.0.3",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -37,7 +37,7 @@
     "html-webpack-plugin": "^2.30.1",
     "lazy-val": "^1.0.2",
     "node-loader": "^0.6.0",
-    "read-config-file": "^1.0.5",
+    "read-config-file": "^1.1.0",
     "semver": "^5.4.1",
     "source-map-support": "^0.4.16",
     "style-loader": "^0.18.2",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.24",
-    "@types/webpack": "^3.0.9"
+    "@types/node": "^8.0.25",
+    "@types/webpack": "^3.0.10"
   }
 }
