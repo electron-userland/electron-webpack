@@ -7,7 +7,7 @@ Modern web development practices today require a lot of setup with things like `
 
 > Why create a module and not a full boilerplate?
 
-If you've been in the JavaScript world for even a short period of time, you are very aware that things are always changing, and development setup is no exclusion. Putting all development scrtips into a single **updatable** module just makes sense. Sure a full featured boilerplate works to, but doing also involves needing to manually update those pesky `webpack` configuration files that some may call *magic* when something new comes out.
+If you've been in the JavaScript world for even a short period of time, you are very aware that things are always changing, and development setup is no exclusion. Putting all development scripts into a single **updatable** module just makes sense. Sure a full featured boilerplate works too, but doing also involves needing to manually update those pesky `webpack` configuration files that some may call *magic* when something new comes out.
 
 Here are some of the awesome features you'll find using `electron-webpack`...
 
@@ -19,45 +19,22 @@ Here are some of the awesome features you'll find using `electron-webpack`...
 * Support for pre-proccessors like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), & [EJS](http://www.embeddedjs.com/)
 
 ## Quick Start
-#### Setup basic project structure
-```
-my-project/
-├─ src
-│  ├─ main # main process sources
-│  │  └─ index.js
-│  ├─ renderer # renderer process sources*
-│  │  └─ index.js
-│  └─ common # common sources*
-└─ static # static assets*
-```
-\* Denotes an **optional** directory
-
-#### Install dependencies
-The use of the [yarn](https://yarnpkg.com/) package manager is strongly recommended, as opposed to using `npm`.
-
+Get started fast with [electron-webpack-quick-start](repoLink).
 ```bash
-yarn init
-yarn add -D webpack electron-webpack
-```
+# copy template using curl
+curl -fsSL [repoLink]/archive/master.tar.gz | tar -xz --strip-components 1
 
-#### Add development scripts
-package.json
-```json
-"scripts": {
-  "dev": "electron-webpack dev",
-  "compile": "electron-webpack",
-  "dist": "yarn compile && electron-builder",
-  "dist-dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
-}
-```
+# or copy template using git clone
+git clone [repoLink]
+cd electron-webpack-quick-start
+rm -rf .git
 
-#### Launch application
-```bash
-yarn dev
+# install dependencies
+yarn
 ```
 
 ### Next Steps
-Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, further configurations, and building your application.
+Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, adding custom configurations, and building your application.
 
 ---
 
