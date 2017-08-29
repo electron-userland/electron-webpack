@@ -1,1 +1,1 @@
-module.exports = env => require("./out/webpackConfigurator").getTestConfiguration(env)
+module.exports = env => require("./out/main").getTestConfiguration(env)

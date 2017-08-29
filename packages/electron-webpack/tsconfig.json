@@ -4,7 +4,6 @@
     "stripInternal": true,
     "outDir": "out"
   },
-  "declaration": false,
   "include": [
     "**/*.ts", "typings/*.d.ts"
   ]

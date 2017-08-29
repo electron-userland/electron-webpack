@@ -2,6 +2,15 @@
 
 Configurations and scripts to compile Electron applications.
 
+> Because setting up `webpack` in the `electron` environment shouldn't be difficult.
+
+## Overview
+Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunaly when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
+
+> Why create a module and not a full boilerplate?
+
+If you've been in the JavaScript world for even a short period of time, you are very aware that things are always changing, and development setup is no exclusion. Putting all development scripts into a single **updatable** module just makes sense. Sure a full featured boilerplate works too, but doing also involves needing to manually update those pesky `webpack` configuration files that some may call *magic* when something new comes out.
+
 ## Install
 
 1. `yarn add webpack electron-webpack --dev`

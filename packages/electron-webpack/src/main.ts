@@ -15,6 +15,8 @@ import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
 import { getFirstExistingFile, normaliseErrorMessages, orNullIfFileNotExist } from "./util"
 
+export { ElectronWebpackConfiguration } from "./core"
+
 const _debug = require("debug")
 
 export function getAppConfiguration(env: ConfigurationEnv) {

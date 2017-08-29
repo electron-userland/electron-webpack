@@ -5,3 +5,7 @@ lerna-debug.log
 packages/electron-webpack/readme.md
 _book/
 packages/electron-webpack/scheme.json
+
+# to not exclude .js.snap (jest snapshots)
+/test/out/**/*.js
+/test/out/**/*.map

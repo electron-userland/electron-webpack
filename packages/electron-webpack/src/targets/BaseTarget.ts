@@ -2,9 +2,9 @@ import * as path from "path"
 import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { createBabelLoader } from "../configurators/js"
+import { WebpackConfigurator } from "../main"
 import { WatchFilterPlugin } from "../plugins/WatchMatchPlugin"
 import { WebpackRemoveOldAssetsPlugin } from "../plugins/WebpackRemoveOldAssetsPlugin"
-import { WebpackConfigurator } from "../webpackConfigurator"
 
 export class BaseTarget {
   configureRules(configurator: WebpackConfigurator): void {
