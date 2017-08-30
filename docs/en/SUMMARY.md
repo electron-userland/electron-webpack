@@ -4,5 +4,7 @@
   * [Add-ons](add-ons.md)
   * [Configuration](configuration.md)
   * [Dependency Management](dependency-management.md)
+  * [Extending as a Library]()
 * [Project Structure](project-structure.md)
 * [Building]()
+* [Miscellaneous]()
