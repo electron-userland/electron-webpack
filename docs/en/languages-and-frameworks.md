@@ -34,7 +34,11 @@ declare module "*.vue" {
 
 `yarn add vue electron-webpack-vue --dev`
 
-Please note — [Chrome devtools extension for debugging Vue.js applications](https://github.com/vuejs/vue-devtools) is automatically installed in a dev mode. 
+Please note — [Chrome devtools extension for debugging Vue.js applications](https://github.com/vuejs/vue-devtools) is automatically installed in a dev mode.
+
+## React
+
+`yarn add babel-preset-react --dev`
 
 ## iView
 

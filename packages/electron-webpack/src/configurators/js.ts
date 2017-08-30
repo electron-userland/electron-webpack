@@ -2,15 +2,23 @@ import { gte } from "semver"
 import { WebpackConfigurator } from "../main"
 
 export function createBabelLoader(configurator: WebpackConfigurator) {
+  // better to use require instead of just preset sname to avoid babel resolving (in our test we set custom resolver - and only in case of explicit required it works)
+  const presets = [
+    [
+      require("babel-preset-env"), {
+      modules: false,
+      targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
+    }],
+  ]
+
+  if (configurator.hasDevDependency("babel-preset-react")) {
+    presets.push([require("babel-preset-react")])
+  }
+
   return {
     loader: "babel-loader",
     options: {
-      presets: [
-        [require("babel-preset-env"), {
-          modules: false,
-          targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
-        }],
-      ],
+      presets,
       plugins: [
         require("babel-plugin-syntax-dynamic-import"),
       ]

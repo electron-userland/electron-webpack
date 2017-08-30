@@ -21,12 +21,6 @@ test("nunjucks", async () => {
 
 test("sass", async () => {
   const projectDir = await getMutableProjectDir()
-  await writeJson(path.join(projectDir, "package.json"), {
-    name: "Test",
-    devDependencies: {
-      "nunjucks-loader": "*"
-    }
-  })
   await writeFile(path.join(projectDir, "src/renderer/file.scss"), `
   $font-stack:    Helvetica, sans-serif;
   $primary-color: #333;
@@ -41,4 +35,24 @@ test("sass", async () => {
   }})
 
   return await assertThat(testWebpack(configuration, projectDir)).throws(projectDir)
+})
+
+test("react", async () => {
+  const projectDir = await getMutableProjectDir()
+  await writeJson(path.join(projectDir, "package.json"), {
+    name: "Test",
+    devDependencies: {
+      "babel-preset-react": "*"
+    }
+  })
+  await writeFile(path.join(projectDir, "src/renderer/file.jsx"), `
+<MyButton color="blue" shadowSize={2}>
+  Click Me
+</MyButton>
+  `)
+  await writeFile(path.join(projectDir, "src/renderer/index.js"), 'import "./file.jsx"')
+  const configuration = require("electron-webpack/webpack.renderer.config.js")({production: true, configuration: {
+    projectDir,
+  }})
+  await assertThat(configuration).throws(projectDir)
 })

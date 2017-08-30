@@ -44,6 +44,8 @@ resolve 'nunjucks-loader' in '<project-dir>'
  @ multi <project-dir>/src/main/index.js"
 `;
 
+exports[`react 1`] = `"Cannot find module 'babel-preset-react' from 'js.js'"`;
+
 exports[`sass 1`] = `
 "<project-dir>/src/renderer/index.js
 Module not found: Error: Can't resolve 'sass-loader' in '<project-dir>'
