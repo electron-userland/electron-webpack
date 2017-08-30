@@ -22,10 +22,10 @@ my-project/
 Here you can add all of your `main` process code.
 
 ##### Renderer Process (`src/renderer/`) [optional]
-Here you can add all of your `renderer` process code. Notice that there isn't a entry `index.html`, that's because it is created for you ([more info]()).
+Here you can add all of your `renderer` process code. Bundling of the `renderer` process is optional for cases where you may want to use an external tool such as [`electron-next`](https://github.com/leo/electron-next). Notice that there isn't a entry `index.html`, that's because it is created for you ([more info]()).
 
 ##### Common Scripts (`src/common/`) [optional]
-This is a convenient single place where you can place utility type files that you expect to use between both processes. Thanks to `webpack` aliasing, you can easily import files from here using the `common` alias.
+This is a convenient place where you can place utility type files that you expect to use between both processes. Thanks to `webpack` aliasing, you can easily import files from here using the `common` alias.
 
 ##### Static Assets (`static/`) [optional]
 There are some instances were we may not want `webpack` to bundle particular assets, like those being consumed by modules like `fs`. Here is where we can put them and then reliably access them in both development and production ([more info]()).
