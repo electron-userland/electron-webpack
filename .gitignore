@@ -9,3 +9,6 @@ packages/electron-webpack/scheme.json
 # to not exclude .js.snap (jest snapshots)
 /test/out/**/*.js
 /test/out/**/*.map
+
+.idea/workspace.xml
+.idea/shelf/

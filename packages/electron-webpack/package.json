@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.25",
+    "@types/node": "^8.0.26",
     "@types/webpack": "^3.0.10"
   },
   "typings": "./out/main.d.ts"

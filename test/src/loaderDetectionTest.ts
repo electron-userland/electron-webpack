@@ -18,3 +18,27 @@ test("nunjucks", async () => {
 
   return await assertThat(testWebpack(configuration, projectDir)).throws(projectDir)
 })
+
+test("sass", async () => {
+  const projectDir = await getMutableProjectDir()
+  await writeJson(path.join(projectDir, "package.json"), {
+    name: "Test",
+    devDependencies: {
+      "nunjucks-loader": "*"
+    }
+  })
+  await writeFile(path.join(projectDir, "src/renderer/file.scss"), `
+  $font-stack:    Helvetica, sans-serif;
+  $primary-color: #333;
+  
+  body {
+    font: 100% $font-stack;
+    color: $primary-color;
+  }`)
+  await writeFile(path.join(projectDir, "src/renderer/index.js"), 'import "./file.scss"')
+  const configuration = await require("electron-webpack/webpack.renderer.config.js")({production: true, configuration: {
+    projectDir,
+  }})
+
+  return await assertThat(testWebpack(configuration, projectDir)).throws(projectDir)
+})

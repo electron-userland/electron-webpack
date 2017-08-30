@@ -46,6 +46,16 @@ export class BaseRendererTarget extends BaseTarget {
         })
       },
       {
+        test: /\.scss/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {loader: "css-loader"},
+            {loader: "sass-loader"}
+          ],
+          fallback: "style-loader"
+        })
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: "url-loader",
