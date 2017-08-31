@@ -12,8 +12,8 @@ export interface ElectronWebpackConfiguration {
   externals?: Array<string>
   electronVersion?: string
 
-  renderer?: ElectronWebpackConfigurationRenderer
-  main?: ElectronWebpackConfigurationMain
+  renderer?: ElectronWebpackConfigurationRenderer | null
+  main?: ElectronWebpackConfigurationMain | null
 
   commonSourceDirectory?: string | null
 

@@ -6,7 +6,7 @@
   "files": [],
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
-    "fork-ts-checker-webpack-plugin": "^0.2.7",
+    "fork-ts-checker-webpack-plugin": "^0.2.8",
     "ts-loader": "^2.3.4"
   },
   "peerDependencies": {
