@@ -38,8 +38,20 @@ Install the [TypeScript]() add-on, followed by adding the below file to shim Vue
 
 ##### `src/renderer/vue-shims.d.ts`
 ```ts
-declare modules '*.vue' {
+declare module '*.vue' {
   import Vue from 'vue'
   export default Vue
 }
+```
+
+And of course, make sure to let `vue-loader` know you want to use TypeScript in your component file using the `lang="ts"` attribute.
+
+```html
+<template></template>
+
+<script lang="ts">
+  /* your TypeScript code */
+</script>
+
+<style></style>
 ```
