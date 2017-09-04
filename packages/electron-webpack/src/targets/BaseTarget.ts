@@ -38,8 +38,8 @@ export class BaseTarget {
     }
 
     if (configurator.hasDevDependency("eslint") && configurator.hasDevDependency("eslint-loader")) {
-      let eslintRule: Rule = {
-        test: /\.(js|ts|vue)$/,
+      const eslintRule: Rule = {
+        test: /\.(jsx?|tsx?|vue)$/,
         enforce: "pre",
         exclude: /node_modules/,
         loader: "eslint-loader",

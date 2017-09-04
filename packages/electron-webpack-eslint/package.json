@@ -1,0 +1,14 @@
+{
+  "name": "electron-webpack-eslint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Greg Holguin <simulatedgreg@gmail.com>",
+  "files": [],
+  "repository": "electron-userland/electron-webpack",
+  "dependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.6.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0"
+  }
+}
