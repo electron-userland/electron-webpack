@@ -937,9 +937,9 @@ babel-preset-minify@^0.2.0:
     babel-plugin-transform-undefined-to-void "^6.8.3"
     lodash.isplainobject "^4.0.6"
 
-babel-preset-ts-node4-bluebird@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-ts-node4-bluebird/-/babel-preset-ts-node4-bluebird-0.1.0.tgz#7e3faa188d555436c8920d163de0925bbddab9c3"
+babel-preset-ts-node4-bluebird@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-ts-node4-bluebird/-/babel-preset-ts-node4-bluebird-0.1.1.tgz#72a3bb93b4ff026308844ca8d1d1ba587e30e7fd"
   dependencies:
     babel-plugin-array-includes "^2.0.3"
     babel-plugin-transform-async-to-module-method "^6.24.1"
@@ -5008,6 +5008,12 @@ source-map-support@^0.4.15, source-map-support@^0.4.16:
   dependencies:
     source-map "^0.5.6"
 
+source-map-support@^0.4.17:
+  version "0.4.17"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.17.tgz#6f2150553e6375375d0ccb3180502b78c18ba430"
+  dependencies:
+    source-map "^0.5.6"
+
 source-map@0.4.x, source-map@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
@@ -5328,9 +5334,9 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-babel@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-4.1.4.tgz#e3509370ad5bc16f91dffd426a709dcb52374065"
+ts-babel@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/ts-babel/-/ts-babel-4.1.5.tgz#b9b4f17b07e0aae012e9bca7aa64d43971a67c29"
   dependencies:
     babel-core "^6.26.0"
     bluebird-lst "^1.0.3"
@@ -5399,9 +5405,9 @@ type-is@~1.6.15:
     media-typer "0.3.0"
     mime-types "~2.1.15"
 
-typescript@^2.4.2:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.1.tgz#ce7cc93ada3de19475cc9d17e3adea7aee1832aa"
+typescript@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.5.2.tgz#038a95f7d9bbb420b1bf35ba31d4c5c1dd3ffe34"
 
 typescript@~2.4.1:
   version "2.4.2"

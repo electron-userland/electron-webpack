@@ -129,6 +129,6 @@ function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const alienSourceDir = configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
 
   configurator.plugins.push(new WatchFilterPlugin(file => {
-    return file === commonSourceDir || (isAncestor(file, commonSourceDir!!) && !file.startsWith(alienSourceDir))
+    return file === commonSourceDir || (isAncestor(file, commonSourceDir!!) && (alienSourceDir != null && !file.startsWith(alienSourceDir)))
   }, require("debug")(`electron-webpack:watch-${configurator.type}`)))
 }
