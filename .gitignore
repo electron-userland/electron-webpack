@@ -12,3 +12,5 @@ packages/electron-webpack/scheme.json
 
 .idea/workspace.xml
 .idea/shelf/
+
+/CHANGELOG.md

@@ -40,7 +40,7 @@ export interface ElectronWebpackConfigurationMain extends PartConfiguration {
 }
 
 export interface ConfigurationEnv {
-  production?: boolean | "true" | "false"
+  production?: boolean
   autoClean?: boolean
 
   minify?: boolean
