@@ -127,7 +127,7 @@ export class WebpackConfigurator {
   }
 
   get commonDistDirectory() {
-    return path.join(this.projectDir, "dist")
+    return path.join(this.projectDir, this.electronWebpackConfiguration.distDirectory || "dist")
   }
 
   hasDependency(name: string) {
