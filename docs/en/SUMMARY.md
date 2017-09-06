@@ -3,6 +3,7 @@
 * [Development](development.md)
   * [Add-ons](add-ons.md)
   * [Configuration](configuration.md)
+  * [CLI Commands](cli-commands.md)
   * [Extending as a Library]()
 * [Project Structure](project-structure.md)
 * [Building]()
