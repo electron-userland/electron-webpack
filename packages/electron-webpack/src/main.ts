@@ -9,6 +9,7 @@ import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
+import { configureReact } from "./configurators/react/react"
 import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, PackageMetadata, PartConfiguration } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
@@ -186,6 +187,7 @@ export class WebpackConfigurator {
     target.configureRules(this)
     await BluebirdPromise.all([target.configurePlugins(this), configureTypescript(this)])
     configureVue(this)
+    configureReact(this)
 
     if (this.debug.enabled) {
       this.debug(`\n\n${this.type} config:` + JSON.stringify(this.config, null, 2) + "\n\n")
