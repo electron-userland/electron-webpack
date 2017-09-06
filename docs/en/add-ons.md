@@ -7,8 +7,9 @@ These add-ons are completely optional and may not support all use cases. If you 
 **Current Add-ons**
 * [JavaScript Frameworks]()
   * [Vue.js]()
-  * [React]()
+  * [React JSX]()
 * [Pre-processors]()
+  * [ESLint]()
   * [TypeScript]()
   * [Less]()
   * [Sass/SCSS]()
@@ -54,7 +55,25 @@ And of course, make sure to let `vue-loader` know you want to use TypeScript in 
 <style></style>
 ```
 
-### React
+#### Adding ESLint support
+Install the [ESLint]() add-on, install `eslint-plugin-html`, and add the following additional configurations.
+
+#### Install `html` plugin to lint Vue component files
+```bash
+yarn add -D eslint-plugin-html
+```
+
+#### `.eslintrc.js`
+```js
+module.exports = {
+  parser: 'babel-eslint',
+  plugins: [
+    'html'
+  ]
+}
+```
+
+### React JSX
 Add support for compiling JSX files.
 
 ```bash
@@ -64,6 +83,33 @@ yarn add -D babel-preset-react
 ---
 
 ## Pre-processors
+
+### ESLint
+Add support for script file linting using `eslint`. Internally uses `eslint`, `eslint-loader`, `eslint-friendly-formatter`, and makes `babel-eslint` available if needed.
+
+##### Install
+```bash
+yarn add -D electron-webpack-eslint
+```
+
+##### Create `.eslintrc.js` in root directory
+```js
+module.exports = {
+  /* your base configuration of choice */
+  extends: 'eslint:recommended',
+
+  parserOptions: {
+    sourceType: 'module'
+  },
+  env: {
+    browser: true,
+    node: true
+  },
+  globals: {
+    __static: true
+  }
+}
+```
 
 ### TypeScript
 Add support for compiling TypeScript script files. Internally uses both `ts-loader` and `fork-ts-checker-webpack-plugin` to compile `*.ts`. Note that entry files can also use the `*.ts` extension.
