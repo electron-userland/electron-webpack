@@ -16,16 +16,16 @@ Here are some of the awesome features you'll find using `electron-webpack`...
 * Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
 * HMR for both `renderer` and `main` processes
 * Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
-* Support for pre-proccessors like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), & [EJS](http://www.embeddedjs.com/)
+* Add-ons to support items like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), [EJS](http://www.embeddedjs.com/), etc.
 
 ## Quick Start
 Get started fast with [electron-webpack-quick-start](repoLink).
 ```bash
 # copy template using curl
-curl -fsSL [repoLink]/archive/master.tar.gz | tar -xz --strip-components 1
+curl -fsSL https://github.com/electron-userland/electron-webpack-quick-start/archive/master.tar.gz | tar -xz --strip-components 1
 
 # or copy template using git clone
-git clone [repoLink]
+git clone https://github.com/electron-userland/electron-webpack-quick-start.git
 cd electron-webpack-quick-start
 rm -rf .git
 
