@@ -9,7 +9,7 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
   }
 
   // add after js
-  configurator.extensions.splice(1, 0, ".ts")
+  configurator.extensions.splice(1, 0, ".ts", ".tsx")
 
   const isTranspileOnly = configurator.isTest || (hasTsChecker && !configurator.isProduction)
 
