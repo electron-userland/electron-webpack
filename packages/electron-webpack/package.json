@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -26,7 +26,7 @@
     "bluebird-lst": "^1.0.3",
     "chalk": "^2.1.0",
     "crocket": "^0.9.11",
-    "css-loader": "^0.28.5",
+    "css-loader": "^0.28.7",
     "debug": "^3.0.1",
     "electron-devtools-installer": "^2.2.0",
     "electron-webpack-js": "^1.0.3",
@@ -39,7 +39,7 @@
     "node-loader": "^0.6.0",
     "read-config-file": "^1.1.0",
     "semver": "^5.4.1",
-    "source-map-support": "^0.4.16",
+    "source-map-support": "^0.4.17",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "virtual-module-webpack-plugin": "^0.3.0",
@@ -52,8 +52,11 @@
   "devDependencies": {
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.25",
+    "@types/node": "^8.0.26",
     "@types/webpack": "^3.0.10"
   },
-  "typings": "./out/main.d.ts"
+  "typings": "./out/main.d.ts",
+  "publishConfig": {
+     "tag": "next"
+   }
 }

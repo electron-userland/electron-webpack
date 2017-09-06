@@ -17,6 +17,7 @@ If you've been in the JavaScript world for even a short period of time, you are 
 2. `yarn add source-map-support`
 3. Install support for various [languages and frameworks](https://webpack.electron.build/languages-and-frameworks) —
 [TypeScript](https://webpack.electron.build/languages-and-frameworks#typescript),
+[React](https://webpack.electron.build/languages-and-frameworks#react),
 [Vue.js](https://webpack.electron.build/languages-and-frameworks#vuejs),
 [Less](https://webpack.electron.build/languages-and-frameworks#less) if need.
 

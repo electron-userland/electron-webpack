@@ -1,5 +1,5 @@
 import * as path from "path"
-import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
+import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, Rule, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { createBabelLoader } from "../configurators/js"
 import { WebpackConfigurator } from "../main"
@@ -35,6 +35,24 @@ export class BaseTarget {
         test: /\.(njk|nunjucks)$/,
         loader: "nunjucks-loader"
       })
+    }
+
+    if (configurator.hasDevDependency("eslint") && configurator.hasDevDependency("eslint-loader")) {
+      const eslintRule: Rule = {
+        test: /\.(jsx?|tsx?|vue)$/,
+        enforce: "pre",
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          cwd: configurator.projectDir
+        }
+      }
+
+      if (configurator.hasDevDependency("eslint-friendly-formatter") && eslintRule.options) {
+        eslintRule.options.formatter = require("eslint-friendly-formatter")
+      }
+
+      rules.push(eslintRule)
     }
   }
 
@@ -129,6 +147,6 @@ function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const alienSourceDir = configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
 
   configurator.plugins.push(new WatchFilterPlugin(file => {
-    return file === commonSourceDir || (isAncestor(file, commonSourceDir!!) && !file.startsWith(alienSourceDir))
+    return file === commonSourceDir || (isAncestor(file, commonSourceDir!!) && (alienSourceDir != null && !file.startsWith(alienSourceDir)))
   }, require("debug")(`electron-webpack:watch-${configurator.type}`)))
 }

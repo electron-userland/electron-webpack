@@ -43,3 +43,49 @@ resolve 'nunjucks-loader' in '<project-dir>'
  @ <project-dir>/src/main/index.js 1:0-20
  @ multi <project-dir>/src/main/index.js"
 `;
+
+exports[`react 1`] = `"Cannot find module 'babel-preset-react' from 'js.js'"`;
+
+exports[`sass 1`] = `
+"<project-dir>/src/renderer/index.js
+Module not found: Error: Can't resolve 'sass-loader' in '<project-dir>'
+resolve 'sass-loader' in '<project-dir>'
+  Parsed request is a module
+  using description file: <project-dir>/package.json (relative path: .)
+  after using description file: <project-dir>/package.json (relative path: .)
+    resolve as module
+      looking for modules in <root-dir>/node_modules
+        using description file: <root-dir>/package.json (relative path: ./node_modules)
+        after using description file: <root-dir>/package.json (relative path: ./node_modules)
+          using description file: <root-dir>/package.json (relative path: ./node_modules/sass-loader)
+            no extension
+              <root-dir>/node_modules/sass-loader doesn't exist
+            .js
+              <root-dir>/node_modules/sass-loader.js doesn't exist
+            .json
+              <root-dir>/node_modules/sass-loader.json doesn't exist
+            as directory
+              <root-dir>/node_modules/sass-loader doesn't exist
+      looking for modules in <root-dir>/packages/electron-webpack/node_modules
+        using description file: <root-dir>/packages/electron-webpack/package.json (relative path: ./node_modules)
+        after using description file: <root-dir>/packages/electron-webpack/package.json (relative path: ./node_modules)
+          using description file: <root-dir>/packages/electron-webpack/package.json (relative path: ./node_modules/sass-loader)
+            no extension
+              <root-dir>/packages/electron-webpack/node_modules/sass-loader doesn't exist
+            .js
+              <root-dir>/packages/electron-webpack/node_modules/sass-loader.js doesn't exist
+            .json
+              <root-dir>/packages/electron-webpack/node_modules/sass-loader.json doesn't exist
+            as directory
+              <root-dir>/packages/electron-webpack/node_modules/sass-loader doesn't exist
+[<root-dir>/node_modules/sass-loader]
+[<root-dir>/node_modules/sass-loader.js]
+[<root-dir>/node_modules/sass-loader.json]
+[<root-dir>/node_modules/sass-loader]
+[<root-dir>/packages/electron-webpack/node_modules/sass-loader]
+[<root-dir>/packages/electron-webpack/node_modules/sass-loader.js]
+[<root-dir>/packages/electron-webpack/node_modules/sass-loader.json]
+[<root-dir>/packages/electron-webpack/node_modules/sass-loader]
+ @ <project-dir>/src/renderer/index.js 1:0-21
+ @ multi <project-dir>/src/renderer/index.js"
+`;
