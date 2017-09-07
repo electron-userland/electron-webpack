@@ -44,6 +44,10 @@ Please note — [Chrome devtools extension for debugging Vue.js applications](ht
 
 "Import on demand" feature is supported out of the box.
 
+## ESLint
+
+`yarn add electron-webpack-eslint --dev`
+
 ## Less
 
 `yarn add less-loader less --dev`

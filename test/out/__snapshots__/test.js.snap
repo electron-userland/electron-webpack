@@ -16,8 +16,8 @@ Child
          index.html  335 bytes          [emitted]  
        [0] multi <project-dir>/src/renderer/index.js 28 bytes {0} [built]
        [1] <project-dir>/src/renderer/index.js 33 bytes {0} [built]
-       [2] <project-dir>/src/renderer/style.css 41 bytes {0} [built]
-       [3] ./node_modules/css-loader!<project-dir>/src/renderer/style.css 305 bytes [built]
+       [2] <project-dir>/src/renderer/style.css {0} [built]
+       [3] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
        [4] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
        [5] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
        [6] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
@@ -25,8 +25,8 @@ Child
              Asset     Size  Chunks  Chunk Names
         index.html  2.78 kB       0  
            [0] ./node_modules/html-loader?minimize=false!/__virtual__/renderer-index.html 278 bytes {0} [built]
-    Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!../../../..<project-dir>/src/renderer/style.css:
-           [0] ./node_modules/css-loader!<project-dir>/src/renderer/style.css 305 bytes {0} [built]
+    Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!<project-dir>/src/renderer/style.css:
+           [0] ./node_modules/css-loader!<project-dir>/src/renderer/style.css {0} [built]
            [1] ./node_modules/css-loader/lib/css-base.js 2.26 kB {0} [built]"
 `;
 
@@ -37,7 +37,7 @@ Object {
       "main.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap e495c57a2e552999bcc6\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
     "renderer": Object {
       "index.html": "
@@ -59,7 +59,7 @@ module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]=
 </html>",
       "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d)},function(){}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap b6bd415916c53105ad65\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
@@ -86,11 +86,11 @@ Object {
       "foo.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=2)}({2:function(){console.log('hi')}});
 //# sourceMappingURL=foo.js.map",
-      "foo.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap add17a426898260346d2\\",\\"webpack:///./customMain/foo.js\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2BC7DA,QAAQ,IAAI\\",\\"file\\":\\"foo.js\\",\\"sourceRoot\\":\\"\\"}",
+      "foo.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./customMain/foo.js\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2BC7DA,QAAQ,IAAI\\",\\"file\\":\\"foo.js\\",\\"sourceRoot\\":\\"\\"}",
       "main.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap add17a426898260346d2\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
@@ -111,7 +111,7 @@ Object {
       "main.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap e495c57a2e552999bcc6\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
@@ -126,8 +126,8 @@ renderer.js.map  436 bytes       0  [emitted]  renderer
      index.html  335 bytes          [emitted]  
    [0] multi <project-dir>/customRenderer/index.js 28 bytes {0} [built]
    [1] <project-dir>/customRenderer/index.js 33 bytes {0} [built]
-   [2] <project-dir>/customRenderer/style.css 41 bytes {0} [built]
-   [3] ./node_modules/css-loader!<project-dir>/customRenderer/style.css 302 bytes [built]
+   [2] <project-dir>/customRenderer/style.css {0} [built]
+   [3] ./node_modules/css-loader!<project-dir>/customRenderer/style.css [built]
    [4] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
    [5] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
    [6] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
@@ -135,8 +135,8 @@ Child html-webpack-plugin for \\"index.html\\":
          Asset     Size  Chunks  Chunk Names
     index.html  2.78 kB       0  
        [0] ./node_modules/html-loader?minimize=false!/__virtual__/renderer-index.html 278 bytes {0} [built]
-Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!../../../..<project-dir>/customRenderer/style.css:
-       [0] ./node_modules/css-loader!<project-dir>/customRenderer/style.css 302 bytes {0} [built]
+Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!<project-dir>/customRenderer/style.css:
+       [0] ./node_modules/css-loader!<project-dir>/customRenderer/style.css {0} [built]
        [1] ./node_modules/css-loader/lib/css-base.js 2.26 kB {0} [built]"
 `;
 
@@ -163,7 +163,7 @@ Object {
 </html>",
       "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d)},function(){}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap 9391af68cb1cdc357b51\\",\\"webpack:///./customRenderer/index.js\\",\\"webpack:///./customRenderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./customRenderer/index.js\\",\\"webpack:///./customRenderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
@@ -181,8 +181,8 @@ renderer.js.map  432 bytes       0  [emitted]  renderer
      index.html  335 bytes          [emitted]  
    [0] multi <project-dir>/src/renderer/index.js 28 bytes {0} [built]
    [1] <project-dir>/src/renderer/index.js 33 bytes {0} [built]
-   [2] <project-dir>/src/renderer/style.css 41 bytes {0} [built]
-   [3] ./node_modules/css-loader!<project-dir>/src/renderer/style.css 305 bytes [built]
+   [2] <project-dir>/src/renderer/style.css {0} [built]
+   [3] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
    [4] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
    [5] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
    [6] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
@@ -190,8 +190,8 @@ Child html-webpack-plugin for \\"index.html\\":
          Asset     Size  Chunks  Chunk Names
     index.html  2.78 kB       0  
        [0] ./node_modules/html-loader?minimize=false!/__virtual__/renderer-index.html 278 bytes {0} [built]
-Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!../../../..<project-dir>/src/renderer/style.css:
-       [0] ./node_modules/css-loader!<project-dir>/src/renderer/style.css 305 bytes {0} [built]
+Child extract-text-webpack-plugin node_modules/extract-text-webpack-plugin/dist node_modules/css-loader/index.js!<project-dir>/src/renderer/style.css:
+       [0] ./node_modules/css-loader!<project-dir>/src/renderer/style.css {0} [built]
        [1] ./node_modules/css-loader/lib/css-base.js 2.26 kB {0} [built]"
 `;
 
@@ -218,7 +218,7 @@ Object {
 </html>",
       "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d)},function(){}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap b6bd415916c53105ad65\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2IC3DQ,gBCFR\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
@@ -242,7 +242,7 @@ Object {
       "main.js": "require(\\"source-map-support/source-map-support.js\\").install();
 module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(){'use strict'}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap 2404dd5ee2759bb96058\\",\\"webpack:///./src/main/index.ts\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,yDC3DC\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/main/index.ts\\"],\\"names\\":[],\\"mappings\\":\\";0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,yDC3DC\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
