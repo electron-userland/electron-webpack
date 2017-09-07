@@ -1,5 +1,5 @@
 import * as path from "path"
-import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, Rule, optimize } from "webpack"
+import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, EnvironmentPlugin, Rule, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { createBabelLoader } from "../configurators/js"
 import { WebpackConfigurator } from "../main"
@@ -86,6 +86,11 @@ export class BaseTarget {
     }
 
     plugins.push(new NoEmitOnErrorsPlugin())
+
+    const additionalEnvironmentVariables = Object.keys(process.env).filter(it => it.startsWith("ELECTRON_WEBPACK_APP_"))
+    if (additionalEnvironmentVariables.length > 0) {
+      plugins.push(new EnvironmentPlugin(additionalEnvironmentVariables))
+    }
   }
 }
 
