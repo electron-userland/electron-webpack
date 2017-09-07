@@ -86,8 +86,8 @@ export class BaseTarget {
     }
 
     plugins.push(new NoEmitOnErrorsPlugin())
-    
-    const additionalEnvironmentVariables = Object.keys(process.env).filter(key => /^ELECTRON_WEBPACK_APP_.+$/.test(key));
+
+    const additionalEnvironmentVariables = Object.keys(process.env).filter(key => /^ELECTRON_WEBPACK_APP_.+$/.test(key))
     if (additionalEnvironmentVariables.length) {
       plugins.push(new EnvironmentPlugin(additionalEnvironmentVariables))
     }
