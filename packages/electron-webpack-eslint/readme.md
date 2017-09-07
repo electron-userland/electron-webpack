@@ -1,8 +1,7 @@
 # electron-webpack-eslint
 
-`eslint` preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
+ESLint preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
 
 ### Install
-```bash
-yarn add -D electron-webpack-eslint
-```
+
+Please see [ESLint](https://webpack.electron.build/languages-and-frameworks#eslint).

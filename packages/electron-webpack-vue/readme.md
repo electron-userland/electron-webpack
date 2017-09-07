@@ -4,4 +4,4 @@ Vue.js preset for [electron-webpack](https://github.com/electron-userland/electr
 
 ## Install
 
-`yarn add vue electron-webpack-vue --dev`
+Please see [Vue.js](https://webpack.electron.build/languages-and-frameworks#vuejs).

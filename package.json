@@ -9,10 +9,12 @@
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && npm publish packages/electron-webpack && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "yarn compile && yarn lint && jest",
-    "docs": "gitbook build && ./docs/publish.sh",
+    "docs": "gitbook && ./docs/publish.sh",
+    "serve-docs": "gitbook && http-server _book -c-1",
     "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required"
   },
   "devDependencies": {
+    "@develar/gitbook": "3.2.6",
     "@types/jest": "^20.0.8",
     "@types/memory-fs": "^0.3.0",
     "babel-preset-ts-node4-bluebird": "^0.1.1",
