@@ -49,12 +49,6 @@
   "peerDependencies": {
     "webpack": "^3.5.3"
   },
-  "devDependencies": {
-    "@types/chalk": "^0.4.31",
-    "@types/electron-devtools-installer": "^2.0.2",
-    "@types/node": "^8.0.27",
-    "@types/webpack": "^3.0.10"
-  },
   "typings": "./out/main.d.ts",
   "publishConfig": {
      "tag": "next"

@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+    build:
+      docker:
+        - image: circleci/node:8.4.0
+          environment:
+            JEST_JUNIT_OUTPUT: ./test-reports/test.xml
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - dependencies-{{ checksum "yarn.lock" }}
+        - run:
+            command: yarn
+        - save_cache:
+            key: dependencies-{{ checksum "yarn.lock" }}
+            paths:
+              - node_modules
+        - run:
+            command: yarn test -- --ci --testResultsProcessor="jest-junit"
+        - store_test_results:
+            path: test-reports

@@ -1,4 +1,4 @@
-# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
+# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://yarn.pm/electron-webpack)
 
 Configurations and scripts to compile Electron applications.
 

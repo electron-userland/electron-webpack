@@ -1,6 +1,7 @@
 import * as path from "path"
-import { DefinePlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, EnvironmentPlugin, Rule, optimize } from "webpack"
+import { DefinePlugin, EnvironmentPlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
 import { configureDll } from "../configurators/dll"
+import { configureEslint } from "../configurators/eslint"
 import { createBabelLoader } from "../configurators/js"
 import { WebpackConfigurator } from "../main"
 import { WatchFilterPlugin } from "../plugins/WatchMatchPlugin"
@@ -37,23 +38,7 @@ export class BaseTarget {
       })
     }
 
-    if (configurator.hasDevDependency("eslint") && configurator.hasDevDependency("eslint-loader")) {
-      const eslintRule: Rule = {
-        test: /\.(jsx?|tsx?|vue)$/,
-        enforce: "pre",
-        exclude: /node_modules/,
-        loader: "eslint-loader",
-        options: {
-          cwd: configurator.projectDir
-        }
-      }
-
-      if (configurator.hasDevDependency("eslint-friendly-formatter") && eslintRule.options) {
-        eslintRule.options.formatter = require("eslint-friendly-formatter")
-      }
-
-      rules.push(eslintRule)
-    }
+    configureEslint(configurator)
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
