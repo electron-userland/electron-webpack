@@ -8,7 +8,7 @@
   <!-- * [Extending as a Library]() -->
   * [Using Static Assets](using-static-assets.md)
 * [Project Structure](project-structure.md)
-* [Building]()
+* [Building](building.md)
 * [Miscellaneous]()
   * [Dependency Management](dependency-management.md)
   * [Technical Difference of `electron-compile`](technical-differences-of-electron-compile.md)
