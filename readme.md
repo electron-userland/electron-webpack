@@ -33,7 +33,7 @@ rm -rf .git
 yarn
 ```
 
-If you are already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts](./core-concepts.md), [Project Structure](./project-structure.md), and [Development](./development.md) sections of `electron-webpack`'s documentaiton.
+If you already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts](https://webpack.electron.build/core-concepts), [Project Structure](https://webpack.electron.build/project-structure), and [Development](https://webpack.electron.build/development) sections of `electron-webpack`'s documentaiton.
 
 ### Next Steps
 Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, adding custom configurations, and building your application.
