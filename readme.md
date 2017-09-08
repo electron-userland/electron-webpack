@@ -19,7 +19,7 @@ Here are some of the awesome features you'll find using `electron-webpack`...
 * [Add-ons](./add-ons.md) to support items like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), [EJS](http://www.embeddedjs.com/), etc.
 
 ## Quick Start
-Get started fast with [electron-webpack-quick-start](repoLink).
+Get started fast with [electron-webpack-quick-start](https://github.com/electron-userland/electron-webpack-quick-start).
 ```bash
 # copy template using curl
 curl -fsSL https://github.com/electron-userland/electron-webpack-quick-start/archive/master.tar.gz | tar -xz --strip-components 1

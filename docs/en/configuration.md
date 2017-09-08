@@ -70,7 +70,7 @@ For those situtations where you need additional [entry points](https://webpack.j
 Note that you can use the `@` alias to reference your `main.sourceDirectory`.
 
 ### Dll bundle splitting
-If you are unfamiliar with the `webpack.DllPlugin` plugin, make sure to read its [documenation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
+See [Dll Bundle Splitting](./dll-bundle-splitting.md) for more info.
 
 ```json
 "electronWebpack": {

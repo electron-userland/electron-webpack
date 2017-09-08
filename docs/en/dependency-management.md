@@ -16,6 +16,30 @@ These dependecies **will not** be included in your final production application.
 
 ### Installing Native Node Modules
 
-When using native node modules, those written in C/C++, we need to ensure they are built against `electron`'s packaged `node` version. We can use [`electron-rebuild`](https://github.com/electron/electron-rebuild) to rebuild any modules causing conflicts during development.
+When using native node modules, those written in C/C++, we need to ensure they are built against `electron`'s packaged `node` version. We can use [`electron-builder`](https://www.electron.build/cli)'s `install-app-deps` command to rebuild those modules to resolve any conflicts we might run into.
 
-If you do expect to use native node modules, it is highly recommened to use [`electron-builder`](https://github.com/electron-userland/electron-builder) for your build tool as it handles these conflicts for you during the build step.
+##### Running `install-app-deps`
+```bash
+yarn add electron-builder --dev
+./node_modules/.bin/electron-builder install-app-deps
+```
+
+It may also be worth adding a `package.json` script for this command if you plan on using it often (`yarn rebuild-deps`).
+
+```json
+{
+  "scripts": {
+    "rebuild-deps": "electron-builder install-app-deps"
+  }
+}
+```
+
+If you choose not to use `electron-builder` as your build tool, you can still run the command using `npx` without side affects.
+
+```bash
+# Using `npm@^5.2.0`
+npx electron-builder install-app-deps
+```
+
+#### Final Notes
+If you do expect your application to use native node modules, it is **highly recommened** to use [`electron-builder`](https://github.com/electron-userland/electron-builder) for your build tool as it handles these conflicts for you during the build step.
