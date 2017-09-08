@@ -30,6 +30,7 @@
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-github-buttons": "^2.1.0",
+    "http-server": "^0.10.0",
     "jest-cli": "^21.0.1",
     "jest-junit": "^3.0.0",
     "memory-fs": "^0.4.1",

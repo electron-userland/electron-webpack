@@ -2,27 +2,27 @@
 
 Although `electron-webpack` is provided as a single module, you can also install add-ons. Add-ons are made available to help setup certain frameworks that may require a lot of extra configuration or dependencies, such as TypeScript or Vue.js.
 
-These add-ons are completely optional and may not support all use cases. If you need something more custom, please know that the entirety of `webpack`'s documenation still applies to `electron-webpack` ([more info]()).
+These add-ons are completely optional and may not support all use cases. If you need something more custom, please know that the entirety of `webpack`'s documenation still applies to `electron-webpack` ([more info](./extending-as-a-library.md)).
 
 **Current Add-ons**
-* [JavaScript Frameworks]()
-  * [Vue.js]()
-  * [React JSX]()
-* [Pre-processors]()
-  * [ESLint]()
-  * [TypeScript]()
-  * [Less]()
-  * [Sass/SCSS]()
-  * [EJS]()
-  * [Nunjucks]()
-* [UI Libraries]()
-  * [iView]()
-* [Miscellaneous]()
-  * [Build Notifications]()
+* [JavaScript Frameworks](#javascript-frameworks)
+  * [Vue.js](#vuejs)
+  * [React JSX](#react-jsx)
+* [Pre-processors](#pre-processors)
+  * [ESLint](#eslint)
+  * [TypeScript](#typescript)
+  * [Less](#less)
+  * [Sass/SCSS](#sassscss)
+  * [EJS](#ejs)
+  * [Nunjucks](#nunjucks)
+* [UI Libraries](#ui-libraries)
+  * [iView](#iview)
+* [Miscellaneous](#miscellaneous)
+  * [Build Notifications](#build-notifications)
 
 ---
 
-## JavsScript Frameworks
+## JavaScript Frameworks
 
 ### Vue.js
 Adds support for Vue component files through the use of `vue-loader`. In addition, `vue-devtools` will also be installed for development purposes.
@@ -33,7 +33,7 @@ yarn add vue electron-webpack-vue --dev
 ```
 
 #### Adding TypeScript support
-Install the [TypeScript]() add-on, followed by adding the below file to shim Vue component files.
+Install the [TypeScript](#typescript) add-on, followed by adding the below file to shim Vue component files.
 
 #### `src/renderer/vue-shims.d.ts`
 ```ts
@@ -56,7 +56,7 @@ And of course, make sure to let `vue-loader` know you want to use TypeScript in 
 ```
 
 #### Adding ESLint support
-Install the [ESLint]() add-on, install `eslint-plugin-html`, and add the following additional configurations.
+Install the [ESLint](#eslint) add-on, install `eslint-plugin-html`, and add the following additional configurations.
 
 #### Install `html` plugin to lint Vue component files
 ```bash
@@ -163,7 +163,7 @@ yarn add nunjucks nunjucks-loader --dev
 ## UI Libraries
 
 ### iView
-Once you have the [Vue.js]() add-on installed, `electron-webpack` will internally support iView's "import on demand" feature. No further setup is necessary.
+Once you have the [Vue.js](#vuejs) add-on installed, `electron-webpack` will internally support iView's "import on demand" feature. No further setup is necessary.
 
 ---
 

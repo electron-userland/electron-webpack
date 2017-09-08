@@ -43,7 +43,7 @@ yarn dev
 Webpack HMR has been setup to support both the `renderer` and `main` process. This allows for faster development ensuring your application is only restarted when neccessary.
 
 ##### Bundling for both `renderer` and `main` processes
-`webpack` is already setup to have an entry point for each process. In addition, you can also easily add further entry points to the `main` process when needed. In the other cases where you just need support for the `main` process, you can even skip the `renderer` process when needed ([more info](./configuration.md)).
+`webpack` is already setup to have an entry point for each process. In addition, you can also easily add further entry points to the `main` process when needed. In the other cases where you just need support for the `main` process, you can even skip the `renderer` process when needed ([more info](./configuration.md#source-directories)).
 
 ##### Use of `html-webpack-plugin`
 You might notice that you don't need an `index.html` to get started on your application. That's because it is created for you, as it adds in a few extra configruations needed for the `electron` environment. If you are creating an `electron` application with `webpack`, you are most likely creating a Single Page Application anyways. So because of that, there is already a `<div id="app"></div>` provided in the markup that you can mount your application onto.

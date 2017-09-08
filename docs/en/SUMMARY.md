@@ -5,7 +5,7 @@
   * [Configuration](configuration.md)
   * [CLI Commands](cli-commands.md)
   * [Environment Variables](environment-variables.md)
-  <!-- * [Extending as a Library]() -->
+  * [Extending as a Library](extending-as-a-library.md)
   * [Using Static Assets](using-static-assets.md)
 * [Project Structure](project-structure.md)
 * [Building](building.md)

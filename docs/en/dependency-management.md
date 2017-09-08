@@ -16,6 +16,6 @@ These dependecies **will not** be included in your final production application.
 
 ### Installing Native Node Modules
 
-When using native node modules, those written in C/C++, we need to ensure they are built against `electron`'s packaged `node` version. We can use [`electron-rebuild`](https://github.com/electron/electron-rebuild) to rebuild any modules causing conflicts.
+When using native node modules, those written in C/C++, we need to ensure they are built against `electron`'s packaged `node` version. We can use [`electron-rebuild`](https://github.com/electron/electron-rebuild) to rebuild any modules causing conflicts during development.
 
 If you do expect to use native node modules, it is highly recommened to use [`electron-builder`](https://github.com/electron-userland/electron-builder) for your build tool as it handles these conflicts for you during the build step.

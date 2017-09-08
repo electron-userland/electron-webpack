@@ -12,4 +12,4 @@ You can take use of a few useful commands such as running in development and com
 By using `electron-webpack` you are **not** restricted to any sort of API abstraction of `webpack`. Although there are [Add-ons](./add-ons.md) made available to simplify smaller tasks, the entirety of `webpack`'s documentation is fully applicable ([more info](./extending-as-a-library.md)).
 
 #### `electron-webpack` is agnostic
-Aside from setting up core `webpack` configurations with `babel-preset-env` and making optimizations specific to the `electron` environment, `electron-webpack` does its best to not impose or encourage any sort of project structure or build cycle. Just as stated above, this is a module and can be used as tool outside of its CLI.
+Aside from setting up core `webpack` configurations with `babel-preset-env` and making optimizations specific to the `electron` environment, `electron-webpack` does its best to not impose or encourage any sort of project structure or build cycle. Just as stated before, this is a module and can be used as tool outside of its CLI.
