@@ -29,7 +29,7 @@ Adds support for Vue component files through the use of `vue-loader`. In additio
 
 ##### Install
 ```bash
-yarn add -D vue electron-webpack-vue
+yarn add vue electron-webpack-vue --dev
 ```
 
 #### Adding TypeScript support
@@ -60,13 +60,12 @@ Install the [ESLint]() add-on, install `eslint-plugin-html`, and add the followi
 
 #### Install `html` plugin to lint Vue component files
 ```bash
-yarn add -D eslint-plugin-html
+yarn add eslint-plugin-html --dev
 ```
 
 #### `.eslintrc.js`
 ```js
 module.exports = {
-  parser: 'babel-eslint',
   plugins: [
     'html'
   ]
@@ -77,7 +76,7 @@ module.exports = {
 Add support for compiling JSX files.
 
 ```bash
-yarn add -D babel-preset-react
+yarn add babel-preset-react --dev
 ```
 
 ---
@@ -89,7 +88,7 @@ Add support for script file linting using `eslint`. Internally uses `eslint`, `e
 
 ##### Install
 ```bash
-yarn add -D electron-webpack-eslint
+yarn add electron-webpack-eslint --dev
 ```
 
 ##### Create `.eslintrc.js` in root directory
@@ -98,6 +97,7 @@ module.exports = {
   /* your base configuration of choice */
   extends: 'eslint:recommended',
 
+  parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'
   },
@@ -116,7 +116,7 @@ Add support for compiling TypeScript script files. Internally uses both `ts-load
 
 ##### Install
 ```bash
-yarn add -D typescript electron-webpack-ts
+yarn add typescript electron-webpack-ts --dev
 ```
 
 #### Create `tsconfig.json` in root directory
@@ -131,7 +131,7 @@ Add support for compiling Less style files.
 
 ##### Install
 ```bash
-yarn add -D less less-loader
+yarn add less less-loader --dev
 ```
 
 ### Sass/SCSS
@@ -139,7 +139,7 @@ Add support for compiling Sass/SCSS style files.
 
 ##### Install
 ```bash
-yarn add -D node-sass sass-loader
+yarn add node-sass sass-loader --dev
 ```
 
 ### EJS
@@ -147,7 +147,7 @@ Add support for compiling EJS template files.
 
 ##### Install
 ```bash
-yarn add -D ejs ejs-html-loader
+yarn add ejs ejs-html-loader --dev
 ```
 
 ### Nunjucks
@@ -155,7 +155,7 @@ Add support for compiling Nunjucks template files.
 
 ##### Install
 ```bash
-yarn add -D nunjucks nunjucks-loader
+yarn add nunjucks nunjucks-loader --dev
 ```
 
 ---
@@ -170,9 +170,9 @@ Once you have the [Vue.js]() add-on installed, `electron-webpack` will internall
 ## Miscellaneous
 
 ### Build Notifications
-Provide OS-level notifications on the `webpack` build.
+Provide OS-level notifications from `webpack` during development.
 
 ##### Install
 ```bash
-yarn add -D webpack-build-notifier
+yarn add webpack-build-notifier --dev
 ```

@@ -15,4 +15,4 @@ Internally, `electron-webpack` takes advantage of [`happypack`](https://github.c
 ### Webpack Community
 When using `electron-compile` you are limited to a specific set of features. Sure you have most of the important ones covered, you just don't get an amazing and large community that `webpack` can provide. There are countless loaders and plugins to cover just about everything you may ever need. Not only is the community constantly implementing new tools, `electron` is explicitly support by the `webpack` team.
 
-In the end, `electron-compile` is still a fantastic tool when you need to quickly prototype a project together. It can even be enough for smaller scale applications that may not need all the fancy bells and whistles.
+In the end, `electron-compile` is still a fantastic tool when you need to quickly prototype a project together. It can even be enough for smaller scale applications that may not need all the fancy bells and whistles. But for those accustomed to HMR or developing larger scale applications, `electron-webpack` has you covered.

@@ -44,7 +44,7 @@ Defines the path to a process's or common usage directory, relative to the proje
 ### BrowserWindow Title
 
 Defines default BrowserWindow title.
-* `true`: Title is automatically set based on `package.json` name or `productName` when using `electron-builder`
+* `true` (default): Title is automatically set based on `package.json` name or `productName` when using `electron-builder`
 * **String**: Use a custom string for title
 
 ```json
@@ -70,7 +70,7 @@ For those situtations where you need additional [entry points](https://webpack.j
 Note that you can use the `@` alias to reference your `main.sourceDirectory`.
 
 ### Dll bundle splitting
-If you are unfamiliar with the `webpack.DllPlugin`, make sure to read its [documenation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
+If you are unfamiliar with the `webpack.DllPlugin` plugin, make sure to read its [documenation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
 
 ```json
 "electronWebpack": {
@@ -81,7 +81,7 @@ If you are unfamiliar with the `webpack.DllPlugin`, make sure to read its [docum
 ```
 
 ### White-listing Externals
-Since `webpack` is set to target the `electron` environment, all modules are treated as [externals](https://webpack.js.org/configuration/externals/). Unfortunately, there can be a few situations where this behavior may not be expected by some modules. For the case of Vue UI libraries that provide raw `*.vue` components, they will needed to be whitelisted. This ensures that `vue-loader` is able to compile them as the module originally expected.
+Since `webpack` is set to target the `electron` environment, all modules are treated as [externals](https://webpack.js.org/configuration/externals/). Unfortunately, there can be a few situations where this behavior may not be expected by some modules. For the case of some Vue UI libraries that provide raw `*.vue` components, they will needed to be white-listed. This ensures that `vue-loader` is able to compile them as the UI library originally expected.
 
 ```json
 "electronWebpack": {

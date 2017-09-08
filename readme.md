@@ -1,4 +1,4 @@
-# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://yarn.pm/electron-webpack)
+# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
@@ -16,7 +16,7 @@ Here are some of the awesome features you'll find using `electron-webpack`...
 * Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
 * HMR for both `renderer` and `main` processes
 * Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
-* Add-ons to support items like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), [EJS](http://www.embeddedjs.com/), etc.
+* [Add-ons](./add-ons.md) to support items like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), [EJS](http://www.embeddedjs.com/), etc.
 
 ## Quick Start
 Get started fast with [electron-webpack-quick-start](repoLink).
@@ -33,7 +33,7 @@ rm -rf .git
 yarn
 ```
 
-If you are already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts]() and [Development]() sections of `electron-webpack`'s documentaiton.
+If you are already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts](./core-concepts.md), [Project Structure](./project-structure.md), and [Development](./development.md) sections of `electron-webpack`'s documentaiton.
 
 ### Next Steps
 Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, adding custom configurations, and building your application.
