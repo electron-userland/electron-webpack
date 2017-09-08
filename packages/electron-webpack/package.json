@@ -18,7 +18,7 @@
   "repository": "electron-userland/electron-webpack",
   "//": "@types/webpack-env in the dependencies because used by clients",
   "dependencies": {
-    "@types/webpack-env": "^1.13.0",
+    "@types/webpack-env": "^1.13.1",
     "ajv": "^5.2.2",
     "ajv-keywords": "^2.1.0",
     "async-exit-hook": "^2.0.1",
@@ -49,7 +49,7 @@
   "peerDependencies": {
     "webpack": "^3.5.3"
   },
-  "typings": "./out/main.d.ts",
+  "types": "./out/main.d.ts",
   "publishConfig": {
      "tag": "next"
    }
