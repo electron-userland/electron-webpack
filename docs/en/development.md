@@ -48,4 +48,10 @@ Webpack HMR has been setup to support both the `renderer` and `main` process. Th
 ##### Use of `html-webpack-plugin`
 You might notice that you don't need an `index.html` to get started on your application. That's because it is created for you, as it adds in a few extra configruations needed for the `electron` environment. If you are creating an `electron` application with `webpack`, you are most likely creating a Single Page Application anyways. So because of that, there is already a `<div id="app"></div>` provided in the markup that you can mount your application onto.
 
+---
 
+#### A Note for Windows Users
+
+If you run into errors while installing dependencies, related to `node-gyp`, then you most likely do not have the proper build tools installed on your system. Build tools include items like Python and Visual Studio.
+
+You can quickly install these build tools by globally installing [`windows-build-tools`](https://github.com/felixrieseberg/windows-build-tools). It provides many items like Visuall C++ packages, Python, and much more.
