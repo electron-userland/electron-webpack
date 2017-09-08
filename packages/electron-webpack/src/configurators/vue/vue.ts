@@ -16,11 +16,9 @@ export function configureVue(configurator: WebpackConfigurator) {
   if (!configurator.isProduction && configurator.type === "main") {
     configurator.entryFiles.push(path.join(__dirname, "vue-main-dev-entry.js"))
   }
+}
 
-  if (!configurator.type.startsWith("renderer")) {
-    return
-  }
-
+export function configureVueRenderer(configurator: WebpackConfigurator) {
   configurator.entryFiles.push(path.join(__dirname, "../../../vue-renderer-entry.js"))
 
   configurator.debug("Vue detected")

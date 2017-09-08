@@ -1,6 +1,6 @@
 # electron-webpack-eslint
 
-ESLint preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
+ESLint add-on for [electron-webpack](https://github.com/electron-userland/electron-webpack).
 
 ### Install
 

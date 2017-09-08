@@ -4,6 +4,7 @@ import * as path from "path"
 import { getConfig } from "read-config-file"
 import { DefinePlugin } from "webpack"
 import { getDllAssets } from "../configurators/dll"
+import { configureVueRenderer } from "../configurators/vue/vue"
 import { WebpackConfigurator } from "../main"
 import { statOrNull } from "../util"
 import { BaseTarget } from "./BaseTarget"
@@ -83,6 +84,18 @@ export class BaseRendererTarget extends BaseTarget {
       configurator.rules.push({
         test: /\.ejs$/,
         loader: "ejs-html-loader",
+      })
+    }
+
+    if (configurator.hasDependency("vue")) {
+      configureVueRenderer(configurator)
+    }
+    else {
+      configurator.rules.push({
+        test: /\.(html)$/,
+        use: {
+          loader: "html-loader",
+        }
       })
     }
   }

@@ -1,6 +1,6 @@
 # electron-webpack-vue
 
-Vue.js preset for [electron-webpack](https://github.com/electron-userland/electron-webpack).
+Vue.js add-on for [electron-webpack](https://github.com/electron-userland/electron-webpack).
 
 ## Install
 
