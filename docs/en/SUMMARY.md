@@ -11,4 +11,4 @@
 * [Building](building.md)
 * [Miscellaneous]()
   * [Dependency Management](dependency-management.md)
-  * [Technical Difference of `electron-compile`](technical-differences-of-electron-compile.md)
+  * [Technical Differences of `electron-compile`](technical-differences-of-electron-compile.md)
