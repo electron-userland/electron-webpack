@@ -4,4 +4,4 @@ TypeScript preset for [electron-webpack](https://github.com/electron-userland/el
 
 ## Install
 
-Please see [TypeScript](https://webpack.electron.build/languages-and-frameworks#typescript).
+Please see [TypeScript](https://webpack.electron.build/add-ons#typescript).

@@ -4,4 +4,4 @@ Vue.js preset for [electron-webpack](https://github.com/electron-userland/electr
 
 ## Install
 
-Please see [Vue.js](https://webpack.electron.build/languages-and-frameworks#vuejs).
+Please see [Vue.js](https://webpack.electron.build/add-ons#vuejs).
