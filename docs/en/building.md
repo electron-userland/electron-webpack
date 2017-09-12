@@ -38,7 +38,7 @@ yarn add electron-builder --dev
     "dist": "yarn compile && electron-builder",
 
     /* `yarn dist` & create unpacked distribution */
-    "dist:dir": "yarn dist -- --dir -c.compression=store -c.mac.identity-null"
+    "dist:dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
   }
 }
 ```
