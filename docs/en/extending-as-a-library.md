@@ -33,7 +33,7 @@ Let's say we need to support `*.txt` files in our `renderer` process and want to
 yarn add -D raw-loader
 ```
 
-##### myCustomWebpack.main.config.js
+##### myCustomWebpack.renderer.config.js
 ```js
 const webpackRenderer = require('electron-webpack/webpack.renderer.config.js')
 
@@ -41,16 +41,16 @@ module.exports = env => {
   return new Promise((resolve, reject) => {
 
     /* get provided config */
-    webpackRenderer(env).then(mainConfig => {
+    webpackRenderer(env).then(rendererConfig => {
 
       /* add `raw-loader` */
-      mainConfig.module.rules.push({
+      rendererConfig.module.rules.push({
         test: /\.txt$/,
         use: 'raw-loader'
       })
 
       /* return modified config to webpack */
-      resolve(mainConfig)
+      resolve(rendererConfig)
     })
   })
 }
@@ -59,5 +59,5 @@ module.exports = env => {
 Now with your new custom webpack configuration file, you can use the native [`webpack` CLI](https://webpack.js.org/api/cli/).
 
 ```bash
-webpack --config myCustomWebpack.main.config.js
+webpack --config myCustomWebpack.renderer.config.js
 ```
