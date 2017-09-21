@@ -15,10 +15,16 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
   ]
 
   const userPresets = configurator.getMatchingDevDependencies('babel-preset-', {not: ['babel-preset-env']});
-  userPresets.forEach(preset => presets.push([require(preset)]));
+  userPresets.forEach(preset => {
+      const presetModule = require(preset);
+      presets.push([presetModule.default || presetModule])
+  });
 
   const userPlugins = configurator.getMatchingDevDependencies('babel-plugin-', {not: ['babel-plugin-syntax-dynamic-import']});
-  userPlugins.forEach(plugin => plugins.push([require(plugin)]));
+  userPlugins.forEach(plugin => {
+      const pluginModule = require(plugin);
+      plugins.push([pluginModule.default || pluginModule])
+  });
 
   return {
     loader: "babel-loader",
