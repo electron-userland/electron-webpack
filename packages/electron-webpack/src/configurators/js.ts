@@ -11,9 +11,8 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }],
   ]
 
-  if (configurator.hasDevDependency("babel-preset-react")) {
-    presets.push([require("babel-preset-react")])
-  }
+  const userPresets = configurator.getMatchingDevDependencies('babel-preset-', {not: ['babel-preset-env']});
+  userPresets.forEach(preset => presets.push([require(preset)]));
 
   return {
     loader: "babel-loader",
