@@ -138,6 +138,19 @@ export class WebpackConfigurator {
     return name in this.metadata.devDependencies
   }
 
+  /**
+   * Returns the names of devDependencies that match a given string or regex.
+   * If no matching dependencies are found, an empty array is returned.
+   *
+   * @return list of matching dependency names, e.g. `['babel-preset-react', 'babel-preset-stage-0']`
+   */
+  getMatchingDevDependencies(options: GetMatchingDevDependenciesOptions = {}) {
+    const includes = options.includes || []
+    const excludes = new Set(options.excludes || [])
+    return Object.keys(this.metadata.devDependencies)
+      .filter(name => !excludes.has(name) && includes.some(prefix => name.startsWith(prefix)))
+  }
+
   async configure(entry?: { [key: string]: any } | null) {
     this.config = {
       context: this.projectDir,
@@ -329,4 +342,15 @@ async function getInstalledElectronVersion(projectDir: string) {
       }
     }
   }
+}
+
+export interface GetMatchingDevDependenciesOptions {
+  /**
+   * The list of prefixes to include, e.g. `["babel-preset-"]`.
+   */
+  includes?: Array<string>
+  /**
+   * The list of names to exclude.
+   */
+  excludes?: Array<string>
 }
