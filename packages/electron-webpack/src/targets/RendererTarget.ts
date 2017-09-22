@@ -21,6 +21,8 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
+    const cssHotLoader = configurator.isProduction ? [] : ['css-hot-loader']
+
     function configureFileLoader(prefix: string) {
       return {
         limit: 10000,
@@ -31,30 +33,30 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.rules.push(
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
+        use: cssHotLoader.concat(ExtractTextPlugin.extract({
           use: "css-loader",
           fallback: "style-loader",
-        }),
+        })),
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
+        use: cssHotLoader.concat(ExtractTextPlugin.extract({
           use: [
             {loader: "css-loader"},
             {loader: "less-loader"}
           ],
           fallback: "style-loader"
-        })
+        }))
       },
       {
         test: /\.scss/,
-        use: ExtractTextPlugin.extract({
+        use: cssHotLoader.concat(ExtractTextPlugin.extract({
           use: [
             {loader: "css-loader"},
             {loader: "sass-loader"}
           ],
           fallback: "style-loader"
-        })
+        }))
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
