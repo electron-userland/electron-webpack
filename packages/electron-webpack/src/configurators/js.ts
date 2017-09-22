@@ -2,7 +2,7 @@ import { gte } from "semver"
 import { WebpackConfigurator } from "../main"
 
 export function createBabelLoader(configurator: WebpackConfigurator) {
-  // better to use require instead of just preset sname to avoid babel resolving (in our test we set custom resolver - and only in case of explicit required it works)
+  // better to use require instead of just preset name to avoid babel resolving (in our test we set custom resolver - and only in case of explicit required it works)
   const presets = [
     [
       require("babel-preset-env"), {
@@ -11,14 +11,11 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }],
   ]
   const plugins = [
-      require("babel-plugin-syntax-dynamic-import"),
+    require("babel-plugin-syntax-dynamic-import"),
   ]
 
-  const userPresets = configurator.getMatchingDevDependencies('babel-preset-', {not: ['babel-preset-env']});
-  userPresets.forEach(preset => {
-      const presetModule = require(preset);
-      presets.push([presetModule.default || presetModule])
-  });
+  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env"]}))
+  addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
 
   const userPlugins = configurator.getMatchingDevDependencies('babel-plugin-', {not: ['babel-plugin-syntax-dynamic-import']});
   userPlugins.forEach(plugin => {
@@ -32,6 +29,13 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
       presets,
       plugins
     }
+  }
+}
+
+function addBabelItem(to: Array<any>, names: Array<string>) {
+  for (const name of names) {
+    const module = require(name)
+    to.push([module.default || module])
   }
 }
 

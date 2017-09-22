@@ -83,6 +83,12 @@ yarn add babel-preset-react --dev
 
 ## Pre-processors
 
+### Babel
+
+[babel-preset-env](https://github.com/babel/babel-preset-env) is automatically configured based on your `electron` version.
+
+All direct dev dependencies `babel-preset-*` and `babel-plugin-*` are automatically configured also.
+
 ### ESLint
 Add support for script file linting using `eslint`. Internally uses `eslint`, `eslint-loader`, `eslint-friendly-formatter`, and makes `babel-eslint` available if needed.
 

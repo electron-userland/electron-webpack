@@ -11,7 +11,6 @@ yargs
   .command(["renderer"], "Compile renderer process", yargs => yargs, argv => build("renderer"))
   .command(["dll"], "Compile DLL bundles", yargs => yargs, argv => build("renderer.dll"))
   .command(["dev"], "Run a development mode", yargs => yargs, argv => runInDevMode())
-  .help()
   .argv
 
 function build(configFile: string) {

@@ -140,23 +140,15 @@ export class WebpackConfigurator {
 
   /**
    * Returns the names of devDependencies that match a given string or regex.
-   * If no matching dependecies are found, an empty array is returned.
+   * If no matching dependencies are found, an empty array is returned.
    *
-   * @param {string|regex} name - The matcher term, e.g. `babel-preset-`
-   * @param {object} options - optional configuration
-   * @param {array} options.not - list of matchers to exclude, e.g. `{not: ['babel-preset-env']}`
-   * @return {array} - list of matching dependency names, e.g. `['babel-preset-react', 'babel-preset-stage-0']`
+   * @return list of matching dependency names, e.g. `['babel-preset-react', 'babel-preset-stage-0']`
    */
-  getMatchingDevDependencies(name, options) {
-      const excludes = options && options.not || [];
-      return Object.keys(this.metadata.devDependencies).reduce((result, key) => {
-          const isExclude = excludes.some(excludedKey => name.match(excludedKey));
-          const isMatch = key.match(name) && !isExclude;
-          if (isMatch) {
-              result.push(key);
-          }
-          return result;
-      }, []);
+  getMatchingDevDependencies(options: GetMatchingDevDependenciesOptions = {}) {
+    const includes = options.includes || []
+    const excludes = new Set(options.excludes || [])
+    return Object.keys(this.metadata.devDependencies)
+      .filter(name => !excludes.has(name) && includes.some(prefix => name.startsWith(prefix)))
   }
 
   async configure(entry?: { [key: string]: any } | null) {
@@ -350,4 +342,15 @@ async function getInstalledElectronVersion(projectDir: string) {
       }
     }
   }
+}
+
+export interface GetMatchingDevDependenciesOptions {
+  /**
+   * The list of prefixes to include, e.g. `["babel-preset-"]`.
+   */
+  includes?: Array<string>
+  /**
+   * The list of names to exclude.
+   */
+  excludes?: Array<string>
 }

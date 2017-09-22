@@ -21,7 +21,7 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
-    const cssHotLoader = configurator.isProduction ? [] : ['css-hot-loader']
+    const cssHotLoader = configurator.isProduction ? [] : ["css-hot-loader"]
 
     function configureFileLoader(prefix: string) {
       return {
