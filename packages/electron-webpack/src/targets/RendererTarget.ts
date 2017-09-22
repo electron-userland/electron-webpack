@@ -1,6 +1,7 @@
 import BluebirdPromise from "bluebird-lst"
 import { Lazy } from "lazy-val"
 import * as path from "path"
+import getPort from 'get-port';
 import { getConfig } from "read-config-file"
 import { DefinePlugin } from "webpack"
 import { getDllAssets } from "../configurators/dll"
@@ -142,9 +143,10 @@ export class RendererTarget extends BaseRendererTarget {
     }
     else {
       const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")]
+      const port = await getPort()
       configurator.config.devServer = {
         contentBase,
-        port: 9080,
+        port,
         hot: true,
         overlay: true,
       }

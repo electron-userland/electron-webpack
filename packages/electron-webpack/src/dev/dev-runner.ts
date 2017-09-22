@@ -3,6 +3,7 @@ import { blue, red, yellow } from "chalk"
 import { spawn } from "child_process"
 import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
+import getPort from 'get-port';
 import "source-map-support/register"
 import { Compiler } from "webpack"
 import { HmrServer } from "../electron-main-hmr/HmrServer"
@@ -136,9 +137,10 @@ main()
     console.error(error)
   })
 
-function startElectron() {
+async function startElectron() {
   const electronArgs = process.env.ELECTRON_ARGS
-  const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : ["--inspect=5858"]
+  const port = await getPort();
+  const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${port}`]
   args.push(path.join(projectDir, "dist/main/main.js"))
   const electronProcess = spawn(require("electron").toString(), args, {
     env: {
