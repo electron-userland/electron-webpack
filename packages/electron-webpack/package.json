@@ -32,19 +32,19 @@
     "electron-webpack-js": "^1.0.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
-    "fs-extra-p": "^4.4.0",
+    "fs-extra-p": "^4.4.2",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
     "lazy-val": "^1.0.2",
     "node-loader": "^0.6.0",
-    "read-config-file": "^1.1.0",
+    "read-config-file": "^1.1.1",
     "semver": "^5.4.1",
-    "source-map-support": "^0.4.17",
+    "source-map-support": "^0.4.18",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "virtual-module-webpack-plugin": "^0.3.0",
-    "webpack-dev-server": "^2.7.1",
-    "yargs": "^8.0.2"
+    "webpack-dev-server": "^2.8.2",
+    "yargs": "^9.0.1"
   },
   "peerDependencies": {
     "webpack": "^3.5.3"
