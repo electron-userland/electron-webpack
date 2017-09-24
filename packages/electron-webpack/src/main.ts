@@ -3,6 +3,7 @@ import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
+import getPort from 'get-port';
 import { getConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
@@ -182,6 +183,13 @@ export class WebpackConfigurator {
 
     if (entry != null) {
       this.config.entry = entry
+    }
+
+    // generate ELECTRON_WDS_PORT once when in development
+    // todo: use default port when https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19981 is resolved
+    if (!this.isProduction && !process.env.ELECTRON_WDS_PORT) {
+      const wdsPort = await getPort(/*{port: 9080}*/)
+      process.env.ELECTRON_WDS_PORT = String(wdsPort)
     }
 
     // if electronVersion not specified, use latest

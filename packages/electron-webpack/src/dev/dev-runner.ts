@@ -17,8 +17,6 @@ const webpack = require("webpack")
 const projectDir = process.cwd()
 
 let socketPath: string | null = null
-let inspectPort: number | undefined = undefined;
-let wdsPort: number | undefined = undefined;
 
 const debug = require("debug")("electron-webpack")
 
@@ -141,16 +139,14 @@ main()
 
 async function startElectron() {
   const electronArgs = process.env.ELECTRON_ARGS
-  // todo: use default ports when https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19981 is resolved
-  inspectPort = await getPort(/*{port: 5858}*/)
-  wdsPort = await getPort(/*{port: 9080}*/)
+  // todo: use a default port when https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19981 is resolved
+  const inspectPort = await getPort(/*{port: 5858}*/);
   const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${inspectPort}`]
   args.push(path.join(projectDir, "dist/main/main.js"))
   const electronProcess = spawn(require("electron").toString(), args, {
     env: {
       ...getCommonEnv(),
-      ELECTRON_HMR_SOCKET_PATH: socketPath,
-      ELECTRON_WDS_PORT: wdsPort,
+      ELECTRON_HMR_SOCKET_PATH: socketPath
     }
   })
 
