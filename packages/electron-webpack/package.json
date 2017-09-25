@@ -45,6 +45,7 @@
     "url-loader": "^0.5.9",
     "virtual-module-webpack-plugin": "^0.3.0",
     "webpack-dev-server": "^2.8.2",
+    "webpack-merge": "^4.1.0",
     "yargs": "^9.0.1"
   },
   "peerDependencies": {
@@ -52,6 +53,6 @@
   },
   "types": "./out/main.d.ts",
   "publishConfig": {
-     "tag": "next"
-   }
+    "tag": "next"
+  }
 }

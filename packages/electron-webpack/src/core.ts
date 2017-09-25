@@ -30,6 +30,7 @@ export interface PartConfiguration {
 
 export interface ElectronWebpackConfigurationRenderer extends PartConfiguration {
   dll?: Array<string> | { [key: string]: any } | null
+  webpackConfig?: string
 }
 
 export interface ElectronWebpackConfigurationMain extends PartConfiguration {

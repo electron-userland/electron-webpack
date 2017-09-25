@@ -7,6 +7,7 @@ import { getConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
+import merge from "webpack-merge"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
 import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, PackageMetadata, PartConfiguration } from "./core"
@@ -228,7 +229,16 @@ export class WebpackConfigurator {
         }
       }
     }
+
+    this.checkForCustomModifications()
+
     return this.config
+  }
+
+  private checkForCustomModifications() {
+    if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+    }
   }
 
   private computeExternals() {
