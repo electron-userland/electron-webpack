@@ -16,8 +16,8 @@ yargs
 function build(configFile: string) {
   const args = process.argv
   // if command `electron-webpack` - remove first 2 args, if `electron-webpack compile` (or any other subcommand name) - 3
-  const sliceIndex = args.length > 3 && !args[2].startsWith("-") ? 3 : 2
-  const extraWebpackArgs = args.length > 2 ? args.slice(sliceIndex) : []
+  const sliceIndex = args.length > 2 && !args[2].startsWith("-") ? 3 : 2
+  const extraWebpackArgs = sliceIndex < args.length ? args.slice(sliceIndex) : []
   // remove extra args
   args.length = 2
   if (!extraWebpackArgs.some(it => it.includes("--env.production"))) {

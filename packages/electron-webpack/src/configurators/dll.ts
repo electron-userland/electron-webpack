@@ -20,7 +20,7 @@ export async function configureDll(configurator: WebpackConfigurator): Promise<s
     configurator.plugins.push(new DllPlugin({
       name: "[name]",
       path: dllManifest,
-      context: projectDir
+      context: projectDir,
     }))
 
     const output = configurator.config.output!
