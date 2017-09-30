@@ -230,14 +230,22 @@ export class WebpackConfigurator {
       }
     }
 
-    this.checkForCustomModifications()
+    this.applyCustomModifications()
 
     return this.config
   }
 
-  private checkForCustomModifications() {
+  private applyCustomModifications() {
     if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
       this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+    }
+
+    if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
+    }
+
+    if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
     }
   }
 
