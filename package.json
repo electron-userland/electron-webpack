@@ -4,22 +4,23 @@
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "scripts": {
-    "update-deps": "lerna exec -- npm-check-updates -a",
     "compile": "ts-babel packages/electron-webpack test && yarn schema",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && ./npm-publish.sh && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "yarn compile && yarn lint && jest",
     "docs": "gitbook && ./docs/publish.sh",
     "serve-docs": "gitbook && http-server _book -c-1",
-    "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required"
+    "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required",
+    "//": "update-deps task intended only for core maintainers",
+    "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
     "@develar/gitbook": "3.2.6",
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/jest": "^20.0.8",
+    "@types/jest": "^21.1.0",
     "@types/memory-fs": "^0.3.0",
-    "@types/node": "8.0.29",
+    "@types/node": "8.0.30",
     "@types/semver": "^5.4.0",
     "@types/webpack": "^3.0.11",
     "babel-preset-ts-node4-bluebird": "^0.1.1",
