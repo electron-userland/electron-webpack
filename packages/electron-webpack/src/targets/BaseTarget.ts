@@ -79,6 +79,13 @@ export class BaseTarget {
   }
 }
 
+export function configureFileLoader(prefix: string, limit = 10 * 1024) {
+  return {
+    limit,
+    name: `${prefix}/[name]--[folder].[ext]`
+  }
+}
+
 function isAncestor(file: string, dir: string) {
   return file.length > dir.length && file[dir.length] === path.sep && file.startsWith(dir)
 }

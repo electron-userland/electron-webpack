@@ -2,11 +2,26 @@ import * as path from "path"
 import { BannerPlugin } from "webpack"
 import { WebpackConfigurator } from "../main"
 import { getFirstExistingFile } from "../util"
-import { BaseTarget } from "./BaseTarget"
+import { BaseTarget, configureFileLoader } from "./BaseTarget"
 
 export class MainTarget extends BaseTarget {
   constructor() {
     super()
+  }
+
+  configureRules(configurator: WebpackConfigurator): void {
+    super.configureRules(configurator)
+
+    configurator.rules.push({
+      test: /\.(png|jpg|gif)$/,
+      use: [
+        {
+          loader: "url-loader",
+          // to avoid any issues related to asar, embed any image up to 10MB as data url
+          options: configureFileLoader("imgs", 10 * 1024 * 1024),
+        }
+      ]
+    })
   }
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
