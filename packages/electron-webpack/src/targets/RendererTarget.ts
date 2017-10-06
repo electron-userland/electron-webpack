@@ -144,7 +144,7 @@ export class RendererTarget extends BaseRendererTarget {
       const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")]
       configurator.config.devServer = {
         contentBase,
-        port: 9080,
+        port: process.env.ELECTRON_WEBPACK_WDS_PORT || 9080,
         hot: true,
         overlay: true,
       }
