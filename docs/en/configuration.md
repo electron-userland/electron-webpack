@@ -13,12 +13,15 @@ Configurations can be applied in `package.json` at `electronWebpack` or in a sep
 
   "main": {
     "extraEntries": ["@/preload.js"],
-    "sourceDirectory": "src/main"
+    "sourceDirectory": "src/main",
+    "webpackConfig": "custom.webpack.additions.js"
   },
 
   "renderer": {
     "dll": ["fooModule"],
-    "sourceDirectory": "src/renderer"
+    "sourceDirectory": "src/renderer",
+    "webpackConfig": "custom.webpack.additions.js",
+    "WebpackDllConfig": "custom.webpackDll.additions.js"
   }
 }
 ```
@@ -86,5 +89,21 @@ Since `webpack` is set to target the `electron` environment, all modules are tre
 ```json
 "electronWebpack": {
   "whiteListedModules": ["foo-ui-library"]
+}
+```
+
+### Modified Webpack Configurations
+See [Modifying Webpack Configurations](modifying-webpack-configurations.md) for more information.
+
+```json
+"electronWebpack": {
+  "main": {
+    "webpackConfig": "custom.additions.webpack.js"
+  },
+
+  "renderer": {
+    "webpackConfig": "custom.additions.webpack.js",
+    "webpackDllConfig": "custom.additions.webpack.js"
+  }
 }
 ```
