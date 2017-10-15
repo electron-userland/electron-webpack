@@ -1,9 +1,8 @@
-import Ajv from "ajv"
 import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
-import { getConfig } from "read-config-file"
+import { getConfig, validateConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
@@ -14,7 +13,7 @@ import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, Pack
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, normaliseErrorMessages, orNullIfFileNotExist } from "./util"
+import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
 
 export { ElectronWebpackConfiguration } from "./core"
 
@@ -38,10 +37,10 @@ export function getDllConfiguration(env: ConfigurationEnv) {
 }
 
 export async function getTestConfiguration(env: ConfigurationEnv) {
-  return (await createConfigurator("test", env))
-    .configure({
-      testComponents: path.join(process.cwd(), "src/renderer/components/testComponents.ts"),
-    })
+  const configurator = await createConfigurator("test", env)
+  return await configurator.configure({
+    testComponents: path.join(process.cwd(), "src/renderer/components/testComponents.ts"),
+  })
 }
 
 export class WebpackConfigurator {
@@ -275,13 +274,7 @@ export class WebpackConfigurator {
   }
 }
 
-const validatorPromise = new Lazy(async () => {
-  const ajv = new Ajv({allErrors: true, coerceTypes: true})
-  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"))
-  require("ajv-keywords")(ajv, ["typeof"])
-  const schema = await readJson(path.join(__dirname, "..", "scheme.json"))
-  return ajv.compile(schema)
-})
+const schemeDataPromise = new Lazy(() => readJson(path.join(__dirname, "..", "scheme.json")))
 
 export async function createConfigurator(type: ConfigurationType, env: ConfigurationEnv | null) {
   if (env != null) {
@@ -313,19 +306,16 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
     deepAssign(electronWebpackConfig, env.configuration)
   }
 
-  const validator = await validatorPromise.value
-  if (!validator(electronWebpackConfig)) {
-    throw new Error(`Configuration is invalid:
-${JSON.stringify(normaliseErrorMessages(validator.errors!), null, 2)}
+  await validateConfig(electronWebpackConfig, schemeDataPromise, message => {
+    return `${message}
 
 How to fix:
-  1. Open https://webpack.electron.build/options
-  2. Search the option name on the page.
-    * Not found? The option was deprecated or not exists (check spelling).
-    * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
-`)
-  }
-
+1. Open https://webpack.electron.build/options
+2. Search the option name on the page.
+  * Not found? The option was deprecated or not exists (check spelling).
+  * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
+`
+  })
   return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
 }
 
@@ -337,7 +327,7 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
     return null
   }
   else {
-    return configurator.configure()
+    return await configurator.configure()
   }
 }
 
