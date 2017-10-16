@@ -15,7 +15,7 @@
     "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
-    "@develar/gitbook": "3.2.7",
+    "@develar/gitbook": "3.2.8",
     "@types/chalk": "^0.4.31",
     "@types/electron-devtools-installer": "^2.0.2",
     "@types/jest": "^21.1.2",
