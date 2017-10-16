@@ -2,13 +2,12 @@ import BluebirdPromise from "bluebird-lst"
 import { blue, red, yellow } from "chalk"
 import { spawn } from "child_process"
 import { readdir, remove } from "fs-extra-p"
-import getPort from "get-port"
 import * as path from "path"
 import "source-map-support/register"
 import webpack, { Compiler } from "webpack"
 import { HmrServer } from "../electron-main-hmr/HmrServer"
 import { configure } from "../main"
-import { orNullIfFileNotExist } from "../util"
+import { getFreePort, orNullIfFileNotExist } from "../util"
 import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 import { startRenderer } from "./WebpackDevServerManager"
 
@@ -31,9 +30,11 @@ async function emptyMainOutput() {
 
 class DevRunner {
   async start() {
-    const wdsPort = await getPort({port: 9080, host: "localhost"})
+    const wdsHost = "localhost"
+    const wdsPort = await getFreePort(wdsHost, 9080)
     const env = {
       ...getCommonEnv(),
+      ELECTRON_WEBPACK_WDS_HOST: wdsHost,
       ELECTRON_WEBPACK_WDS_PORT: wdsPort,
     }
 
@@ -53,7 +54,7 @@ class DevRunner {
     })
 
     const electronArgs = process.env.ELECTRON_ARGS
-    const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${await getPort({port: 5858, host: "127.0.0.1"})}`]
+    const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${await getFreePort("127.0.0.1", 5858)}`]
     args.push(path.join(projectDir, "dist/main/main.js"))
     // we should start only when both start and main are started
     startElectron(args, env)
