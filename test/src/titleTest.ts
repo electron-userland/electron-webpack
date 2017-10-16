@@ -18,5 +18,5 @@ async function testTitle(title: boolean | null) {
     },
   })
   const fs = await testWebpack(configuration, projectDir, false)
-  expect(bufferToString(fs.meta(`${projectDir}/dist/renderer/index.html`)).toString()).toMatchSnapshot()
+  expect(bufferToString(fs.meta(`${projectDir}/dist/renderer/index.html`), projectDir).toString()).toMatchSnapshot()
 }

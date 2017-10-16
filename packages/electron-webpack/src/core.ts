@@ -4,7 +4,7 @@ export interface PackageMetadata {
   dependencies: { [key: string]: any }
   devDependencies: { [key: string]: any }
 
-  electronWebpack?: ElectronWebpackConfiguration
+  electronWebpack?: ElectronWebpackConfiguration | null
 }
 
 export interface ElectronWebpackConfiguration {
@@ -30,8 +30,8 @@ export interface PartConfiguration {
 
 export interface ElectronWebpackConfigurationRenderer extends PartConfiguration {
   dll?: Array<string> | { [key: string]: any } | null
-  webpackConfig?: string
-  webpackDllConfig?: string
+  webpackConfig?: string | null
+  webpackDllConfig?: string | null
 }
 
 export interface ElectronWebpackConfigurationMain extends PartConfiguration {
@@ -39,7 +39,7 @@ export interface ElectronWebpackConfigurationMain extends PartConfiguration {
    * The extra [entry points](https://webpack.js.org/concepts/entry-points/).
    */
   extraEntries?: Array<string> | { [key: string]: string | Array<string> } | string
-  webpackConfig?: string
+  webpackConfig?: string | null
 }
 
 export interface ConfigurationEnv {

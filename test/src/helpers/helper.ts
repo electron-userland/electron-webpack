@@ -39,7 +39,7 @@ export async function testWebpack(configuration: Configuration, projectDir: stri
 
   if (checkCompilation) {
     expect(statToMatchObject(stats, projectDir)).toMatchSnapshot()
-    expect(bufferToString(fs.meta(projectDir))).toMatchSnapshot()
+    expect(bufferToString(fs.meta(projectDir), projectDir)).toMatchSnapshot()
   }
   return fs
 }
@@ -83,7 +83,7 @@ function compile(fs: any, configuration: Configuration, resolve: (stats: Stats) 
   })
 }
 
-export function bufferToString(host: any) {
+export function bufferToString(host: any, projectDir: string) {
   for (const key of Object.getOwnPropertyNames(host)) {
     if (key === "") {
       delete host[key]
@@ -96,9 +96,11 @@ export function bufferToString(host: any) {
 
     if (Buffer.isBuffer(value)) {
       host[key] = removeNotStableValues(value.toString())
+        .replace(new RegExp(projectDir, "g"), "<project-dir>")
+        .replace(new RegExp(rootDir, "g"), "<root-dir>")
     }
     else if (typeof value === "object") {
-      bufferToString(value)
+      bufferToString(value, projectDir)
     }
   }
   return host
@@ -110,6 +112,7 @@ function removeNotStableValues(value: string) {
   if (index > 0) {
     return value.substring(0, index + bootstrap.length) + value.substring(value.indexOf('"', index))
   }
+
   return value
 }
 
