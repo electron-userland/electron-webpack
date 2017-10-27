@@ -92,8 +92,6 @@ function isAncestor(file: string, dir: string) {
 
 function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const plugins = configurator.plugins
-  const debug = configurator.debug
-
   plugins.push(new NamedModulesPlugin())
   plugins.push(new DefinePlugin({
     __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`
@@ -113,25 +111,6 @@ function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   if (configurator.hasDevDependency("webpack-notifier")) {
     const WebpackNotifierPlugin = require("webpack-notifier")
     plugins.push(new WebpackNotifierPlugin({title: `Webpack - ${configurator.type}`}))
-  }
-
-  const watchIgnore = [
-    configurator.commonDistDirectory,
-    path.join(configurator.projectDir, "build"),
-    path.join(configurator.projectDir, "dist"),
-    path.join(configurator.projectDir, "node_modules"),
-    path.join(configurator.projectDir, "static"),
-    path.join(configurator.projectDir, ".idea"),
-    path.join(configurator.projectDir, ".vscode"),
-    configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
-  ]
-
-  if (configurator.type !== "test") {
-    watchIgnore.push(path.join(configurator.projectDir, "test"))
-  }
-
-  if (debug.enabled) {
-    debug(`Watch ignore: ${watchIgnore.join(", ")}`)
   }
 
   // watch common code
