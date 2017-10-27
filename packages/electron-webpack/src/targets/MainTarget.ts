@@ -1,5 +1,5 @@
 import * as path from "path"
-import { BannerPlugin } from "webpack"
+import { BannerPlugin, DefinePlugin } from "webpack"
 import { WebpackConfigurator } from "../main"
 import { getFirstExistingFile } from "../util"
 import { BaseTarget, configureFileLoader } from "./BaseTarget"
@@ -28,6 +28,10 @@ export class MainTarget extends BaseTarget {
     await BaseTarget.prototype.configurePlugins.call(this, configurator)
 
     if (configurator.isProduction) {
+      configurator.plugins.push(new DefinePlugin({
+        __static: `process.resourcesPath + "/static"`
+      }))
+
       // do not add for main dev (to avoid adding to hot update chunks), our main-hmr install it
       configurator.plugins.push(new BannerPlugin({
         banner: 'require("source-map-support/source-map-support.js").install();',
