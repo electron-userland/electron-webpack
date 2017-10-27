@@ -171,6 +171,9 @@ yarn add nunjucks nunjucks-loader --dev
 ### iView
 Once you have the [Vue.js](#vuejs) add-on installed, `electron-webpack` will internally support iView's "import on demand" feature. No further setup is necessary.
 
+### Element
+Once you have the [element-ui](https://github.com/ElemeFE/element) installed, `electron-webpack` will internally support Element's "import on demand" feature. No further setup is necessary.
+
 ---
 
 ## Miscellaneous

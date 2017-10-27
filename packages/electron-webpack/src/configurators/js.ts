@@ -14,6 +14,15 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     require("babel-plugin-syntax-dynamic-import"),
   ]
 
+  if (configurator.type !== "main" && configurator.hasDependency("element-ui")) {
+    plugins.push([require("babel-plugin-component"), [
+      {
+        libraryName: "element-ui",
+        styleLibraryName: "theme-chalk"
+      },
+    ]])
+  }
+
   addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env"]}))
   addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
 
