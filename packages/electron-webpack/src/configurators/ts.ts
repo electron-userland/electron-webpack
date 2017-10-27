@@ -44,7 +44,6 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
     // in the test mode also, because checked during dev or production build
     transpileOnly: isTranspileOnly,
     appendTsSuffixTo: [/\.vue$/],
-    logLevel: "warn", // no need to log used tsconfig file as info
     configFile: tsConfigFile,
   }
 

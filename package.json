@@ -15,17 +15,17 @@
     "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
-    "@develar/gitbook": "3.2.9",
-    "@types/chalk": "^0.4.31",
+    "@develar/gitbook": "3.2.10",
+    "@types/chalk": "^2.2.0",
     "@types/electron-devtools-installer": "^2.0.2",
-    "@types/jest": "^21.1.2",
+    "@types/jest": "^21.1.5",
     "@types/memory-fs": "^0.3.0",
-    "@types/node": "8.0.36",
+    "@types/node": "8.0.47",
     "@types/semver": "^5.4.0",
-    "@types/webpack": "^3.0.13",
-    "babel-preset-ts-node4-bluebird": "^0.1.1",
+    "@types/webpack": "^3.0.14",
+    "babel-preset-ts-node6-bluebird": "^1.0.1",
     "develar-typescript-json-schema": "^0.17.0",
-    "electron-builder-tslint-config": "^1.0.4",
+    "electron-builder-tslint-config": "^1.1.0",
     "fs-extra-p": "^4.4.4",
     "gitbook-plugin-analytics": "^0.2.1",
     "gitbook-plugin-edit-link": "^2.0.2",
@@ -36,14 +36,14 @@
     "jest-junit": "^3.1.0",
     "memory-fs": "^0.4.1",
     "temp-file": "^2.0.3",
-    "ts-babel": "^4.1.6",
-    "tslint": "^5.7.0",
+    "ts-babel": "^4.1.7",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.0-rc",
-    "webpack": "^3.7.1"
+    "webpack": "^3.8.1"
   },
   "babel": {
     "presets": [
-      "babel-preset-ts-node4-bluebird"
+      "babel-preset-ts-node6-bluebird"
     ]
   },
   "workspaces": [

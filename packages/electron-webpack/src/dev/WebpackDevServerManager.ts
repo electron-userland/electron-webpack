@@ -1,5 +1,5 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue } from "chalk"
+import chalk from "chalk"
 import { ChildProcess } from "child_process"
 import * as path from "path"
 import { createConfigurator } from "../main"
@@ -31,7 +31,7 @@ export async function startRenderer(projectDir: string, env: any) {
 
   const dirStat = await statOrNull(sourceDir)
   if (dirStat == null || !dirStat.isDirectory()) {
-    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, sourceDir)})`, blue)
+    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, sourceDir)})`, chalk.blue)
     return
   }
 
@@ -67,7 +67,7 @@ export async function startRenderer(projectDir: string, env: any) {
     })
 
     devServerProcess.stdout.on("data", (data: string) => {
-      logProcess("Renderer", data, blue, lineFilter)
+      logProcess("Renderer", data, chalk.blue, lineFilter)
 
       const r = resolve
       // we must resolve only after compilation, otherwise devtools disconnected

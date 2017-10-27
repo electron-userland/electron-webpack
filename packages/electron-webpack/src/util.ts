@@ -29,6 +29,10 @@ export function getFirstExistingFile(names: Array<string>, rootDir: string | nul
 export function getFreePort(defaultHost: string, defaultPort: number) {
   return new BluebirdPromise((resolve, reject) => {
     const server = createServer({pauseOnConnect: true})
+    server.addListener("listening", () => {
+      const port = server.address().port
+      server.close(() => resolve(port))
+    })
 
     function doListen(port: number) {
       server.listen({
@@ -36,9 +40,6 @@ export function getFreePort(defaultHost: string, defaultPort: number) {
         port,
         backlog: 1,
         exclusive: true
-      }, () => {
-        const port = server.address().port
-        server.close(() => resolve(port))
       })
     }
 

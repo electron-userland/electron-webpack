@@ -1,5 +1,5 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue, red, yellow } from "chalk"
+import chalk from "chalk"
 import { spawn } from "child_process"
 import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
@@ -70,11 +70,11 @@ class DevRunner {
         },
 
         warn: (message: string) => {
-          logProcess("Main", message, yellow)
+          logProcess("Main", message, chalk.yellow)
         },
 
         error: (message: string) => {
-          logProcess("Main", message, red)
+          logProcess("Main", message, chalk.red)
         },
       },
     })
@@ -83,7 +83,7 @@ class DevRunner {
       const compiler: Compiler = webpack(mainConfig!!)
 
       const printCompilingMessage = new DelayedFunction(() => {
-        logProcess("Main", "Compiling...", yellow)
+        logProcess("Main", "Compiling...", chalk.yellow)
       })
       compiler.plugin("compile", () => {
         hmrServer.beforeCompile()
@@ -110,7 +110,7 @@ class DevRunner {
 
         logProcess("Main", stats.toString({
           colors: true,
-        }), yellow)
+        }), chalk.yellow)
 
         if (resolve != null) {
           resolve()
@@ -172,7 +172,7 @@ function startElectron(electronArgs: Array<string>, env: any) {
       queuedData = null
     }
 
-    logProcess("Electron", data, blue)
+    logProcess("Electron", data, chalk.blue)
   })
 
   logProcessErrorOutput("Electron", electronProcess)
