@@ -210,21 +210,20 @@ export class WebpackConfigurator {
         [this.type]: this.entryFiles,
       }
 
-      if (this.type === "main" && this.electronWebpackConfiguration.main != null) {
-        let extraEntries = this.electronWebpackConfiguration.main.extraEntries
-        if (extraEntries != null) {
-          if (typeof extraEntries === "string") {
-            extraEntries = [extraEntries]
-          }
+      const mainConfiguration = this.electronWebpackConfiguration.main || {}
+      let extraEntries = mainConfiguration.extraEntries
+      if (this.type === "main" && extraEntries != null) {
+        if (typeof extraEntries === "string") {
+          extraEntries = [extraEntries]
+        }
 
-          if (Array.isArray(extraEntries)) {
-            for (const p of extraEntries) {
-              this.config.entry[path.basename(p, path.extname(p))] = p
-            }
+        if (Array.isArray(extraEntries)) {
+          for (const p of extraEntries) {
+            this.config.entry[path.basename(p, path.extname(p))] = p
           }
-          else {
-            Object.assign(this.config.entry, extraEntries)
-          }
+        }
+        else {
+          Object.assign(this.config.entry, extraEntries)
         }
       }
     }
@@ -332,9 +331,16 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
-  const file = await getFirstExistingFile(["index.ts", "main.ts", "index.js", "main.js"], srcDir)
+  const candidates: Array<string> = []
+  for (const ext of ["ts", "js"]) {
+    for (const name of ["index", "main", "app"]) {
+      candidates.push(`${name}.${ext}`)
+    }
+  }
+
+  const file = await getFirstExistingFile(candidates, srcDir)
   if (file == null) {
-    throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or .js)`)
+    throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or main.ts, or app.ts, or index.js, or main.js, or app.js)`)
   }
   return file
 }
