@@ -3,7 +3,7 @@
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
 ## Overview
-Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunaly when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
+Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunately when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
 
 > Why create a module and not a full boilerplate?
 
@@ -35,7 +35,7 @@ rm -rf .git
 yarn
 ```
 
-If you already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts](https://webpack.electron.build/core-concepts), [Project Structure](https://webpack.electron.build/project-structure), and [Development](https://webpack.electron.build/development) sections of `electron-webpack`'s documentaiton.
+If you already have an existing project, or are looking for a custom approach outside of the quick start template, make sure to read over the [Core Concepts](https://webpack.electron.build/core-concepts), [Project Structure](https://webpack.electron.build/project-structure), and [Development](https://webpack.electron.build/development) sections of `electron-webpack`'s documentation.
 
 ### Next Steps
 Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, adding custom configurations, and building your application.
