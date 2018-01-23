@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack-js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [],
@@ -10,6 +10,6 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.1",
-    "babel-plugin-component": "^0.10.1"
+    "babel-plugin-component": "^1.1.0"
   }
 }

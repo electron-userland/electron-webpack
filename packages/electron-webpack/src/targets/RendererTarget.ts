@@ -164,7 +164,7 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
       packageMetadata: new Lazy(() => BluebirdPromise.resolve(configurator.metadata))
     })
     if (electronBuilderConfig != null) {
-      title = electronBuilderConfig.productName
+      title = electronBuilderConfig.result.productName
     }
   }
 

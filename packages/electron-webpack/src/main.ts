@@ -295,12 +295,12 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
 
   const projectDir = (env.configuration || {}).projectDir || process.cwd()
   const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
-  const electronWebpackConfig = await getConfig({
+  const electronWebpackConfig = ((await getConfig({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir,
     packageMetadata: new Lazy(() => BluebirdPromise.resolve(packageMetadata))
-  })
+  })) || {} as any).result || {}
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
   }
