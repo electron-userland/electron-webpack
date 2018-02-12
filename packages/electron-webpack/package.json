@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "1.6.0",
+  "version": "1.12.1",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -16,43 +16,47 @@
     "electron-webpack": "./out/cli.js"
   },
   "repository": "electron-userland/electron-webpack",
+  "engines": {
+    "node": ">=6.11.4"
+  },
   "//": "@types/webpack-env in the dependencies because used by clients",
   "dependencies": {
-    "@types/webpack-env": "^1.13.1",
-    "ajv": "^5.2.2",
-    "ajv-keywords": "^2.1.0",
+    "@types/webpack-env": "^1.13.4",
     "async-exit-hook": "^2.0.1",
     "babel-minify-webpack-plugin": "^0.2.0",
-    "bluebird-lst": "^1.0.3",
-    "chalk": "^2.1.0",
+    "bluebird-lst": "^1.0.5",
+    "chalk": "^2.3.0",
     "crocket": "^0.9.11",
-    "css-hot-loader": "^1.3.1",
-    "css-loader": "^0.28.7",
-    "get-port": "^3.2.0",
-    "debug": "^3.0.1",
-    "electron-devtools-installer": "^2.2.0",
-    "electron-webpack-js": "^1.0.4",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "file-loader": "^0.11.2",
-    "fs-extra-p": "^4.4.2",
-    "html-loader": "^0.5.1",
+    "css-hot-loader": "^1.3.6",
+    "css-loader": "^0.28.9",
+    "debug": "^3.1.0",
+    "electron-devtools-installer": "^2.2.3",
+    "electron-webpack-js": "~1.2.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "fs-extra-p": "^4.5.0",
+    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^2.30.1",
-    "lazy-val": "^1.0.2",
+    "lazy-val": "^1.0.3",
     "node-loader": "^0.6.0",
-    "read-config-file": "^1.1.1",
-    "semver": "^5.4.1",
-    "source-map-support": "^0.4.18",
-    "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9",
+    "read-config-file": "^2.1.1",
+    "semver": "^5.5.0",
+    "source-map-support": "^0.5.3",
+    "style-loader": "^0.20.1",
+    "url-loader": "^0.6.2",
     "virtual-module-webpack-plugin": "^0.3.0",
-    "webpack-dev-server": "^2.8.2",
-    "yargs": "^9.0.1"
+    "webpack-dev-server": "^2.11.1",
+    "webpack-merge": "^4.1.1",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/webpack-merge": "^4.1.1"
   },
   "peerDependencies": {
-    "webpack": "^3.5.3"
+    "webpack": "^3.6.0"
   },
   "types": "./out/main.d.ts",
   "publishConfig": {
-     "tag": "next"
-   }
+    "tag": "next"
+  }
 }

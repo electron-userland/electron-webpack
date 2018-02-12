@@ -11,6 +11,7 @@ files:
     from: "dist/renderer"
   -
     from: "dist/renderer-dll"
+extraResources:
   -
     from: static
     to: static

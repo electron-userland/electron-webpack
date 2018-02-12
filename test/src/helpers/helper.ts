@@ -1,6 +1,6 @@
 import BluebirdPromise from "bluebird-lst"
 import { ElectronWebpackConfiguration } from "electron-webpack"
-import { copy } from "fs-extra-p"
+import { copy, emptyDir } from "fs-extra-p"
 import MemoryFS from "memory-fs"
 import * as path from "path"
 import { TmpDir } from "temp-file"
@@ -18,7 +18,8 @@ export async function doTest(configurationFile: string, electronWebpackConfigura
 }
 
 export async function getMutableProjectDir(fixtureName = "simple") {
-  const projectDir = await tmpDir.getTempDir()
+  const projectDir = process.env.TEST_APP_TMP_DIR || await tmpDir.getTempDir()
+  await emptyDir(projectDir)
   await copy(path.join(rootDir, "test/fixtures", fixtureName), projectDir)
   return projectDir
 }
@@ -38,7 +39,7 @@ export async function testWebpack(configuration: Configuration, projectDir: stri
 
   if (checkCompilation) {
     expect(statToMatchObject(stats, projectDir)).toMatchSnapshot()
-    expect(bufferToString(fs.meta(projectDir))).toMatchSnapshot()
+    expect(bufferToString(fs.meta(projectDir), projectDir)).toMatchSnapshot()
   }
   return fs
 }
@@ -52,6 +53,7 @@ function addCustomResolver(configuration: Configuration) {
 
 function statToMatchObject(stats: Stats, projectDir: string) {
   if (stats.hasErrors()) {
+    console.log(stats.toString({colors: true}))
     throw new Error(stats.toJson().errors)
   }
 
@@ -81,7 +83,7 @@ function compile(fs: any, configuration: Configuration, resolve: (stats: Stats) 
   })
 }
 
-export function bufferToString(host: any) {
+export function bufferToString(host: any, projectDir: string) {
   for (const key of Object.getOwnPropertyNames(host)) {
     if (key === "") {
       delete host[key]
@@ -94,9 +96,11 @@ export function bufferToString(host: any) {
 
     if (Buffer.isBuffer(value)) {
       host[key] = removeNotStableValues(value.toString())
+        .replace(new RegExp(projectDir, "g"), "<project-dir>")
+        .replace(new RegExp(rootDir, "g"), "<root-dir>")
     }
     else if (typeof value === "object") {
-      bufferToString(value)
+      bufferToString(value, projectDir)
     }
   }
   return host
@@ -108,6 +112,7 @@ function removeNotStableValues(value: string) {
   if (index > 0) {
     return value.substring(0, index + bootstrap.length) + value.substring(value.indexOf('"', index))
   }
+
   return value
 }
 

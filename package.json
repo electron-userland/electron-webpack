@@ -4,46 +4,47 @@
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "scripts": {
-    "update-deps": "lerna exec -- npm-check-updates -a",
     "compile": "ts-babel packages/electron-webpack test && yarn schema",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
     "release": "yarn compile && ./npm-publish.sh && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "yarn compile && yarn lint && jest",
     "docs": "gitbook && ./docs/publish.sh",
     "serve-docs": "gitbook && http-server _book -c-1",
-    "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required"
+    "schema": "typescript-json-schema packages/electron-webpack/tsconfig.json ElectronWebpackConfiguration --out packages/electron-webpack/scheme.json --noExtraProps --useTypeOfKeyword --strictNullChecks --titles --required",
+    "//": "update-deps task intended only for core maintainers",
+    "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
-    "@develar/gitbook": "3.2.6",
-    "@types/chalk": "^0.4.31",
+    "@develar/gitbook": "3.2.11",
     "@types/electron-devtools-installer": "^2.0.2",
+    "@types/jest": "^22.0.1",
     "@types/get-port": "^0.0.4",
     "@types/jest": "^20.0.8",
     "@types/memory-fs": "^0.3.0",
-    "@types/node": "8.0.29",
+    "@types/node": "9.3.0",
     "@types/semver": "^5.4.0",
-    "@types/webpack": "^3.0.11",
-    "babel-preset-ts-node4-bluebird": "^0.1.1",
-    "develar-typescript-json-schema": "^0.17.0",
-    "electron-builder-tslint-config": "^1.0.4",
-    "fs-extra-p": "^4.4.2",
+    "@types/webpack": "^3.8.3",
+    "babel-preset-ts-node6-bluebird": "^1.0.1",
+    "develar-typescript-json-schema": "^0.19.0",
+    "electron-builder-tslint-config": "^1.1.0",
+    "fs-extra-p": "^4.5.0",
     "gitbook-plugin-analytics": "^0.2.1",
     "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-github-buttons": "^2.1.0",
-    "http-server": "^0.10.0",
-    "jest-cli": "^21.1.0",
-    "jest-junit": "^3.0.0",
+    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-github-buttons": "^3.0.0",
+    "http-server": "^0.11.1",
+    "jest-cli": "^22.1.4",
+    "jest-junit": "^3.4.1",
     "memory-fs": "^0.4.1",
-    "temp-file": "^2.0.3",
-    "ts-babel": "^4.1.5",
-    "tslint": "^5.7.0",
-    "typescript": "^2.5.2",
-    "webpack": "^3.6.0"
+    "temp-file": "^3.1.1",
+    "ts-babel": "^4.1.8",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
   },
   "babel": {
     "presets": [
-      "babel-preset-ts-node4-bluebird"
+      "babel-preset-ts-node6-bluebird"
     ]
   },
   "workspaces": [

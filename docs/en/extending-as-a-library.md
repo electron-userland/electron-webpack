@@ -7,7 +7,6 @@ One of the great benefits of using `electron-webpack` is that the entirity of `w
 * `electron-webpack/webpack.main.config.js` (`main` process)
 * `electron-webpack/webpack.renderer.config.js` (`renderer` process)
 * `electron-webpack/webpack.renderer.dll.config.js` (Dll bundle spliting)
-* `electron-webpack/webpack.app.config.js` (combination of all configurations above)
 
 If you are wanting to look at these configurations internally, you can easily do the following to print them into your console. Notice that each configuration returns a `Promise`.
 

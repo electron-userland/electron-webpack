@@ -7,6 +7,7 @@
   * [Dll Bundle Splitting](dll-bundle-splitting.md)
   * [Environment Variables](environment-variables.md)
   * [Extending as a Library](extending-as-a-library.md)
+  * [Modifying Webpack Configurations](modifying-webpack-configurations.md)
   * [Using Static Assets](using-static-assets.md)
 * [Project Structure](project-structure.md)
 * [Building](building.md)

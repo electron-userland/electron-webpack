@@ -7,7 +7,7 @@ import { getDllAssets } from "../configurators/dll"
 import { configureVueRenderer } from "../configurators/vue/vue"
 import { WebpackConfigurator } from "../main"
 import { statOrNull } from "../util"
-import { BaseTarget } from "./BaseTarget"
+import { BaseTarget, configureFileLoader } from "./BaseTarget"
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
@@ -22,13 +22,6 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.extensions.push(".css")
 
     const cssHotLoader = configurator.isProduction ? [] : ["css-hot-loader"]
-
-    function configureFileLoader(prefix: string) {
-      return {
-        limit: 10000,
-        name: `${prefix}/[name]--[folder].[ext]`
-      }
-    }
 
     configurator.rules.push(
       {
@@ -62,22 +55,19 @@ export class BaseRendererTarget extends BaseTarget {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: "url-loader",
-          query: configureFileLoader("imgs")
+          options: configureFileLoader("imgs")
         }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: "url-loader",
-        options: {
-          limit: 10000,
-          name: configureFileLoader("media")
-        }
+        options: configureFileLoader("media"),
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         use: {
           loader: "url-loader",
-          query: configureFileLoader("fonts")
+          options: configureFileLoader("fonts")
         }
       },
     )
@@ -144,7 +134,8 @@ export class RendererTarget extends BaseRendererTarget {
       const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")]
       configurator.config.devServer = {
         contentBase,
-        port: process.env.ELECTRON_WDS_PORT,
+        host: process.env.ELECTRON_WEBPACK_WDS_HOST || "localhost",
+        port: process.env.ELECTRON_WEBPACK_WDS_PORT || 9080,
         hot: true,
         overlay: true,
       }
@@ -173,7 +164,7 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
       packageMetadata: new Lazy(() => BluebirdPromise.resolve(configurator.metadata))
     })
     if (electronBuilderConfig != null) {
-      title = electronBuilderConfig.productName
+      title = electronBuilderConfig.result.productName
     }
   }
 

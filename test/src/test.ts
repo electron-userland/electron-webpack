@@ -38,15 +38,16 @@ test("main extra entry point and custom source dir", async () => {
 test("renderer production", async () => {
   const projectDir = await getMutableProjectDir()
 
-  function createTestAsset(dirName: string) {
+  function createTestAsset(dirName: string, fileExt = "png") {
     const dir = path.join(projectDir, dirName)
-    return mkdir(dir).then(() => writeFile(path.join(dir, "foo.png"), randomBytes(100 * 1024)))
+    return mkdir(dir).then(() => writeFile(path.join(dir, `foo.${fileExt}`), randomBytes(100 * 1024)))
   }
 
   // size of file must be greater than url-loader limit
   await BluebirdPromise.all([
     createTestAsset("a"),
     createTestAsset("b"),
+    createTestAsset("static", "txt"),
   ])
 
   const configuration = await require("electron-webpack/webpack.renderer.config.js")({configuration: {projectDir}, production: true})

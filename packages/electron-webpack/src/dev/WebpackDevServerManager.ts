@@ -1,27 +1,27 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue } from "chalk"
+import chalk from "chalk"
 import { ChildProcess } from "child_process"
 import * as path from "path"
 import { createConfigurator } from "../main"
 import { statOrNull } from "../util"
 import { ChildProcessManager, PromiseNotifier, run } from "./ChildProcessManager"
-import { getCommonEnv, LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
+import { LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
 const debug = require("debug")("electron-webpack")
 
-function runWds(projectDir: string) {
+function runWds(projectDir: string, env: any) {
   const isWin = process.platform === "win32"
   const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (isWin ? ".cmd" : ""))
-  debug(`Start renderer WDS ${webpackDevServerPath}`)
+  debug(`Start renderer WDS ${webpackDevServerPath} on ${env.ELECTRON_WEBPACK_WDS_PORT} port`)
   return run(webpackDevServerPath, ["--color", "--env.autoClean=false", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
-    env: getCommonEnv(),
+    env,
     cwd: projectDir,
   })
 }
 
 // 1. in another process to speedup compilation
 // 2. some loaders detect webpack-dev-server hot mode only if run as CLI
-export async function startRenderer(projectDir: string) {
+export async function startRenderer(projectDir: string, env: any) {
   const webpackConfigurator = await createConfigurator("renderer", {production: false, configuration: {projectDir}})
   const sourceDir = webpackConfigurator.sourceDir
   // explicitly set to null - do not handle at all and do not show info message
@@ -31,7 +31,7 @@ export async function startRenderer(projectDir: string) {
 
   const dirStat = await statOrNull(sourceDir)
   if (dirStat == null || !dirStat.isDirectory()) {
-    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, sourceDir)})`, blue)
+    logProcess("Renderer", `No renderer source directory (${path.relative(projectDir, sourceDir)})`, chalk.blue)
     return
   }
 
@@ -47,7 +47,7 @@ export async function startRenderer(projectDir: string) {
   return await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
     let devServerProcess: ChildProcess | null
     try {
-      devServerProcess = runWds(projectDir)
+      devServerProcess = runWds(projectDir, env)
     }
     catch (e) {
       reject!(e)
@@ -67,7 +67,7 @@ export async function startRenderer(projectDir: string) {
     })
 
     devServerProcess.stdout.on("data", (data: string) => {
-      logProcess("Renderer", data, blue, lineFilter)
+      logProcess("Renderer", data, chalk.blue, lineFilter)
 
       const r = resolve
       // we must resolve only after compilation, otherwise devtools disconnected

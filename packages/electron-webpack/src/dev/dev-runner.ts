@@ -1,18 +1,15 @@
 import BluebirdPromise from "bluebird-lst"
-import { blue, red, yellow } from "chalk"
+import chalk from "chalk"
 import { spawn } from "child_process"
 import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
-import getPort from 'get-port';
 import "source-map-support/register"
-import { Compiler } from "webpack"
+import webpack, { Compiler } from "webpack"
 import { HmrServer } from "../electron-main-hmr/HmrServer"
 import { configure } from "../main"
-import { orNullIfFileNotExist } from "../util"
+import { getFreePort, orNullIfFileNotExist } from "../util"
 import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 import { startRenderer } from "./WebpackDevServerManager"
-
-const webpack = require("webpack")
 
 const projectDir = process.cwd()
 
@@ -33,9 +30,17 @@ async function emptyMainOutput() {
 
 class DevRunner {
   async start() {
+    const wdsHost = "localhost"
+    const wdsPort = await getFreePort(wdsHost, 9080)
+    const env = {
+      ...getCommonEnv(),
+      ELECTRON_WEBPACK_WDS_HOST: wdsHost,
+      ELECTRON_WEBPACK_WDS_PORT: wdsPort,
+    }
+
     const hmrServer = new HmrServer()
     await BluebirdPromise.all([
-      startRenderer(projectDir),
+      startRenderer(projectDir, env),
       hmrServer.listen()
         .then(it => {
           socketPath = it
@@ -48,8 +53,11 @@ class DevRunner {
       logError("Main", error)
     })
 
+    const electronArgs = process.env.ELECTRON_ARGS
+    const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${await getFreePort("127.0.0.1", 5858)}`]
+    args.push(path.join(projectDir, "dist/main/main.js"))
     // we should start only when both start and main are started
-    startElectron()
+    startElectron(args, env)
   }
 
   async startMainCompilation(hmrServer: HmrServer) {
@@ -62,20 +70,20 @@ class DevRunner {
         },
 
         warn: (message: string) => {
-          logProcess("Main", message, yellow)
+          logProcess("Main", message, chalk.yellow)
         },
 
         error: (message: string) => {
-          logProcess("Main", message, red)
+          logProcess("Main", message, chalk.red)
         },
       },
     })
 
     await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
-      const compiler: Compiler = webpack(mainConfig)
+      const compiler: Compiler = webpack(mainConfig!!)
 
       const printCompilingMessage = new DelayedFunction(() => {
-        logProcess("Main", "Compiling...", yellow)
+        logProcess("Main", "Compiling...", chalk.yellow)
       })
       compiler.plugin("compile", () => {
         hmrServer.beforeCompile()
@@ -102,7 +110,7 @@ class DevRunner {
 
         logProcess("Main", stats.toString({
           colors: true,
-        }), yellow)
+        }), chalk.yellow)
 
         if (resolve != null) {
           resolve()
@@ -137,16 +145,11 @@ main()
     console.error(error)
   })
 
-async function startElectron() {
-  const electronArgs = process.env.ELECTRON_ARGS
-  // todo: use a default port when https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19981 is resolved
-  const inspectPort = await getPort(/*{port: 5858}*/);
-  const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${inspectPort}`]
-  args.push(path.join(projectDir, "dist/main/main.js"))
-  const electronProcess = spawn(require("electron").toString(), args, {
+function startElectron(electronArgs: Array<string>, env: any) {
+  const electronProcess = spawn(require("electron").toString(), electronArgs, {
     env: {
-      ...getCommonEnv(),
-      ELECTRON_HMR_SOCKET_PATH: socketPath
+      ...env,
+      ELECTRON_HMR_SOCKET_PATH: socketPath,
     }
   })
 
@@ -169,7 +172,7 @@ async function startElectron() {
       queuedData = null
     }
 
-    logProcess("Electron", data, blue)
+    logProcess("Electron", data, chalk.blue)
   })
 
   logProcessErrorOutput("Electron", electronProcess)
@@ -178,7 +181,7 @@ async function startElectron() {
     debug(`Electron exited with exit code ${exitCode}`)
     if (exitCode === 100) {
       setImmediate(() => {
-        startElectron()
+        startElectron(electronArgs, env)
       })
     }
     else {

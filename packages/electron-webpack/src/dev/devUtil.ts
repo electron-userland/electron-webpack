@@ -1,4 +1,4 @@
-import { ChalkChain, red } from "chalk"
+import chalk from "chalk"
 import { ChildProcess } from "child_process"
 
 export interface LineFilter {
@@ -32,17 +32,17 @@ function filterText(s: string, lineFilter: LineFilter | null) {
 
 export function logProcessErrorOutput(label: "Electron" | "Renderer" | "Main", childProcess: ChildProcess) {
   childProcess.stderr.on("data", data => {
-    logProcess(label, data.toString(), red)
+    logProcess(label, data.toString(), chalk.red)
   })
 }
 
 export function logError(label: "Electron" | "Renderer" | "Main", error: Error) {
-  logProcess(label, error.stack || error.toString(), red)
+  logProcess(label, error.stack || error.toString(), chalk.red)
 }
 
 const LABEL_LENGTH = 28
 
-export function logProcess(label: "Electron" | "Renderer" | "Main", data: string | Buffer, labelColor: ChalkChain, lineFilter: LineFilter | null = null) {
+export function logProcess(label: "Electron" | "Renderer" | "Main", data: string | Buffer, labelColor: any, lineFilter: LineFilter | null = null) {
   const log = filterText(data.toString(), lineFilter)
   if (log == null || log.length === 0) {
     return

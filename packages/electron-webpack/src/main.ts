@@ -1,20 +1,19 @@
-import Ajv from "ajv"
 import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
-import getPort from 'get-port';
-import { getConfig } from "read-config-file"
+import { getConfig, validateConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, Rule } from "webpack"
+import merge from "webpack-merge"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
 import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, PackageMetadata, PartConfiguration } from "./core"
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, normaliseErrorMessages, orNullIfFileNotExist } from "./util"
+import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
 
 export { ElectronWebpackConfiguration } from "./core"
 
@@ -38,10 +37,10 @@ export function getDllConfiguration(env: ConfigurationEnv) {
 }
 
 export async function getTestConfiguration(env: ConfigurationEnv) {
-  return (await createConfigurator("test", env))
-    .configure({
-      testComponents: path.join(process.cwd(), "src/renderer/components/testComponents.ts"),
-    })
+  const configurator = await createConfigurator("test", env)
+  return await configurator.configure({
+    testComponents: path.join(process.cwd(), "src/renderer/components/testComponents.ts"),
+  })
 }
 
 export class WebpackConfigurator {
@@ -185,13 +184,6 @@ export class WebpackConfigurator {
       this.config.entry = entry
     }
 
-    // generate ELECTRON_WDS_PORT once when in development
-    // todo: use default port when https://github.com/DefinitelyTyped/DefinitelyTyped/issues/19981 is resolved
-    if (!this.isProduction && !process.env.ELECTRON_WDS_PORT) {
-      const wdsPort = await getPort(/*{port: 9080}*/)
-      process.env.ELECTRON_WDS_PORT = String(wdsPort)
-    }
-
     // if electronVersion not specified, use latest
     this.electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "1.7.5"
     const target = (() => {
@@ -218,25 +210,41 @@ export class WebpackConfigurator {
         [this.type]: this.entryFiles,
       }
 
-      if (this.type === "main" && this.electronWebpackConfiguration.main != null) {
-        let extraEntries = this.electronWebpackConfiguration.main.extraEntries
-        if (extraEntries != null) {
-          if (typeof extraEntries === "string") {
-            extraEntries = [extraEntries]
-          }
+      const mainConfiguration = this.electronWebpackConfiguration.main || {}
+      let extraEntries = mainConfiguration.extraEntries
+      if (this.type === "main" && extraEntries != null) {
+        if (typeof extraEntries === "string") {
+          extraEntries = [extraEntries]
+        }
 
-          if (Array.isArray(extraEntries)) {
-            for (const p of extraEntries) {
-              this.config.entry[path.basename(p, path.extname(p))] = p
-            }
+        if (Array.isArray(extraEntries)) {
+          for (const p of extraEntries) {
+            this.config.entry[path.basename(p, path.extname(p))] = p
           }
-          else {
-            Object.assign(this.config.entry, extraEntries)
-          }
+        }
+        else {
+          Object.assign(this.config.entry, extraEntries)
         }
       }
     }
+
+    this.applyCustomModifications()
+
     return this.config
+  }
+
+  private applyCustomModifications() {
+    if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+    }
+
+    if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
+    }
+
+    if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
+      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
+    }
   }
 
   private computeExternals() {
@@ -265,13 +273,7 @@ export class WebpackConfigurator {
   }
 }
 
-const validatorPromise = new Lazy(async () => {
-  const ajv = new Ajv({allErrors: true, coerceTypes: true})
-  ajv.addMetaSchema(require("ajv/lib/refs/json-schema-draft-04.json"))
-  require("ajv-keywords")(ajv, ["typeof"])
-  const schema = await readJson(path.join(__dirname, "..", "scheme.json"))
-  return ajv.compile(schema)
-})
+const schemeDataPromise = new Lazy(() => readJson(path.join(__dirname, "..", "scheme.json")))
 
 export async function createConfigurator(type: ConfigurationType, env: ConfigurationEnv | null) {
   if (env != null) {
@@ -293,29 +295,26 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
 
   const projectDir = (env.configuration || {}).projectDir || process.cwd()
   const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
-  const electronWebpackConfig = await getConfig({
+  const electronWebpackConfig = ((await getConfig({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir,
     packageMetadata: new Lazy(() => BluebirdPromise.resolve(packageMetadata))
-  })
+  })) || {} as any).result || {}
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
   }
 
-  const validator = await validatorPromise.value
-  if (!validator(electronWebpackConfig)) {
-    throw new Error(`Configuration is invalid:
-${JSON.stringify(normaliseErrorMessages(validator.errors!), null, 2)}
+  await validateConfig(electronWebpackConfig, schemeDataPromise, message => {
+    return `${message}
 
 How to fix:
-  1. Open https://webpack.electron.build/options
-  2. Search the option name on the page.
-    * Not found? The option was deprecated or not exists (check spelling).
-    * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
-`)
-  }
-
+1. Open https://webpack.electron.build/options
+2. Search the option name on the page.
+  * Not found? The option was deprecated or not exists (check spelling).
+  * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
+`
+  })
   return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
 }
 
@@ -327,14 +326,21 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
     return null
   }
   else {
-    return configurator.configure()
+    return await configurator.configure()
   }
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
-  const file = await getFirstExistingFile(["index.ts", "main.ts", "index.js", "main.js"], srcDir)
+  const candidates: Array<string> = []
+  for (const ext of ["ts", "js", "tsx"]) {
+    for (const name of ["index", "main", "app"]) {
+      candidates.push(`${name}.${ext}`)
+    }
+  }
+
+  const file = await getFirstExistingFile(candidates, srcDir)
   if (file == null) {
-    throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or .js)`)
+    throw new Error(`Cannot find entry file ${path.relative(projectDir, path.join(srcDir, "index.ts"))} (or main.ts, or app.ts, or index.js, or main.js, or app.js)`)
   }
   return file
 }

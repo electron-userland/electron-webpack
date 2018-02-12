@@ -1,6 +1,6 @@
-import { AdditionalPropertiesParams, ErrorObject, TypeParams } from "ajv"
 import BluebirdPromise from "bluebird-lst"
 import { stat, Stats } from "fs-extra-p"
+import { createServer } from "net"
 import * as path from "path"
 
 export async function statOrNull(file: string): Promise<Stats | null> {
@@ -26,67 +26,32 @@ export function getFirstExistingFile(names: Array<string>, rootDir: string | nul
     .then(it => it.length > 0 ? it[0] : null)
 }
 
-/** @internal */
-export function normaliseErrorMessages(errors: Array<ErrorObject>) {
-  const result: any = Object.create(null)
-  for (const e of errors) {
-    if (e.keyword === "type" && (e.params as TypeParams).type === "null") {
-      // ignore - no sense to report that type accepts null
-      continue
+export function getFreePort(defaultHost: string, defaultPort: number) {
+  return new BluebirdPromise((resolve, reject) => {
+    const server = createServer({pauseOnConnect: true})
+    server.addListener("listening", () => {
+      const port = server.address().port
+      server.close(() => resolve(port))
+    })
+
+    function doListen(port: number) {
+      server.listen({
+        host: defaultHost,
+        port,
+        backlog: 1,
+        exclusive: true
+      })
     }
 
-    const dataPath = e.dataPath.length === 0 ? [] : e.dataPath.substring(1).split(".")
-    if (e.keyword === "additionalProperties") {
-      dataPath.push((e.params as AdditionalPropertiesParams).additionalProperty)
-    }
-
-    let o = result
-    let lastName: string | null = null
-    for (const p of dataPath) {
-      if (p === dataPath[dataPath.length - 1]) {
-        lastName = p
-        break
+    server.on("error", e => {
+      if ((e as any).code === "EADDRINUSE") {
+        server.close(() => doListen(0))
       }
       else {
-        if (o[p] == null) {
-          o[p] = Object.create(null)
-        }
-        else if (typeof o[p] === "string") {
-          o[p] = [o[p]]
-        }
-        o = o[p]
+        reject(e)
       }
-    }
+    })
 
-    if (lastName == null) {
-      lastName = "unknown"
-    }
-
-    let message = e.message!.toUpperCase()[0] + e.message!.substring(1)
-    switch (e.keyword) {
-      case "additionalProperties":
-        message = "Unknown option"
-        break
-
-      case "required":
-        message = "Required option"
-        break
-
-      case "anyOf":
-        message = "Invalid option object"
-        break
-    }
-
-    if (o[lastName] != null && !Array.isArray(o[lastName])) {
-      o[lastName] = [o[lastName]]
-    }
-
-    if (Array.isArray(o[lastName])) {
-      o[lastName].push(message)
-    }
-    else {
-      o[lastName] = message
-    }
-  }
-  return result
+    doListen(defaultPort)
+  })
 }

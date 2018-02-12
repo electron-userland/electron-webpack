@@ -9,19 +9,20 @@ exports[`app 1`] = `
        [1] <project-dir>/src/main/index.js 0 bytes {0} [built]
 Child
               Asset       Size  Chunks             Chunk Names
-        renderer.js  736 bytes       0  [emitted]  renderer
+        renderer.js  909 bytes       0  [emitted]  renderer
          styles.css  120 bytes       0  [emitted]  renderer
-    renderer.js.map  495 bytes       0  [emitted]  renderer
+    renderer.js.map  593 bytes       0  [emitted]  renderer
      styles.css.map   87 bytes       0  [emitted]  renderer
          index.html  335 bytes          [emitted]  
        [0] multi <project-dir>/src/renderer/index.js 28 bytes {0} [built]
-       [1] <project-dir>/src/renderer/index.js 84 bytes {0} [built]
+       [1] <project-dir>/src/renderer/index.js 229 bytes {0} [built]
        [2] <project-dir>/src/renderer/style.css {0} [built]
        [3] <project-dir>/src/renderer/foo.html 29 bytes {0} [built]
-       [4] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
-       [5] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
-       [6] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
-       [7] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
+       [4] external \\"path\\" 42 bytes {0} [not cacheable]
+       [5] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
+       [6] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
+       [7] ./node_modules/style-loader/lib/addStyles.js 9.41 kB [built]
+       [8] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
     Child html-webpack-plugin for \\"index.html\\":
              Asset     Size  Chunks  Chunk Names
         index.html  2.78 kB       0  
@@ -58,9 +59,9 @@ module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]=
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f);console.log(g.a)},function(){},function(a){a.exports='<p>Hi</p>'}]);
+      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f),h=c(4),i=c.n(h);console.log(g.a);const j=fs.readFileSync(h.join('<project-dir>/static','/foo.txt')).toString('hex');console.log(j)},function(){},function(a){a.exports='<p>Hi</p>'},function(a){a.exports=require('path')}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2JC5DA,KAEA,QAAQ,IAAI,EAEJ,cCLR,eCAA,U\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\",\\"webpack:///./src/renderer/foo.html\\",\\"webpack:///external \\\\\\"path\\\\\\"\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2KC3DA,KAEA,QAAQ,IAAI,EAAZ,GAEA,KAAM,GAAe,GAAG,aAAa,OAAU,2CAAU,aAAa,SAAS,OAC/E,QAEQ,kBCTR,eCAA,U,yBCAA,kB\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
@@ -120,19 +121,20 @@ module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]=
 
 exports[`renderer custom sourceDirectory 1`] = `
 "          Asset       Size  Chunks             Chunk Names
-    renderer.js  736 bytes       0  [emitted]  renderer
+    renderer.js  909 bytes       0  [emitted]  renderer
      styles.css  120 bytes       0  [emitted]  renderer
-renderer.js.map  501 bytes       0  [emitted]  renderer
+renderer.js.map  599 bytes       0  [emitted]  renderer
  styles.css.map   87 bytes       0  [emitted]  renderer
      index.html  335 bytes          [emitted]  
    [0] multi <project-dir>/customRenderer/index.js 28 bytes {0} [built]
-   [1] <project-dir>/customRenderer/index.js 84 bytes {0} [built]
+   [1] <project-dir>/customRenderer/index.js 229 bytes {0} [built]
    [2] <project-dir>/customRenderer/style.css {0} [built]
    [3] <project-dir>/customRenderer/foo.html 29 bytes {0} [built]
-   [4] ./node_modules/css-loader!<project-dir>/customRenderer/style.css [built]
-   [5] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
-   [6] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
-   [7] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
+   [4] external \\"path\\" 42 bytes {0} [not cacheable]
+   [5] ./node_modules/css-loader!<project-dir>/customRenderer/style.css [built]
+   [6] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
+   [7] ./node_modules/style-loader/lib/addStyles.js 9.41 kB [built]
+   [8] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
 Child html-webpack-plugin for \\"index.html\\":
          Asset     Size  Chunks  Chunk Names
     index.html  2.78 kB       0  
@@ -163,9 +165,9 @@ Object {
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f);console.log(g.a)},function(){},function(a){a.exports='<p>Hi</p>'}]);
+      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f),h=c(4),i=c.n(h);console.log(g.a);const j=fs.readFileSync(h.join('<project-dir>/static','/foo.txt')).toString('hex');console.log(j)},function(){},function(a){a.exports='<p>Hi</p>'},function(a){a.exports=require('path')}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./customRenderer/index.js\\",\\"webpack:///./customRenderer/style.css\\",\\"webpack:///./customRenderer/foo.html\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2JC5DA,KAEA,QAAQ,IAAI,EAEJ,cCLR,eCAA,U\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./customRenderer/index.js\\",\\"webpack:///./customRenderer/style.css\\",\\"webpack:///./customRenderer/foo.html\\",\\"webpack:///external \\\\\\"path\\\\\\"\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2KC3DA,KAEA,QAAQ,IAAI,EAAZ,GAEA,KAAM,GAAe,GAAG,aAAa,OAAU,2CAAU,aAAa,SAAS,OAC/E,QAEQ,kBCTR,eCAA,U,yBCAA,kB\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
@@ -176,19 +178,20 @@ Object {
 
 exports[`renderer production 1`] = `
 "          Asset       Size  Chunks             Chunk Names
-    renderer.js  736 bytes       0  [emitted]  renderer
+    renderer.js  909 bytes       0  [emitted]  renderer
      styles.css  120 bytes       0  [emitted]  renderer
-renderer.js.map  495 bytes       0  [emitted]  renderer
+renderer.js.map  593 bytes       0  [emitted]  renderer
  styles.css.map   87 bytes       0  [emitted]  renderer
      index.html  335 bytes          [emitted]  
    [0] multi <project-dir>/src/renderer/index.js 28 bytes {0} [built]
-   [1] <project-dir>/src/renderer/index.js 84 bytes {0} [built]
+   [1] <project-dir>/src/renderer/index.js 229 bytes {0} [built]
    [2] <project-dir>/src/renderer/style.css {0} [built]
    [3] <project-dir>/src/renderer/foo.html 29 bytes {0} [built]
-   [4] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
-   [5] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
-   [6] ./node_modules/style-loader/lib/addStyles.js 8.7 kB [built]
-   [7] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
+   [4] external \\"path\\" 42 bytes {0} [not cacheable]
+   [5] ./node_modules/css-loader!<project-dir>/src/renderer/style.css [built]
+   [6] ./node_modules/css-loader/lib/css-base.js 2.26 kB [built]
+   [7] ./node_modules/style-loader/lib/addStyles.js 9.41 kB [built]
+   [8] ./node_modules/style-loader/lib/urls.js 3.01 kB [built]
 Child html-webpack-plugin for \\"index.html\\":
          Asset     Size  Chunks  Chunk Names
     index.html  2.78 kB       0  
@@ -219,9 +222,9 @@ Object {
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f);console.log(g.a)},function(){},function(a){a.exports='<p>Hi</p>'}]);
+      "renderer.js": "module.exports=function(a){function b(d){if(c[d])return c[d].exports;var e=c[d]={i:d,l:!1,exports:{}};return a[d].call(e.exports,e,e.exports,b),e.l=!0,e.exports}var c={};return b.m=a,b.c=c,b.d=function(a,c,d){b.o(a,c)||Object.defineProperty(a,c,{configurable:!1,enumerable:!0,get:d})},b.n=function(a){var c=a&&a.__esModule?function(){return a['default']}:function(){return a};return b.d(c,'a',c),c},b.o=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)},b.p='',b(b.s=0)}([function(a,b,c){a.exports=c(1)},function(a,b,c){'use strict';Object.defineProperty(b,'__esModule',{value:!0});var d=c(2),e=c.n(d),f=c(3),g=c.n(f),h=c(4),i=c.n(h);console.log(g.a);const j=fs.readFileSync(h.join('<project-dir>/static','/foo.txt')).toString('hex');console.log(j)},function(){},function(a){a.exports='<p>Hi</p>'},function(a){a.exports=require('path')}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2JC5DA,KAEA,QAAQ,IAAI,EAEJ,cCLR,eCAA,U\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///./src/renderer/index.js\\",\\"webpack:///./src/renderer/style.css\\",\\"webpack:///./src/renderer/foo.html\\",\\"webpack:///external \\\\\\"path\\\\\\"\\"],\\"names\\":[],\\"mappings\\":\\"0BACA,cAMA,IACA,iBAGA,mBACA,CACA,IACA,KAIA,2CAGA,aAGA,OACA,OAIA,IAzBA,eA4BA,MAGA,uBACA,GACA,kCACA,CACA,gBACA,cAGA,OAGA,iBACA,YACA,qBAA2B,UAA0B,UACrD,YAAiC,CAAe,QAChD,EAEA,aADA,QAIA,mBAAsD,wCAA+D,SAGrH,MAGA,2KC3DA,KAEA,QAAQ,IAAI,EAAZ,GAEA,KAAM,GAAe,GAAG,aAAa,OAAU,2CAAU,aAAa,SAAS,OAC/E,QAEQ,kBCTR,eCAA,U,yBCAA,kB\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
       "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
 /*# sourceMappingURL=styles.css.map*/",
       "styles.css.map": "{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
