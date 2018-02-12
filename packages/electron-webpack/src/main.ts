@@ -228,23 +228,30 @@ export class WebpackConfigurator {
       }
     }
 
-    this.applyCustomModifications()
+    this.config = await this.applyCustomModifications(this.config);
 
     return this.config
   }
 
-  private applyCustomModifications() {
-    if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+  private applyCustomModifications(config: Configuration) {
+    const applyCustom = (filepath: string) => {
+      const customModule = require(path.join(this.projectDir, filepath));
+      if (typeof customModule === 'function') {
+        return customModule(config);
+      } else {
+        return merge.smart(config, customModule);
+      }
+    };
+    if (this.type === 'renderer' && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
+      return applyCustom(this.electronWebpackConfiguration.renderer.webpackConfig);
     }
-
-    if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
+    if (this.type === 'renderer-dll' && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig ) {
+      return applyCustom(this.electronWebpackConfiguration.renderer.webpackDllConfig);
     }
-
-    if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
+    if (this.type === 'main' && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
+      return applyCustom(this.electronWebpackConfiguration.main.webpackConfig);
     }
+    return config;
   }
 
   private computeExternals() {
