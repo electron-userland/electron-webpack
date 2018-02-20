@@ -19,23 +19,28 @@ export { ElectronWebpackConfiguration } from "./core"
 
 const _debug = require("debug")
 
+// noinspection JSUnusedGlobalSymbols
 export function getAppConfiguration(env: ConfigurationEnv) {
   return BluebirdPromise.filter([configure("main", env), configure("renderer", env)], it => it != null)
 }
 
+// noinspection JSUnusedGlobalSymbols
 export function getMainConfiguration(env: ConfigurationEnv) {
   return configure("main", env)
 }
 
+// noinspection JSUnusedGlobalSymbols
 export function getRendererConfiguration(env: ConfigurationEnv) {
   return configure("renderer", env)
 }
 
 // in the future, if need, isRenderer = true arg can be added
+// noinspection JSUnusedGlobalSymbols
 export function getDllConfiguration(env: ConfigurationEnv) {
   return configure("renderer-dll", env)
 }
 
+// noinspection JSUnusedGlobalSymbols
 export async function getTestConfiguration(env: ConfigurationEnv) {
   const configurator = await createConfigurator("test", env)
   return await configurator.configure({
@@ -57,7 +62,11 @@ export class WebpackConfigurator {
 
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
-  config: Configuration
+  private _configuration: Configuration | null = null
+
+  get config(): Configuration {
+    return this._configuration!!
+  }
 
   readonly rules: Array<Rule> = []
   readonly plugins: Array<Plugin> = []
@@ -65,7 +74,11 @@ export class WebpackConfigurator {
   // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
   readonly extensions: Array<string> = [".js", ".json", ".node"]
 
-  electronVersion: string
+  private _electronVersion: string | null = null
+
+  get electronVersion(): string {
+    return this._electronVersion!!
+  }
 
   readonly entryFiles: Array<string> = []
 
@@ -152,7 +165,7 @@ export class WebpackConfigurator {
   }
 
   async configure(entry?: { [key: string]: any } | null) {
-    this.config = {
+    this._configuration = {
       context: this.projectDir,
       devtool: this.isProduction || this.isTest ? "nosources-source-map" : "eval-source-map",
       externals: this.computeExternals(),
@@ -181,11 +194,11 @@ export class WebpackConfigurator {
     }
 
     if (entry != null) {
-      this.config.entry = entry
+      this._configuration.entry = entry
     }
 
     // if electronVersion not specified, use latest
-    this.electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "1.7.5"
+    this._electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "1.8.2"
     const target = (() => {
       switch (this.type) {
         case "renderer": return new RendererTarget()
@@ -201,7 +214,7 @@ export class WebpackConfigurator {
     configureVue(this)
 
     if (this.debug.enabled) {
-      this.debug(`\n\n${this.type} config:` + JSON.stringify(this.config, null, 2) + "\n\n")
+      this.debug(`\n\n${this.type} config:` + JSON.stringify(this._configuration, null, 2) + "\n\n")
     }
 
     if (this.config.entry == null) {
@@ -235,15 +248,15 @@ export class WebpackConfigurator {
 
   private applyCustomModifications() {
     if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
     }
 
     if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
+      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
     }
 
     if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
-      this.config = merge.smart(this.config, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
+      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
     }
   }
 

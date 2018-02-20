@@ -48,9 +48,15 @@ export class BaseTarget {
 
     if (configurator.isProduction) {
       if (configurator.env.minify !== false) {
-        const BabiliWebpackPlugin = require("babel-minify-webpack-plugin")
-        plugins.push(new BabiliWebpackPlugin({
-          removeDebugger: true
+        const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+        plugins.push(new UglifyJsPlugin({
+          parallel: true,
+          sourceMap: true,
+          uglifyOptions: {
+            compress: {
+              ecma: 7,
+            },
+          },
         }))
       }
       plugins.push(new DefinePlugin({
