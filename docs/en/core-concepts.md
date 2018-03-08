@@ -6,7 +6,7 @@ Below is a general overview of what `electron-webpack` aims to solve, and what i
 It is not a fully featured boilerplate; it is a single **updatable** package. It includes many `webpack` configurations to help jump-start your development needs. If you are looking for a *boilerplate* to get started, please see [electron-webpack-quick-start](https://github.com/electron-userland/electron-webpack-quick-start).
 
 #### `electron-webpack` has a CLI
-You can take use of a few useful commands such as running in development and compiling you source code ([more info](./cli-commands.md)).
+You can take use of a few useful commands such as running in development and compiling your source code ([more info](./cli-commands.md)).
 
 #### `electron-webpack` can be extended
 By using `electron-webpack` you are **not** restricted to any sort of API abstraction of `webpack`. Although there are [Add-ons](./add-ons.md) made available to simplify smaller tasks, the entirety of `webpack`'s documentation is fully applicable ([more info](./extending-as-a-library.md)).
