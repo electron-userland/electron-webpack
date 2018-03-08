@@ -1,5 +1,5 @@
 {
-  "name": "electron-webpack",
+  "name": "@paulwib/electron-webpack",
   "version": "1.13.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
