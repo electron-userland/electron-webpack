@@ -1,6 +1,6 @@
 {
-  "name": "electron-webpack",
-  "version": "1.13.0",
+  "name": "@paulwib/electron-webpack",
+  "version": "1.13.4",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -15,7 +15,7 @@
   "bin": {
     "electron-webpack": "./out/cli.js"
   },
-  "repository": "electron-userland/electron-webpack",
+  "repository": "paulwib/electron-webpack",
   "engines": {
     "node": ">=6.11.4"
   },
@@ -23,7 +23,6 @@
   "dependencies": {
     "@types/webpack-env": "^1.13.5",
     "async-exit-hook": "^2.0.1",
-    "uglifyjs-webpack-plugin": "^1.2.0",
     "bluebird-lst": "^1.0.5",
     "chalk": "^2.3.1",
     "crocket": "^0.9.11",
@@ -43,6 +42,7 @@
     "semver": "^5.5.0",
     "source-map-support": "^0.5.3",
     "style-loader": "^0.20.2",
+    "uglifyjs-webpack-plugin": "^1.2.0",
     "url-loader": "^0.6.2",
     "virtual-module-webpack-plugin": "^0.3.0",
     "webpack-dev-server": "^2.11.1",

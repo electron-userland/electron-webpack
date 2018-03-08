@@ -60,7 +60,7 @@ export class WebpackConfigurator {
   readonly sourceDir: string
   readonly commonSourceDirectory: string
 
-  readonly debug = _debug(`electron-webpack:${this.type}`)
+  readonly debug = _debug(`@paulwib/electron-webpack:${this.type}`)
 
   private _configuration: Configuration | null = null
 
@@ -274,7 +274,7 @@ export class WebpackConfigurator {
     externals.push("electron-devtools-installer")
     if (this.type === "main") {
       externals.push("webpack/hot/log-apply-result")
-      externals.push("electron-webpack/out/electron-main-hmr/HmrClient")
+      externals.push("@paulwib/electron-webpack/out/electron-main-hmr/HmrClient")
       externals.push("source-map-support/source-map-support.js")
     }
 

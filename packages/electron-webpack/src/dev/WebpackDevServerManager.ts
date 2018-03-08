@@ -7,7 +7,7 @@ import { statOrNull } from "../util"
 import { ChildProcessManager, PromiseNotifier, run } from "./ChildProcessManager"
 import { LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 
-const debug = require("debug")("electron-webpack")
+const debug = require("debug")("@paulwib/electron-webpack")
 
 function runWds(projectDir: string, env: any) {
   const isWin = process.platform === "win32"

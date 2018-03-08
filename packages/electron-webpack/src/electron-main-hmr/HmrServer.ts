@@ -2,7 +2,7 @@ import BluebirdPromise from "bluebird-lst"
 import Crocket from "crocket"
 import { Stats } from "webpack"
 
-const debug = require("debug")("electron-webpack:dev-runner")
+const debug = require("debug")("@paulwib/electron-webpack:dev-runner")
 
 export class HmrServer {
   private state = false

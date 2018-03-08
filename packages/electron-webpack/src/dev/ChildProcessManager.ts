@@ -1,7 +1,7 @@
 import { ChildProcess, spawn, SpawnOptions } from "child_process"
 import * as path from "path"
 
-const debug = require("debug")("electron-webpack")
+const debug = require("debug")("@paulwib/electron-webpack")
 
 export function run(programm: string, args: Array<string>, options: SpawnOptions) {
   const isWin = process.platform === "win32"
