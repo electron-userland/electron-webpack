@@ -3,7 +3,7 @@
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
 ## Overview
-Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunaly when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
+Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunately when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
 
 > Why create a module and not a full boilerplate?
 
