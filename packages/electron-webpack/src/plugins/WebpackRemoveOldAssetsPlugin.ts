@@ -7,7 +7,7 @@ import { orNullIfFileNotExist } from "../util"
 export const MAX_FILE_REQUESTS = 8
 export const CONCURRENCY = {concurrency: MAX_FILE_REQUESTS}
 
-const debug = require("debug")("electron-webpack:clean")
+const debug = require("debug")("@paulwib/electron-webpack:clean")
 
 export async function walk(initialDirPath: string, filter?: Filter | null): Promise<Array<string>> {
   const result: Array<string> = []

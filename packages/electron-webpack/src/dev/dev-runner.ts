@@ -15,7 +15,7 @@ const projectDir = process.cwd()
 
 let socketPath: string | null = null
 
-const debug = require("debug")("electron-webpack")
+const debug = require("debug")("@paulwib/electron-webpack")
 
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {

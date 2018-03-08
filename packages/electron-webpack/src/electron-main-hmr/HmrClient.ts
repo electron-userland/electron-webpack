@@ -1,6 +1,6 @@
 import Crocket from "crocket"
 
-const debug = require("debug")("electron-webpack:main-client-hmr")
+const debug = require("debug")("@paulwib/electron-webpack:main-client-hmr")
 
 interface BuiltMessage {
   hash: string
