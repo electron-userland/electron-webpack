@@ -1,4 +1,4 @@
-import BluebirdPromise from "bluebird-lst"
+import { outputFile } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { getConfig } from "read-config-file"
@@ -22,6 +22,10 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.extensions.push(".css")
 
     const cssHotLoader = configurator.isProduction ? [] : ["css-hot-loader"]
+    if (!configurator.isProduction) {
+      // https://github.com/shepherdwind/css-hot-loader/issues/37
+      configurator.entryFiles.unshift("css-hot-loader/hotModuleReplacement")
+    }
 
     configurator.rules.push(
       {
@@ -161,7 +165,7 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
       packageKey: "build",
       configFilename: "electron-builder",
       projectDir: configurator.projectDir,
-      packageMetadata: new Lazy(() => BluebirdPromise.resolve(configurator.metadata))
+      packageMetadata: new Lazy(() => Promise.resolve(configurator.metadata))
     })
     if (electronBuilderConfig != null) {
       title = electronBuilderConfig.result.productName
@@ -188,16 +192,9 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
     }
   }
 
-  const virtualFilePath = "/__virtual__/renderer-index.html"
-
   const title = await computeTitle(configurator)
-
-  // add node_modules to global paths so "require" works properly in development
-  const VirtualModulePlugin = require("virtual-module-webpack-plugin")
-  configurator.plugins.push(new VirtualModulePlugin({
-    moduleName: virtualFilePath,
-    contents: `
-<!DOCTYPE html>
+  const filePath = path.join(configurator.commonDistDirectory, ".renderer-index-template.html")
+  await outputFile(filePath, `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -212,8 +209,7 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
   <body>
     <div id="app"></div>
   </body>
-</html>`,
-  }))
+</html>`)
 
-  return `!!html-loader?minimize=false!${virtualFilePath}`
+  return `!!html-loader?minimize=false!${filePath}`
 }

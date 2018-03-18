@@ -2,17 +2,10 @@
   sourceMaps: "inline",
   plugins: [
     [
-      "transform-async-to-module-method",
+      "@babel/plugin-transform-modules-commonjs",
       {
-        module: "bluebird-lst",
-        method: "coroutine"
+        lazy: true
       }
-    ],
-    [
-      "transform-inline-imports-commonjs",
-      {
-        excludeModules: ["path", "debug"]
-      }
-    ],
+    ]
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack-vue",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [],
@@ -8,8 +8,8 @@
   "dependencies": {
     "vue-class-component": "^6.2.0",
     "vue-html-loader": "^1.2.4",
-    "vue-loader": "^14.1.1",
+    "vue-loader": "^14.2.1",
     "vue-style-loader": "^4.0.2",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.16"
   }
 }

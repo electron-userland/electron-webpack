@@ -72,7 +72,7 @@ export class WebpackRemoveOldAssetsPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.plugin("after-emit", (compilation: any, callback: (error?: Error) => void) => {
+    compiler.hooks.afterEmit.tapAsync("WebpackRemoveOldAssetsPlugin", (compilation: any, callback: (error?: Error) => void) => {
       const newlyCreatedAssets = compilation.assets
       const outDir = compiler.options.output!.path!
       walk(outDir, (file, stat) => {

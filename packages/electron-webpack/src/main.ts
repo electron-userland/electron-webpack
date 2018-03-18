@@ -210,7 +210,7 @@ export class WebpackConfigurator {
     })()
     this.debug(`Target class: ${target.constructor.name}`)
     target.configureRules(this)
-    await BluebirdPromise.all([target.configurePlugins(this), configureTypescript(this)])
+    await Promise.all([target.configurePlugins(this), configureTypescript(this)])
     configureVue(this)
 
     if (this.debug.enabled) {
@@ -312,7 +312,7 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir,
-    packageMetadata: new Lazy(() => BluebirdPromise.resolve(packageMetadata))
+    packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
   })) || {} as any).result || {}
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)

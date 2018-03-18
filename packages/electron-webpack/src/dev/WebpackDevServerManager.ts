@@ -1,4 +1,3 @@
-import BluebirdPromise from "bluebird-lst"
 import chalk from "chalk"
 import { ChildProcess } from "child_process"
 import * as path from "path"
@@ -44,7 +43,7 @@ export async function startRenderer(projectDir: string, env: any) {
     new OneTimeLineFilter("Project is running at "),
     new OneTimeLineFilter("webpack output is served from "),
   ])
-  return await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
+  return await new Promise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
     let devServerProcess: ChildProcess | null
     try {
       devServerProcess = runWds(projectDir, env)
@@ -71,7 +70,7 @@ export async function startRenderer(projectDir: string, env: any) {
 
       const r = resolve
       // we must resolve only after compilation, otherwise devtools disconnected
-      if (r != null && data.includes("webpack: Compiled successfully.")) {
+      if (r != null && data.includes(": Compiled successfully.")) {
         resolve = null
         r()
       }

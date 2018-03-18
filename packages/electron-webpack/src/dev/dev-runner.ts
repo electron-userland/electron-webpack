@@ -39,7 +39,7 @@ class DevRunner {
     }
 
     const hmrServer = new HmrServer()
-    await BluebirdPromise.all([
+    await Promise.all([
       startRenderer(projectDir, env),
       hmrServer.listen()
         .then(it => {
@@ -81,13 +81,13 @@ class DevRunner {
       },
     })
 
-    await new BluebirdPromise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
+    await new Promise((resolve: (() => void) | null, reject: ((error: Error) => void) | null) => {
       const compiler: Compiler = webpack(mainConfig!!)
 
       const printCompilingMessage = new DelayedFunction(() => {
         logProcess("Main", "Compiling...", chalk.yellow)
       })
-      compiler.plugin("compile", () => {
+      compiler.hooks.compile.tap("electron-webpack-dev-runner", () => {
         hmrServer.beforeCompile()
         printCompilingMessage.schedule()
       })

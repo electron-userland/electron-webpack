@@ -1,4 +1,3 @@
-import BluebirdPromise from "bluebird-lst"
 import { ElectronWebpackConfiguration } from "electron-webpack"
 import { copy, emptyDir } from "fs-extra-p"
 import MemoryFS from "memory-fs"
@@ -33,7 +32,7 @@ export async function testWebpack(configuration: Configuration, projectDir: stri
   }
 
   const fs = new MemoryFS()
-  const stats = await new BluebirdPromise<Stats>((resolve, reject) => {
+  const stats = await new Promise<Stats>((resolve, reject) => {
     compile(fs, configuration, resolve, reject)
   })
 

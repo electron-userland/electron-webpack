@@ -15,7 +15,7 @@ Here are some of the awesome features you'll find using `electron-webpack`...
 * Use of [`webpack`](https://webpack.js.org/) for source code bundling
 * Use of [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) for development
 * HMR for both `renderer` and `main` processes
-* Use of [`babel-preset-env`](https://github.com/babel/babel-preset-env) that is automatically configured based on your `electron` version
+* Use of [`@babel/preset-env`](https://github.com/babel/babel/tree/master/packages/babel-preset-env) that is automatically configured based on your `electron` version
 * Ability to add custom `webpack` loaders, plugins, etc.
 * [Add-ons](https://webpack.electron.build/add-ons) to support items like [TypeScript](http://www.typescriptlang.org/), [Less](http://lesscss.org/), [EJS](http://www.embeddedjs.com/), etc.
 

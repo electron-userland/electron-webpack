@@ -5,7 +5,7 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
   // better to use require instead of just preset name to avoid babel resolving (in our test we set custom resolver - and only in case of explicit required it works)
   const presets = [
     [
-      require("babel-preset-env"), {
+      require("@babel/preset-env"), {
       modules: false,
       targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
     }],
@@ -23,7 +23,7 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     ]])
   }
 
-  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env"]}))
+  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env", "@babel/preset-env"]}))
   addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
 
   return {
@@ -49,10 +49,14 @@ function computeBabelEnvTarget(isRenderer: boolean, electronVersion: string) {
     }
   }
 
-  // https://github.com/electron/electron/blob/1-6-x/.node-version
   let nodeVersion = "7.4.0"
-  if (gte(electronVersion, "1.7.3")) {
-    // https://github.com/electron/electron/blob/master/.node-version
+  if (gte(electronVersion, "2.0.0-beta.4")) {
+    nodeVersion = "8.9.3"
+  }
+  else if (gte(electronVersion, "1.8.2")) {
+    nodeVersion = "8.2.1"
+  }
+  else if (gte(electronVersion, "1.7.3")) {
     nodeVersion = "7.9.0"
   }
 

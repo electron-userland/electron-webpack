@@ -2,7 +2,8 @@
   "extends": "../node_modules/ts-babel/tsconfig-base.json",
   "compilerOptions": {
     "outDir": "out",
-    "baseUrl": "../packages"
+    "baseUrl": "../packages",
+    "skipLibCheck": true
   },
   "declaration": false,
   "include": [

@@ -3,13 +3,15 @@ import * as path from "path"
 
 const debug = require("debug")("electron-webpack")
 
-export function run(programm: string, args: Array<string>, options: SpawnOptions) {
+export function run(program: string, args: Array<string>, options: SpawnOptions) {
   const isWin = process.platform === "win32"
-  return spawn(isWin ? path.join(__dirname, "../../vendor/runnerw.exe") : programm, isWin ? [programm].concat(args) : args, options)
+  return spawn(isWin ? path.join(__dirname, "../../vendor/runnerw.exe") : program, isWin ? [program].concat(args) : args, options)
 }
 
 export class ChildProcessManager {
+  // noinspection TypeScriptFieldCanBeMadeReadonly
   private mainProcessExitCleanupCallback: (() => void) | null = null
+  // noinspection TypeScriptFieldCanBeMadeReadonly
   private child: ChildProcess | null
 
   constructor(child: ChildProcess, debugLabel: string, promiseNotifier: PromiseNotifier | null) {

@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`title false 1`] = `
-"
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html>
   <head>
     <meta charset=\\"utf-8\\">
@@ -21,8 +20,7 @@ exports[`title false 1`] = `
 `;
 
 exports[`title null 1`] = `
-"
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html>
   <head>
     <meta charset=\\"utf-8\\">
@@ -41,8 +39,7 @@ exports[`title null 1`] = `
 `;
 
 exports[`title true 1`] = `
-"
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html>
   <head>
     <meta charset=\\"utf-8\\">

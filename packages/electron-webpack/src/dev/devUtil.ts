@@ -19,6 +19,9 @@ function filterText(s: string, lineFilter: LineFilter | null) {
       if (it.includes("Couldn't set selectedTextBackgroundColor from default ()")) {
         return false
       }
+      if (it.includes("Use NSWindow's -titlebarAppearsTransparent=YES instead.")) {
+        return false
+      }
       return !it.includes("Warning: This is an experimental feature and could change at any time.")
         && !it.includes("No type errors found")
         && !it.includes("webpack: Compiled successfully.")

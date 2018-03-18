@@ -85,7 +85,7 @@ yarn add babel-preset-react --dev
 
 ### Babel
 
-[babel-preset-env](https://github.com/babel/babel-preset-env) is automatically configured based on your `electron` version.
+[@babel/preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env) is automatically configured based on your `electron` version.
 
 All direct dev dependencies `babel-preset-*` and `babel-plugin-*` are automatically configured also.
 

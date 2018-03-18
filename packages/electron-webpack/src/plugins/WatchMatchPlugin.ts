@@ -5,7 +5,7 @@ export class WatchFilterPlugin {
   }
 
   apply(compiler: Compiler) {
-    compiler.plugin("after-environment", () => {
+    compiler.hooks.afterEnvironment.tap("WatchFilterPlugin", () => {
       (compiler as any).watchFileSystem = new IgnoringWatchFileSystem((compiler as any).watchFileSystem, this.filter, this.debug)
     })
   }

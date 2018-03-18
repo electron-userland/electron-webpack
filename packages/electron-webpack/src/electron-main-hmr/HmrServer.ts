@@ -1,4 +1,3 @@
-import BluebirdPromise from "bluebird-lst"
 import Crocket from "crocket"
 import { Stats } from "webpack"
 
@@ -9,7 +8,7 @@ export class HmrServer {
   readonly ipc = new Crocket()
 
   listen(): Promise<string> {
-    return new BluebirdPromise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const socketPath = `/tmp/electron-main-ipc-${process.pid.toString(16)}.sock`
       this.ipc.listen({path: socketPath}, error => {
         if (error != null) {

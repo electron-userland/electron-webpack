@@ -1,5 +1,5 @@
 import * as path from "path"
-import { DefinePlugin, EnvironmentPlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, NamedModulesPlugin, NoEmitOnErrorsPlugin, optimize } from "webpack"
+import { DefinePlugin, EnvironmentPlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin } from "webpack"
 import { configureDll } from "../configurators/dll"
 import { configureEslint } from "../configurators/eslint"
 import { createBabelLoader } from "../configurators/js"
@@ -45,6 +45,16 @@ export class BaseTarget {
     const plugins = configurator.plugins
 
     const dllManifest = await configureDll(configurator)
+    const mode = configurator.isProduction ? "production" : "development"
+
+    let optimization = configurator.config.optimization
+    if (optimization == null) {
+      optimization = {}
+      configurator.config.optimization = optimization
+    }
+
+    optimization.nodeEnv = mode
+    configurator.config.mode = mode
 
     if (configurator.isProduction) {
       if (configurator.env.minify !== false) {
@@ -59,14 +69,12 @@ export class BaseTarget {
           },
         }))
       }
-      plugins.push(new DefinePlugin({
-        "process.env.NODE_ENV": "\"production\""
-      }))
+      optimization.minimize = true
       plugins.push(new LoaderOptionsPlugin({minimize: true}))
 
       // do not use ModuleConcatenationPlugin for HMR
       // https://github.com/webpack/webpack-dev-server/issues/949
-      plugins.push(new optimize.ModuleConcatenationPlugin())
+      optimization.concatenateModules = true
     }
     else {
       configureDevelopmentPlugins(configurator)
@@ -76,7 +84,7 @@ export class BaseTarget {
       plugins.push(new WebpackRemoveOldAssetsPlugin(dllManifest))
     }
 
-    plugins.push(new NoEmitOnErrorsPlugin())
+    optimization.noEmitOnErrors = true
 
     const additionalEnvironmentVariables = Object.keys(process.env).filter(it => it.startsWith("ELECTRON_WEBPACK_"))
     if (additionalEnvironmentVariables.length > 0) {
@@ -98,7 +106,7 @@ function isAncestor(file: string, dir: string) {
 
 function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const plugins = configurator.plugins
-  plugins.push(new NamedModulesPlugin())
+  configurator.config.optimization!!.namedModules = true
   plugins.push(new DefinePlugin({
     __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`
   }))

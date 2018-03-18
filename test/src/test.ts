@@ -1,4 +1,3 @@
-import BluebirdPromise from "bluebird-lst"
 import { randomBytes } from "crypto"
 import { mkdir, move, outputJson, writeFile } from "fs-extra-p"
 import * as path from "path"
@@ -44,7 +43,7 @@ test("renderer production", async () => {
   }
 
   // size of file must be greater than url-loader limit
-  await BluebirdPromise.all([
+  await Promise.all([
     createTestAsset("a"),
     createTestAsset("b"),
     createTestAsset("static", "txt"),
