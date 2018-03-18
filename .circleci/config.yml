@@ -3,7 +3,7 @@ version: 2
 jobs:
     build:
       docker:
-        - image: circleci/node:8.5.0
+        - image: circleci/node:8.10.0
           environment:
             JEST_JUNIT_OUTPUT: ./test-reports/test.xml
       steps:
