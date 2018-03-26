@@ -61,7 +61,7 @@ function statToMatchObject(stats: Stats, projectDir: string) {
     .split(/\r?\n/)
     .filter(it => {
       const trimmed = it.trim()
-      return !trimmed.startsWith("Time:") && !trimmed.startsWith("Hash:") && !trimmed.startsWith("Version:")
+      return !trimmed.startsWith("Time:") && !trimmed.startsWith("Hash:") && !trimmed.startsWith("Version:") && !trimmed.startsWith("Built at:")
     })
     .join("\n")
     .replace(new RegExp(`[../]*${projectDir}`, "g"), "<project-dir>")

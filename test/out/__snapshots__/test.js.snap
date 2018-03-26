@@ -2,7 +2,6 @@
 
 exports[`app 1`] = `
 "Child
-    Built at: 3/18/2018 5:28:40 PM
           Asset       Size  Chunks             Chunk Names
         main.js  693 bytes       0  [emitted]  main
     main.js.map   1.09 KiB       0  [emitted]  main
@@ -10,7 +9,6 @@ exports[`app 1`] = `
        [0] ./src/main/index.js 0 bytes {0} [built]
        [1] multi ./src/main/index.js 28 bytes {0} [built]
 Child
-    Built at: 3/18/2018 5:28:40 PM
               Asset       Size  Chunks             Chunk Names
         renderer.js  874 bytes       0  [emitted]  renderer
          styles.css  120 bytes       0  [emitted]  renderer
@@ -76,8 +74,7 @@ Object {
 `;
 
 exports[`main extra entry point and custom source dir 1`] = `
-"Built at: 3/18/2018 5:28:41 PM
-      Asset       Size  Chunks             Chunk Names
+"      Asset       Size  Chunks             Chunk Names
      foo.js  677 bytes       0  [emitted]  foo
     main.js  694 bytes       1  [emitted]  main
  foo.js.map   1.17 KiB       0  [emitted]  foo
@@ -105,8 +102,7 @@ Object {
 `;
 
 exports[`main production 1`] = `
-"Built at: 3/18/2018 5:28:41 PM
-      Asset       Size  Chunks             Chunk Names
+"      Asset       Size  Chunks             Chunk Names
     main.js  693 bytes       0  [emitted]  main
 main.js.map   1.09 KiB       0  [emitted]  main
 Entrypoint main = main.js main.js.map
@@ -127,8 +123,7 @@ Object {
 `;
 
 exports[`renderer custom sourceDirectory 1`] = `
-"Built at: 3/18/2018 5:28:41 PM
-          Asset       Size  Chunks             Chunk Names
+"          Asset       Size  Chunks             Chunk Names
     renderer.js  874 bytes       0  [emitted]  renderer
      styles.css  120 bytes       0  [emitted]  renderer
 renderer.js.map   1.51 KiB       0  [emitted]  renderer
@@ -188,8 +183,7 @@ Object {
 `;
 
 exports[`renderer production 1`] = `
-"Built at: 3/18/2018 5:28:42 PM
-          Asset       Size  Chunks             Chunk Names
+"          Asset       Size  Chunks             Chunk Names
     renderer.js  874 bytes       0  [emitted]  renderer
      styles.css  120 bytes       0  [emitted]  renderer
 renderer.js.map    1.5 KiB       0  [emitted]  renderer
@@ -249,8 +243,7 @@ Object {
 `;
 
 exports[`typescript 1`] = `
-"Built at: 3/18/2018 5:28:43 PM
-      Asset       Size  Chunks             Chunk Names
+"      Asset       Size  Chunks             Chunk Names
     main.js  707 bytes       0  [emitted]  main
 main.js.map   1.09 KiB       0  [emitted]  main
 Entrypoint main = main.js main.js.map
