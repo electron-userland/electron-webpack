@@ -79,6 +79,18 @@ Add support for compiling JSX files.
 yarn add babel-preset-react --dev
 ```
 
+### Adding TypeScript support for JSX (`.tsx` files)
+Install the [TypeScript](#typescript) add-on, followed by extending your `tsconfig.json` to include the jsx compiler option as below:
+
+```json
+{
+    "extends": "./node_modules/electron-webpack/tsconfig-base.json",
+    "compilerOptions": {
+        "jsx": "react"
+    }
+}
+```
+
 ---
 
 ## Pre-processors
