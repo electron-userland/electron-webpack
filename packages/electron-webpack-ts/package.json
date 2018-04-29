@@ -7,9 +7,9 @@
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
     "fork-ts-checker-webpack-plugin": "^0.4.1",
-    "ts-loader": "^4.1.0"
+    "ts-loader": "^4.2.0"
   },
   "peerDependencies": {
-    "typescript": "^2.7.2"
+    "typescript": "^2.8.3"
   }
 }
