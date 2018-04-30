@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -31,8 +31,8 @@
     "css-loader": "^0.28.11",
     "debug": "^3.1.0",
     "electron-devtools-installer": "^2.2.3",
-    "electron-webpack-js": "^2.0.1",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "electron-webpack-js": "~2.0.2",
+    "mini-css-extract-plugin": "^0.4.0",
     "file-loader": "^1.1.11",
     "fs-extra-p": "^4.5.2",
     "html-loader": "^1.0.0-alpha.0",

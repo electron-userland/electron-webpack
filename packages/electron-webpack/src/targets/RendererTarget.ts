@@ -9,7 +9,7 @@ import { WebpackConfigurator } from "../main"
 import { statOrNull } from "../util"
 import { BaseTarget, configureFileLoader } from "./BaseTarget"
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 export class BaseRendererTarget extends BaseTarget {
   constructor() {
@@ -21,7 +21,7 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
-    const cssHotLoader = configurator.isProduction ? [] : ["css-hot-loader"]
+    const cssHotLoader = configurator.isProduction ? [MiniCssExtractPlugin.loader] : ["css-hot-loader", MiniCssExtractPlugin.loader]
     if (!configurator.isProduction) {
       // https://github.com/shepherdwind/css-hot-loader/issues/37
       configurator.entryFiles.unshift("css-hot-loader/hotModuleReplacement")
@@ -30,30 +30,15 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.rules.push(
       {
         test: /\.css$/,
-        use: cssHotLoader.concat(ExtractTextPlugin.extract({
-          use: "css-loader",
-          fallback: "style-loader",
-        })),
+        use: cssHotLoader.concat("css-loader"),
       },
       {
         test: /\.less$/,
-        use: cssHotLoader.concat(ExtractTextPlugin.extract({
-          use: [
-            {loader: "css-loader"},
-            {loader: "less-loader"}
-          ],
-          fallback: "style-loader"
-        }))
+        use: cssHotLoader.concat("less-loader"),
       },
       {
         test: /\.scss/,
-        use: cssHotLoader.concat(ExtractTextPlugin.extract({
-          use: [
-            {loader: "css-loader"},
-            {loader: "sass-loader"}
-          ],
-          fallback: "style-loader"
-        }))
+        use: cssHotLoader.concat("sass-loader"),
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -98,7 +83,7 @@ export class BaseRendererTarget extends BaseTarget {
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
     configurator.debug("Add ExtractTextPlugin plugin")
-    configurator.plugins.push(new ExtractTextPlugin(`${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`))
+    configurator.plugins.push(new MiniCssExtractPlugin({filename: `${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`}))
 
     // https://github.com/electron-userland/electrify/issues/1
     if (!configurator.isProduction) {

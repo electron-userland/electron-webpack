@@ -65,6 +65,7 @@ function statToMatchObject(stats: Stats, projectDir: string) {
     })
     .join("\n")
     .replace(new RegExp(`[../]*${projectDir}`, "g"), "<project-dir>")
+    .replace(new RegExp(`[../]*${process.cwd()}`, "g"), "<cwd>")
     // no idea why failed on CI - in any case we validate file content
     .replace(/\/style\.css \d+ bytes/g, "/style.css")
 }

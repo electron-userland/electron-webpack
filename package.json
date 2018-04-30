@@ -15,14 +15,14 @@
     "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
-    "@develar/gitbook": "^3.2.11",
+    "@develar/gitbook": "3.2.11",
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/jest": "^22.2.3",
     "@types/memory-fs": "^0.3.0",
     "@types/node": "^10.0.0",
     "@types/semver": "^5.5.0",
     "@types/webpack": "^4.1.4",
-    "babel-preset-ts-node6-bluebird": "^2.0.4",
+    "babel-preset-ts-node6-bluebird": "^2.0.5",
     "develar-typescript-json-schema": "^0.20.0",
     "electron-builder-tslint-config": "^1.1.0",
     "fs-extra-p": "^4.5.2",
