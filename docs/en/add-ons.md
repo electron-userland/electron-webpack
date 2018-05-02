@@ -2,7 +2,7 @@
 
 Although `electron-webpack` is provided as a single module, you can also install add-ons. Add-ons are made available to help setup certain frameworks that may require a lot of extra configuration or dependencies, such as TypeScript or Vue.js.
 
-These add-ons are completely optional and may not support all use cases. If you need something more custom, please know that the entirety of `webpack`'s documenation still applies to `electron-webpack` ([more info](./extending-as-a-library.md)).
+These add-ons are completely optional and may not support all use cases. If you need something more custom, please know that the entirety of `webpack`'s documentation still applies to `electron-webpack` ([more info](./extending-as-a-library.md)).
 
 **Current Add-ons**
 * [JavaScript Frameworks](#javascript-frameworks)

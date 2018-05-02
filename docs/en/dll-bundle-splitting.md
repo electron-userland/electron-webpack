@@ -1,6 +1,6 @@
 # Dll Bundle Splitting
 
-One great feature of using `webpack` is being able to take advantage of the `webpack.DllPlugin` plugin. If you are unfamiliar with the `webpack.DllPlugin` plugin, make sure to read its [documenation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
+One great feature of using `webpack` is being able to take advantage of the `webpack.DllPlugin` plugin. If you are unfamiliar with the `webpack.DllPlugin` plugin, make sure to read its [documentation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
 
 Through custom configurations `electron-webpack` provides a place to define specific packages you would like to create a separate bundle for. You can treat this feature as a way to bundle all of your *vendor* libraries together.
 
