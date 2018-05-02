@@ -2,7 +2,7 @@
 
 As cool as `electron-webpack` can be a simple module to cover a majority of your development needs, you can also throw in your own configurations as needed. Please know that when using expected defaults, no configurations are neccessary.
 
-Configurations can be applied in `package.json` at `electronWebpack` or in a separate `electron-webpack.(json|json5|yml)`. For the purposes of this documenation, we will use the `package.json` approach and examples will show defaults when applicable.
+Configurations can be applied in `package.json` at `electronWebpack` or in a separate `electron-webpack.(json|json5|yml)`. For the purposes of this documentation, we will use the `package.json` approach and examples will show defaults when applicable.
 
 **Overview of available options**
 ```json

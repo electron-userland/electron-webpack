@@ -1,6 +1,6 @@
 # Extending as a Library
 
-One of the great benefits of using `electron-webpack` is that the entirity of `webpack`'s documenation still applies. You can easily skip using the provided CLI and modify the configurations to meet your needs. Since `electron` uses a multi-process architecture, there are also multiple `webpack` configurations. Let's cover what's provided.
+One of the great benefits of using `electron-webpack` is that the entirity of `webpack`'s documentation still applies. You can easily skip using the provided CLI and modify the configurations to meet your needs. Since `electron` uses a multi-process architecture, there are also multiple `webpack` configurations. Let's cover what's provided.
 
 ### Configuration Files
 
