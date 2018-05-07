@@ -179,13 +179,16 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   const title = await computeTitle(configurator)
   const filePath = path.join(configurator.commonDistDirectory, ".renderer-index-template.html")
+  
+  nodeModulePath = nodeModulePath.replace(/\\/g, "\\\\")
+  
   await outputFile(filePath, `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     ${title == null ? "" : `<title>${title}</title>`}
     <script>
-      ${nodeModulePath == null ? "" : `require("module").globalPaths.push('${nodeModulePath.replace(/\\/g, "\\\\")}')`}
+      ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "\\\\")}")`}
       require("source-map-support/source-map-support.js").install()
     </script>
     ${scripts.join("")}
