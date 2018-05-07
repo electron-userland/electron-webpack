@@ -179,6 +179,9 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   const title = await computeTitle(configurator)
   const filePath = path.join(configurator.commonDistDirectory, ".renderer-index-template.html")
+  
+  nodeModulePath = nodeModulePath.replace(/\\/g, "\\\\")
+  
   await outputFile(filePath, `<!DOCTYPE html>
 <html>
   <head>
