@@ -185,7 +185,7 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
     <meta charset="utf-8">
     ${title == null ? "" : `<title>${title}</title>`}
     <script>
-      ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "\\\\")}")`}
+      ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "/")}")`}
       require("source-map-support/source-map-support.js").install()
     </script>
     ${scripts.join("")}
