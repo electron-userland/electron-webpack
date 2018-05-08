@@ -32,7 +32,6 @@ export function configureVueRenderer(configurator: WebpackConfigurator) {
       use: {
         loader: "vue-loader",
         options: {
-          extractCSS: configurator.isProduction,
           loaders: {
             sass: "vue-style-loader!css-loader!sass-loader?indentedSyntax=1",
             scss: "vue-style-loader!css-loader!sass-loader",
@@ -41,4 +40,7 @@ export function configureVueRenderer(configurator: WebpackConfigurator) {
       }
     },
   )
+
+  const VueLoaderPlugin = require("vue-loader/lib/plugin")
+  configurator.plugins.push(new VueLoaderPlugin())
 }
