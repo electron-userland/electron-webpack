@@ -5,7 +5,7 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
   // better to use require instead of just preset name to avoid babel resolving (in our test we set custom resolver - and only in case of explicit required it works)
   const presets = [
     [
-      require("@babel/preset-env"), {
+      require("@babel/preset-env").default, {
       modules: false,
       targets: computeBabelEnvTarget(configurator.isRenderer, configurator.electronVersion),
     }],
