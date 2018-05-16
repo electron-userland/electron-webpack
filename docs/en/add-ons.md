@@ -76,7 +76,7 @@ module.exports = {
 Add support for compiling JSX files.
 
 ```bash
-yarn add babel-preset-react --dev
+yarn add @babel/preset-react --dev
 ```
 
 ### Adding TypeScript support for JSX (`.tsx` files)
