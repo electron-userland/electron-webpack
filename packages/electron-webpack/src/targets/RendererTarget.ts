@@ -21,7 +21,8 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
-    const cssHotLoader = configurator.isProduction ? [MiniCssExtractPlugin.loader] : ["css-hot-loader", MiniCssExtractPlugin.loader]
+    const miniLoaders = [MiniCssExtractPlugin.loader, "css-loader"]
+    const cssHotLoader = configurator.isProduction ? miniLoaders : ["css-hot-loader"].concat(miniLoaders)
     if (!configurator.isProduction) {
       // https://github.com/shepherdwind/css-hot-loader/issues/37
       configurator.entryFiles.unshift("css-hot-loader/hotModuleReplacement")
@@ -30,7 +31,7 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.rules.push(
       {
         test: /\.css$/,
-        use: cssHotLoader.concat("css-loader"),
+        use: cssHotLoader,
       },
       {
         test: /\.less$/,
