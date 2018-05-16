@@ -30,7 +30,7 @@ export function getFreePort(defaultHost: string, defaultPort: number) {
   return new Promise((resolve, reject) => {
     const server = createServer({pauseOnConnect: true})
     server.addListener("listening", () => {
-      const port = server.address().port
+      const port = (server.address() as any).port
       server.close(() => resolve(port))
     })
 
