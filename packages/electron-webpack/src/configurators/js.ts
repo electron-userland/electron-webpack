@@ -15,12 +15,10 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
   ]
 
   if (configurator.type !== "main" && configurator.hasDependency("element-ui")) {
-    plugins.push([require("babel-plugin-component"), [
-      {
-        libraryName: "element-ui",
-        styleLibraryName: "theme-chalk"
-      },
-    ]])
+    plugins.push([require("babel-plugin-component"), {
+      libraryName: "element-ui",
+      styleLibraryName: "theme-chalk"
+    }])
   }
 
   addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env", "@babel/preset-env"]}))
