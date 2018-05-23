@@ -5,7 +5,7 @@ import * as path from "path"
 import { getConfig, validateConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
-import { Configuration, Plugin, Rule } from "webpack"
+import { Configuration, Plugin, RuleSetRule } from "webpack"
 import merge from "webpack-merge"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
@@ -68,7 +68,7 @@ export class WebpackConfigurator {
     return this._configuration!!
   }
 
-  readonly rules: Array<Rule> = []
+  readonly rules: Array<RuleSetRule> = []
   readonly plugins: Array<Plugin> = []
 
   // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
@@ -248,15 +248,15 @@ export class WebpackConfigurator {
 
   private applyCustomModifications() {
     if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
-      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig)))
+      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig))) as any
     }
 
     if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
-      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig)))
+      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig))) as any
     }
 
     if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
-      this._configuration = merge.smart(this._configuration!!, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig)))
+      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig))) as any
     }
   }
 
