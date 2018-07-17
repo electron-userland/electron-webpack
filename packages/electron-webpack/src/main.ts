@@ -322,7 +322,7 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
     return `${message}
 
 How to fix:
-1. Open https://webpack.electron.build/options
+1. Open https://webpack.electron.build/configuration
 2. Search the option name on the page.
   * Not found? The option was deprecated or not exists (check spelling).
   * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
