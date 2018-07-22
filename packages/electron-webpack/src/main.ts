@@ -155,7 +155,7 @@ export class WebpackConfigurator {
    * Returns the names of devDependencies that match a given string or regex.
    * If no matching dependencies are found, an empty array is returned.
    *
-   * @return list of matching dependency names, e.g. `['babel-preset-react', 'babel-preset-stage-0']`
+   * @return list of matching dependency names, e.g. `['@babel/preset-react', '@babel/preset-stage-0']`
    */
   getMatchingDevDependencies(options: GetMatchingDevDependenciesOptions = {}) {
     const includes = options.includes || []
