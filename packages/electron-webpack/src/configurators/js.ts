@@ -21,8 +21,8 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }])
   }
 
-  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-"], excludes: ["babel-preset-env", "@babel/preset-env"]}))
-  addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
+  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-", "@babel/preset-"], excludes: ["babel-preset-env", "@babel/preset-env"]}))
+  addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-", "@babel/plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
 
   return {
     loader: "babel-loader",

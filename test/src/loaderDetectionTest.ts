@@ -42,7 +42,7 @@ test("react", async () => {
   await writeJson(path.join(projectDir, "package.json"), {
     name: "Test",
     devDependencies: {
-      "babel-preset-react": "*"
+      "@babel/preset-react": "*"
     }
   })
   await writeFile(path.join(projectDir, "src/renderer/file.jsx"), `
