@@ -30,7 +30,7 @@
     "fs-extra-p": "^4.6.1",
     "gitbook-plugin-analytics": "^0.2.1",
     "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-github-buttons": "^3.0.0",
     "http-server": "^0.11.1",
     "jest-cli": "^23.5.0",
