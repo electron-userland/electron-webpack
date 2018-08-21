@@ -10,7 +10,7 @@
 Since `electron-compile` "compiles JS and CSS on the fly", it currently adds extra dependencies into the scope of your project. Sure, a small handful of modules isn't a big deal, but keeping production size down in the end is **always** important when distributing `electron` applications.
 
 ### Faster Build Times
-Internally, `electron-webpack` takes advantage of [`happypack`](https://github.com/amireh/happypack) to create multiple worker *threads*. Combined with Dll support, build times can be [significatly faster](https://github.com/amireh/happypack#benchmarks). It even has some additional optimizations for TypeScript users. And let's be honest, especially for large-scale applications, who doesn't want faster build times?
+Internally, `electron-webpack` takes advantage of [`happypack`](https://github.com/amireh/happypack) to create multiple worker *threads*. Combined with Dll support, build times can be [significantly faster](https://github.com/amireh/happypack#benchmarks). It even has some additional optimizations for TypeScript users. And let's be honest, especially for large-scale applications, who doesn't want faster build times?
 
 ### Webpack Community
 When using `electron-compile` you are limited to a specific set of features. Sure you have most of the important ones covered, you just don't get an amazing and large community that `webpack` can provide. There are countless loaders and plugins to cover just about everything you may ever need. Not only is the community constantly implementing new tools, `electron` is explicitly support by the `webpack` team.
