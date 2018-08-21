@@ -28,7 +28,7 @@ function build(configFile: string) {
   args.push("--config", path.join(__dirname, "..", `webpack.${configFile}.config.js`))
 
   require("yargs")(args.slice(2))
-  require(path.join(process.cwd(), "node_modules", "webpack-cli", "bin", "webpack.js"))
+  require(path.join(process.cwd(), "node_modules", "webpack-cli", "bin", "cli.js"))
 }
 
 function runInDevMode() {

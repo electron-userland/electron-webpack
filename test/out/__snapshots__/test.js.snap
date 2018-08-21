@@ -2,45 +2,45 @@
 
 exports[`app 1`] = `
 "Child
-          Asset       Size  Chunks             Chunk Names
-        main.js  693 bytes       0  [emitted]  main
-    main.js.map   1.09 KiB       0  [emitted]  main
+          Asset      Size  Chunks             Chunk Names
+        main.js  1.05 KiB       0  [emitted]  main
+    main.js.map  1.52 KiB       0  [emitted]  main
     Entrypoint main = main.js main.js.map
-    [0] ./src/main/index.js 0 bytes {0} [built]
-    [1] multi ./src/main/index.js 28 bytes {0} [built]
+    [0] multi ./src/main/index.js 28 bytes {0} [built]
+    [1] ./src/main/index.js 0 bytes {0} [built]
 Child
               Asset       Size  Chunks             Chunk Names
-         styles.css  121 bytes       0  [emitted]  renderer
-        renderer.js  873 bytes       0  [emitted]  renderer
-     styles.css.map  148 bytes       0  [emitted]  renderer
-    renderer.js.map   1.49 KiB       0  [emitted]  renderer
+         styles.css  135 bytes       0  [emitted]  renderer
+        renderer.js   1.23 KiB       0  [emitted]  renderer
+     styles.css.map  156 bytes       0  [emitted]  renderer
+    renderer.js.map   1.99 KiB       0  [emitted]  renderer
          index.html  334 bytes          [emitted]  
     Entrypoint renderer = styles.css renderer.js styles.css.map renderer.js.map
     [0] external \\"path\\" 42 bytes {0} [built]
-    [1] ./src/renderer/index.js + 1 modules 271 bytes {0} [built]
+    [1] multi ./src/renderer/index.js 28 bytes {0} [built]
+    [2] ./src/renderer/style.css {0} [built]
+    [3] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
+    [4] ./src/renderer/index.js + 1 modules 271 bytes {0} [built]
         | ./src/renderer/index.js 227 bytes [built]
         | ./src/renderer/foo.html 34 bytes [built]
-    [2] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
-    [3] ./src/renderer/style.css {0} [built]
-    [4] multi ./src/renderer/index.js 28 bytes {0} [built]
     Child html-webpack-plugin for \\"index.html\\":
-             Asset      Size  Chunks  Chunk Names
-        index.html  3.04 KiB       0  
+             Asset   Size  Chunks  Chunk Names
+        index.html  4 KiB       0  
         Entrypoint undefined = index.html
-        [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
+        [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
     Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!src/renderer/style.css:
         Entrypoint mini-css-extract-plugin = *
-        [0] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]
-        [1] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]"
+        [0] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]
+        [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
 `;
 
 exports[`app 2`] = `
 Object {
   "dist": Object {
     "main": Object {
-      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.r=function(e){Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=1)}([function(e,r){},function(e,r,t){e.exports=t(0)}]);
+      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&r&&\\"string\\"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=0)}([function(e,r,t){e.exports=t(1)},function(e,r){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"t\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAX,KAAA,SAAAW,EAAAX,EAAAY,GAAAD,EAAA5B,QAAA6B,EAAA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
     "renderer": Object {
       "index.html": "<!DOCTYPE html>
@@ -59,62 +59,68 @@ Object {
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:o})},n.r=function(t){Object.defineProperty(t,\\"__esModule\\",{value:!0})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,\\"a\\",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p=\\"\\",n(n.s=4)}([function(t,e){t.exports=require(\\"path\\")},function(t,e,n){\\"use strict\\";n.r(e),n(3);var o=n(0);console.log(\\"<p>Hi</p>\\");const r=fs.readFileSync(o.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(r)},,function(t,e,n){},function(t,e,n){t.exports=n(1)}]);
+      "renderer.js": "module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&t&&\\"string\\"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,\\"a\\",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p=\\"\\",r(r.s=1)}([function(e,t){e.exports=require(\\"path\\")},function(e,t,r){e.exports=r(4)},function(e,t,r){},,function(e,t,r){\\"use strict\\";r.r(t),r(2);var n=r(0);console.log(\\"<p>Hi</p>\\");const o=fs.readFileSync(n.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(o)}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/src/renderer/index.js\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"t\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAC,GCnEA5B,EAAAD,QAAA8B,QAAA,kBAAAF,EAAAC,EAAAV,GAAA,aAAAA,EAAAF,EAAAY,GAAAV,EAAA,OAAAR,EAAAQ,EAAA,GCIAY,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
-      "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/src/renderer/index.js\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,GClFAnB,EAAAD,QAAAoC,QAAA,kBAAAD,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf,EAAAJ,KAAA,UAAAmB,EAAAf,EAAAJ,GAAA,aAAAA,IAAAI,GAAAJ,EAAA,OAAAW,EAAAX,EAAA,GCIAqB,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css": ".f1 {
+  background: image(\\"static/a/foo.png\\")
+}
+
+.f2 {
+  background: image(\\"static/b/foo.png\\")
+}
 
 /*# sourceMappingURL=styles.css.map*/",
-      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,IAAI,qCAAqC,IAAI,qC\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;AACA;AACA;;AAEA;AACA;AACA,C\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
 `;
 
 exports[`main extra entry point and custom source dir 1`] = `
-"      Asset       Size  Chunks             Chunk Names
-     foo.js  677 bytes       0  [emitted]  foo
-    main.js  694 bytes       1  [emitted]  main
- foo.js.map   1.17 KiB       0  [emitted]  foo
-main.js.map   1.09 KiB       1  [emitted]  main
+"      Asset      Size  Chunks             Chunk Names
+    main.js  1.05 KiB       0  [emitted]  main
+     foo.js  1.04 KiB       1  [emitted]  foo
+main.js.map  1.52 KiB       0  [emitted]  main
+ foo.js.map  1.63 KiB       1  [emitted]  foo
 Entrypoint main = main.js main.js.map
 Entrypoint foo = foo.js foo.js.map
-[0] ./customMain/foo.js 18 bytes {0} [built]
-[1] ./customMain/index.js 0 bytes {1} [built]
-[2] multi ./customMain/index.js 28 bytes {1} [built]"
+[0] multi ./customMain/index.js 28 bytes {0} [built]
+[1] ./customMain/index.js 0 bytes {0} [built]
+[2] ./customMain/foo.js 18 bytes {1} [built]"
 `;
 
 exports[`main extra entry point and custom source dir 2`] = `
 Object {
   "dist": Object {
     "main": Object {
-      "foo.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.r=function(e){Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=0)}([function(e,r){console.log(\\"hi\\")}]);
+      "foo.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&r&&\\"string\\"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=2)}({2:function(e,r){console.log(\\"hi\\")}});
 //# sourceMappingURL=foo.js.map",
-      "foo.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///<root-dir><project-dir>/customMain/foo.js\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"console\\",\\"log\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAX,GCnEAY,QAAQC,IAAI\\",\\"file\\":\\"foo.js\\",\\"sourceRoot\\":\\"\\"}",
-      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.r=function(e){Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=2)}([,function(e,r){},function(e,r,t){e.exports=t(1)}]);
+      "foo.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///<root-dir><project-dir>/customMain/foo.js\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"2\\",\\"e\\",\\"console\\",\\"log\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,KAAAC,EAAA,SAAAC,EAAAhB,GClFAiB,QAAQC,IAAI\\",\\"file\\":\\"foo.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&r&&\\"string\\"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=0)}([function(e,r,t){e.exports=t(1)},function(e,r){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"t\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,eAAAC,EAAAX,KAAA,SAAAW,EAAAX,EAAAY,GAAAD,EAAA5B,QAAA6B,EAAA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
 `;
 
 exports[`main production 1`] = `
-"      Asset       Size  Chunks             Chunk Names
-    main.js  693 bytes       0  [emitted]  main
-main.js.map   1.09 KiB       0  [emitted]  main
+"      Asset      Size  Chunks             Chunk Names
+    main.js  1.05 KiB       0  [emitted]  main
+main.js.map  1.52 KiB       0  [emitted]  main
 Entrypoint main = main.js main.js.map
-[0] ./src/main/index.js 0 bytes {0} [built]
-[1] multi ./src/main/index.js 28 bytes {0} [built]"
+[0] multi ./src/main/index.js 28 bytes {0} [built]
+[1] ./src/main/index.js 0 bytes {0} [built]"
 `;
 
 exports[`main production 2`] = `
 Object {
   "dist": Object {
     "main": Object {
-      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.r=function(e){Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=1)}([function(e,r){},function(e,r,t){e.exports=t(0)}]);
+      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:n})},t.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.t=function(e,r){if(1&r&&(e=t(e)),8&r)return e;if(4&r&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(t.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&r&&\\"string\\"!=typeof e)for(var o in e)t.d(n,o,function(r){return e[r]}.bind(null,o));return n},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=0)}([function(e,r,t){e.exports=t(1)},function(e,r){}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"t\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAX,KAAA,SAAAW,EAAAX,EAAAY,GAAAD,EAAA5B,QAAA6B,EAAA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
@@ -122,28 +128,28 @@ Object {
 
 exports[`renderer custom sourceDirectory 1`] = `
 "          Asset       Size  Chunks             Chunk Names
-     styles.css  121 bytes       0  [emitted]  renderer
-    renderer.js  873 bytes       0  [emitted]  renderer
- styles.css.map  150 bytes       0  [emitted]  renderer
-renderer.js.map    1.5 KiB       0  [emitted]  renderer
+     styles.css  135 bytes       0  [emitted]  renderer
+    renderer.js   1.23 KiB       0  [emitted]  renderer
+ styles.css.map  158 bytes       0  [emitted]  renderer
+renderer.js.map      2 KiB       0  [emitted]  renderer
      index.html  334 bytes          [emitted]  
 Entrypoint renderer = styles.css renderer.js styles.css.map renderer.js.map
 [0] external \\"path\\" 42 bytes {0} [built]
-[1] ./customRenderer/index.js + 1 modules 271 bytes {0} [built]
+[1] multi ./customRenderer/index.js 28 bytes {0} [built]
+[2] ./customRenderer/style.css {0} [built]
+[3] css <cwd>/node_modules/css-loader!./customRenderer/style.css {0}
+[4] ./customRenderer/index.js + 1 modules 271 bytes {0} [built]
     | ./customRenderer/index.js 227 bytes [built]
     | ./customRenderer/foo.html 34 bytes [built]
-[2] css <cwd>/node_modules/css-loader!./customRenderer/style.css {0}
-[3] ./customRenderer/style.css {0} [built]
-[4] multi ./customRenderer/index.js 28 bytes {0} [built]
 Child html-webpack-plugin for \\"index.html\\":
-         Asset      Size  Chunks  Chunk Names
-    index.html  3.04 KiB       0  
+         Asset   Size  Chunks  Chunk Names
+    index.html  4 KiB       0  
     Entrypoint undefined = index.html
-    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
+    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
 Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!customRenderer/style.css:
     Entrypoint mini-css-extract-plugin = *
-    [0] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]
-    [1] <cwd>/node_modules/css-loader!./customRenderer/style.css {0} [built]"
+    [0] <cwd>/node_modules/css-loader!./customRenderer/style.css {0} [built]
+    [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
 `;
 
 exports[`renderer custom sourceDirectory 2`] = `
@@ -166,13 +172,19 @@ Object {
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:o})},n.r=function(t){Object.defineProperty(t,\\"__esModule\\",{value:!0})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,\\"a\\",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p=\\"\\",n(n.s=4)}([function(t,e){t.exports=require(\\"path\\")},function(t,e,n){\\"use strict\\";n.r(e),n(3);var o=n(0);console.log(\\"<p>Hi</p>\\");const r=fs.readFileSync(o.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(r)},,function(t,e,n){},function(t,e,n){t.exports=n(1)}]);
+      "renderer.js": "module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&t&&\\"string\\"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,\\"a\\",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p=\\"\\",r(r.s=1)}([function(e,t){e.exports=require(\\"path\\")},function(e,t,r){e.exports=r(4)},function(e,t,r){},,function(e,t,r){\\"use strict\\";r.r(t),r(2);var n=r(0);console.log(\\"<p>Hi</p>\\");const o=fs.readFileSync(n.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(o)}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/customRenderer/index.js\\",\\"webpack:///./customRenderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"t\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAC,GCnEA5B,EAAAD,QAAA8B,QAAA,kBAAAF,EAAAC,EAAAV,GAAA,aAAAA,EAAAF,EAAAY,GAAAV,EAAA,OAAAR,EAAAQ,EAAA,GCIAY,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
-      "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/customRenderer/index.js\\",\\"webpack:///./customRenderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,GClFAnB,EAAAD,QAAAoC,QAAA,kBAAAD,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf,EAAAJ,KAAA,UAAAmB,EAAAf,EAAAJ,GAAA,aAAAA,IAAAI,GAAAJ,EAAA,OAAAW,EAAAX,EAAA,GCIAqB,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css": ".f1 {
+  background: image(\\"static/a/foo.png\\")
+}
+
+.f2 {
+  background: image(\\"static/b/foo.png\\")
+}
 
 /*# sourceMappingURL=styles.css.map*/",
-      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./customRenderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,IAAI,qCAAqC,IAAI,qC\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./customRenderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;AACA;AACA;;AAEA;AACA;AACA,C\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
@@ -180,28 +192,28 @@ Object {
 
 exports[`renderer production 1`] = `
 "          Asset       Size  Chunks             Chunk Names
-     styles.css  121 bytes       0  [emitted]  renderer
-    renderer.js  873 bytes       0  [emitted]  renderer
- styles.css.map  148 bytes       0  [emitted]  renderer
-renderer.js.map   1.49 KiB       0  [emitted]  renderer
+     styles.css  135 bytes       0  [emitted]  renderer
+    renderer.js   1.23 KiB       0  [emitted]  renderer
+ styles.css.map  156 bytes       0  [emitted]  renderer
+renderer.js.map   1.99 KiB       0  [emitted]  renderer
      index.html  334 bytes          [emitted]  
 Entrypoint renderer = styles.css renderer.js styles.css.map renderer.js.map
 [0] external \\"path\\" 42 bytes {0} [built]
-[1] ./src/renderer/index.js + 1 modules 271 bytes {0} [built]
+[1] multi ./src/renderer/index.js 28 bytes {0} [built]
+[2] ./src/renderer/style.css {0} [built]
+[3] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
+[4] ./src/renderer/index.js + 1 modules 271 bytes {0} [built]
     | ./src/renderer/index.js 227 bytes [built]
     | ./src/renderer/foo.html 34 bytes [built]
-[2] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
-[3] ./src/renderer/style.css {0} [built]
-[4] multi ./src/renderer/index.js 28 bytes {0} [built]
 Child html-webpack-plugin for \\"index.html\\":
-         Asset      Size  Chunks  Chunk Names
-    index.html  3.04 KiB       0  
+         Asset   Size  Chunks  Chunk Names
+    index.html  4 KiB       0  
     Entrypoint undefined = index.html
-    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
+    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
 Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!src/renderer/style.css:
     Entrypoint mini-css-extract-plugin = *
-    [0] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]
-    [1] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]"
+    [0] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]
+    [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
 `;
 
 exports[`renderer production 2`] = `
@@ -224,34 +236,40 @@ Object {
     <div id=\\"app\\"></div>
   <script type=\\"text/javascript\\" src=\\"renderer.js\\"></script></body>
 </html>",
-      "renderer.js": "module.exports=function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{configurable:!1,enumerable:!0,get:o})},n.r=function(t){Object.defineProperty(t,\\"__esModule\\",{value:!0})},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,\\"a\\",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p=\\"\\",n(n.s=4)}([function(t,e){t.exports=require(\\"path\\")},function(t,e,n){\\"use strict\\";n.r(e),n(3);var o=n(0);console.log(\\"<p>Hi</p>\\");const r=fs.readFileSync(o.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(r)},,function(t,e,n){},function(t,e,n){t.exports=n(1)}]);
+      "renderer.js": "module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&t&&\\"string\\"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,\\"a\\",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p=\\"\\",r(r.s=1)}([function(e,t){e.exports=require(\\"path\\")},function(e,t,r){e.exports=r(4)},function(e,t,r){},,function(e,t,r){\\"use strict\\";r.r(t),r(2);var n=r(0);console.log(\\"<p>Hi</p>\\");const o=fs.readFileSync(n.join(\\"<project-dir>/static\\",\\"/foo.txt\\")).toString(\\"hex\\");console.log(o)}]);
 //# sourceMappingURL=renderer.js.map",
-      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/src/renderer/index.js\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"t\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAC,GCnEA5B,EAAAD,QAAA8B,QAAA,kBAAAF,EAAAC,EAAAV,GAAA,aAAAA,EAAAF,EAAAY,GAAAV,EAAA,OAAAR,EAAAQ,EAAA,GCIAY,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
-      "styles.css": ".f1{background:image(\\"static/a/foo.png\\")}.f2{background:image(\\"static/b/foo.png\\")}
+      "renderer.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\",\\"webpack:///external \\\\\\"path\\\\\\"\\",\\"webpack:///<root-dir><project-dir>/src/renderer/index.js\\",\\"webpack:///./src/renderer/foo.html\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"require\\",\\"console\\",\\"log\\",\\"fileContents\\",\\"fs\\",\\"readFileSync\\",\\"external_path_\\",\\"join\\",\\"toString\\"],\\"mappings\\":\\"2BACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,GClFAnB,EAAAD,QAAAoC,QAAA,kBAAAD,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf,EAAAJ,KAAA,UAAAmB,EAAAf,EAAAJ,GAAA,aAAAA,IAAAI,GAAAJ,EAAA,OAAAW,EAAAX,EAAA,GCIAqB,QAAQC,ICHR,aDKA,MAAMC,EAAeC,GAAGC,aAAaC,EAAAC,KAAU,yCAAU,aAAaC,SAAS,OAC/EP,QAAQC,IAAIC\\",\\"file\\":\\"renderer.js\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css": ".f1 {
+  background: image(\\"static/a/foo.png\\")
+}
+
+.f2 {
+  background: image(\\"static/b/foo.png\\")
+}
 
 /*# sourceMappingURL=styles.css.map*/",
-      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,IAAI,qCAAqC,IAAI,qC\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
+      "styles.css.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///./src/renderer/style.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;AACA;AACA;;AAEA;AACA;AACA,C\\",\\"file\\":\\"styles.css\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }
 `;
 
 exports[`typescript 1`] = `
-"      Asset       Size  Chunks             Chunk Names
-    main.js  707 bytes       0  [emitted]  main
-main.js.map   1.09 KiB       0  [emitted]  main
+"      Asset      Size  Chunks             Chunk Names
+    main.js  1.07 KiB       0  [emitted]  main
+main.js.map  1.53 KiB       0  [emitted]  main
 Entrypoint main = main.js main.js.map
-[0] ./src/main/index.ts 76 bytes {0} [built]
-[1] multi ./src/main/index.ts 28 bytes {0} [built]"
+[0] multi ./src/main/index.ts 28 bytes {0} [built]
+[1] ./src/main/index.ts 76 bytes {0} [built]"
 `;
 
 exports[`typescript 2`] = `
 Object {
   "dist": Object {
     "main": Object {
-      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var r={};function t(n){if(r[n])return r[n].exports;var o=r[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,t),o.l=!0,o.exports}return t.m=e,t.c=r,t.d=function(e,r,n){t.o(e,r)||Object.defineProperty(e,r,{configurable:!1,enumerable:!0,get:n})},t.r=function(e){Object.defineProperty(e,\\"__esModule\\",{value:!0})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,\\"a\\",r),r},t.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},t.p=\\"\\",t(t.s=1)}([function(e,r,t){\\"use strict\\"},function(e,r,t){e.exports=t(0)}]);
+      "main.js": "require(\\"source-map-support/source-map-support.js\\").install(),module.exports=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},r.r=function(e){\\"undefined\\"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:\\"Module\\"}),Object.defineProperty(e,\\"__esModule\\",{value:!0})},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&\\"object\\"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,\\"default\\",{enumerable:!0,value:e}),2&t&&\\"string\\"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,\\"a\\",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p=\\"\\",r(r.s=0)}([function(e,t,r){e.exports=r(1)},function(e,t,r){\\"use strict\\"}]);
 //# sourceMappingURL=main.js.map",
-      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"configurable\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"value\\",\\"n\\",\\"__esModule\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\",\\"t\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA2CA,OAtCAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GACAK,gBACAC,cACAC,IAAAN,KAMAZ,EAAAmB,EAAA,SAAAjB,GACAY,OAAAC,eAAAb,EAAA,cAAiDkB,YAIjDpB,EAAAqB,EAAA,SAAAlB,GACA,IAAAS,EAAAT,KAAAmB,WACA,WAA2B,OAAAnB,EAAAoB,SAC3B,WAAiC,OAAApB,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAW,EAAAC,GAAsD,OAAAX,OAAAY,UAAAC,eAAApB,KAAAiB,EAAAC,IAGtDzB,EAAA4B,EAAA,GAIA5B,IAAA6B,EAAA,cAAAC,EAAAC,EAAAZ,GAAA,uBAAAW,EAAAC,EAAAZ,GAAAW,EAAA5B,QAAAiB,EAAA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
+      "main.js.map": "{\\"version\\":3,\\"sources\\":[\\"webpack:///webpack/bootstrap\\"],\\"names\\":[\\"installedModules\\",\\"__webpack_require__\\",\\"moduleId\\",\\"exports\\",\\"module\\",\\"i\\",\\"l\\",\\"modules\\",\\"call\\",\\"m\\",\\"c\\",\\"d\\",\\"name\\",\\"getter\\",\\"o\\",\\"Object\\",\\"defineProperty\\",\\"enumerable\\",\\"get\\",\\"r\\",\\"Symbol\\",\\"toStringTag\\",\\"value\\",\\"t\\",\\"mode\\",\\"__esModule\\",\\"ns\\",\\"create\\",\\"key\\",\\"bind\\",\\"n\\",\\"default\\",\\"object\\",\\"property\\",\\"prototype\\",\\"hasOwnProperty\\",\\"p\\",\\"s\\",\\"e\\"],\\"mappings\\":\\"yFACA,IAAAA,KAGA,SAAAC,EAAAC,GAGA,GAAAF,EAAAE,GACA,OAAAF,EAAAE,GAAAC,QAGA,IAAAC,EAAAJ,EAAAE,IACAG,EAAAH,EACAI,KACAH,YAUA,OANAI,EAAAL,GAAAM,KAAAJ,EAAAD,QAAAC,IAAAD,QAAAF,GAGAG,EAAAE,KAGAF,EAAAD,QA0DA,OArDAF,EAAAQ,EAAAF,EAGAN,EAAAS,EAAAV,EAGAC,EAAAU,EAAA,SAAAR,EAAAS,EAAAC,GACAZ,EAAAa,EAAAX,EAAAS,IACAG,OAAAC,eAAAb,EAAAS,GAA0CK,cAAAC,IAAAL,KAK1CZ,EAAAkB,EAAA,SAAAhB,GACA,oBAAAiB,eAAAC,aACAN,OAAAC,eAAAb,EAAAiB,OAAAC,aAAwDC,MAAA,WAExDP,OAAAC,eAAAb,EAAA,cAAiDmB,YAQjDrB,EAAAsB,EAAA,SAAAD,EAAAE,GAEA,GADA,EAAAA,IAAAF,EAAArB,EAAAqB,IACA,EAAAE,EAAA,OAAAF,EACA,KAAAE,GAAA,iBAAAF,QAAAG,WAAA,OAAAH,EACA,IAAAI,EAAAX,OAAAY,OAAA,MAGA,GAFA1B,EAAAkB,EAAAO,GACAX,OAAAC,eAAAU,EAAA,WAAyCT,cAAAK,UACzC,EAAAE,GAAA,iBAAAF,EAAA,QAAAM,KAAAN,EAAArB,EAAAU,EAAAe,EAAAE,EAAA,SAAAA,GAAgH,OAAAN,EAAAM,IAAqBC,KAAA,KAAAD,IACrI,OAAAF,GAIAzB,EAAA6B,EAAA,SAAA1B,GACA,IAAAS,EAAAT,KAAAqB,WACA,WAA2B,OAAArB,EAAA2B,SAC3B,WAAiC,OAAA3B,GAEjC,OADAH,EAAAU,EAAAE,EAAA,IAAAA,GACAA,GAIAZ,EAAAa,EAAA,SAAAkB,EAAAC,GAAsD,OAAAlB,OAAAmB,UAAAC,eAAA3B,KAAAwB,EAAAC,IAGtDhC,EAAAmC,EAAA,GAIAnC,IAAAoC,EAAA,cAAAC,EAAAf,EAAAJ,GAAAmB,EAAAnC,QAAAgB,EAAA,aAAAmB,EAAAf,EAAAJ,GAAA\\",\\"file\\":\\"main.js\\",\\"sourceRoot\\":\\"\\"}",
     },
   },
 }

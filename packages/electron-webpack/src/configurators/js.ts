@@ -11,7 +11,7 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }],
   ]
   const plugins = [
-    require("babel-plugin-syntax-dynamic-import"),
+    require("@babel/plugin-syntax-dynamic-import"),
   ]
 
   if (configurator.type !== "main" && configurator.hasDependency("element-ui")) {
@@ -21,8 +21,14 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }])
   }
 
-  addBabelItem(presets, configurator.getMatchingDevDependencies({includes: ["babel-preset-", "@babel/preset-"], excludes: ["babel-preset-env", "@babel/preset-env"]}))
-  addBabelItem(plugins, configurator.getMatchingDevDependencies({includes: ["babel-plugin-", "@babel/plugin-"], excludes: ["babel-plugin-syntax-dynamic-import"]}))
+  addBabelItem(presets, configurator.getMatchingDevDependencies({
+    includes: ["babel-preset-", "@babel/preset-"],
+    excludes: ["babel-preset-env", "@babel/preset-env"],
+  }))
+  addBabelItem(plugins, configurator.getMatchingDevDependencies({
+    includes: ["babel-plugin-", "@babel/plugin-"],
+    excludes: ["babel-plugin-syntax-dynamic-import", "@babel/plugin-syntax-dynamic-import"],
+  }))
 
   return {
     loader: "babel-loader",
@@ -48,7 +54,10 @@ function computeBabelEnvTarget(isRenderer: boolean, electronVersion: string) {
   }
 
   let nodeVersion = "7.4.0"
-  if (gte(electronVersion, "2.0.0-beta.4")) {
+  if (gte(electronVersion, "3.0.0")) {
+    nodeVersion = "10.2.0"
+  }
+  else if (gte(electronVersion, "2.0.0")) {
     nodeVersion = "8.9.3"
   }
   else if (gte(electronVersion, "1.8.2")) {

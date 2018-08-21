@@ -39,7 +39,7 @@ resolve 'nunjucks-loader' in '<project-dir>'
  @ multi ./src/main/index.js"
 `;
 
-exports[`react 1`] = `"Cannot find module 'babel-preset-react' from 'js.js'"`;
+exports[`react 1`] = `"Cannot find module '@babel/preset-react' from 'js.js'"`;
 
 exports[`sass 1`] = `
 "./src/renderer/index.js
