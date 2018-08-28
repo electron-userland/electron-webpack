@@ -117,7 +117,7 @@ export class RendererTarget extends BaseRendererTarget {
 
     if (configurator.isProduction) {
       configurator.plugins.push(new DefinePlugin({
-        __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`
+        __static: `process.resourcesPath + "/static"`
       }))
     }
     else {
