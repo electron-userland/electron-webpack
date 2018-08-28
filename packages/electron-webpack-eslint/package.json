@@ -6,7 +6,7 @@
   "files": [],
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^9.0.0",
     "eslint": "^5.4.0",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.0"
