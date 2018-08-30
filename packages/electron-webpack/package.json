@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "2.2.1",
+  "version": "2.3.1",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -44,7 +44,7 @@
     "source-map-support": "^0.5.9",
     "style-loader": "^0.23.0",
     "url-loader": "^1.1.1",
-    "webpack-dev-server": "^3.1.6",
+    "webpack-dev-server": "^3.1.7",
     "webpack-merge": "^4.1.4",
     "yargs": "^12.0.1",
     "webpack-cli": "^3.1.0"
