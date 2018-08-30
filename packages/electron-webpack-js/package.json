@@ -1,15 +1,15 @@
 {
   "name": "electron-webpack-js",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [],
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
-    "@babel/core": "^7.0.0-rc.1",
-    "babel-loader": "^8.0.0-beta.2",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0-rc.1",
-    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0",
+    "babel-loader": "^8.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-plugin-component": "^1.1.1"
   }
 }
