@@ -11,7 +11,7 @@ export function createBabelLoader(configurator: WebpackConfigurator) {
     }],
   ]
   const plugins = [
-    require("@babel/plugin-syntax-dynamic-import"),
+    require("@babel/plugin-syntax-dynamic-import").default,
   ]
 
   if (configurator.type !== "main" && configurator.hasDependency("element-ui")) {
