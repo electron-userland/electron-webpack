@@ -3,13 +3,16 @@ import { WebpackConfigurator } from "../main"
 import { getFirstExistingFile } from "../util"
 
 export async function configureTypescript(configurator: WebpackConfigurator) {
-  const hasTsChecker = configurator.hasDevDependency("fork-ts-checker-webpack-plugin") || configurator.hasDevDependency("electron-webpack-ts")
-  if (!(hasTsChecker || configurator.hasDevDependency("ts-loader"))) {
+  const hasTsChecker = configurator.hasDevDependency("fork-ts-checker-webpack-plugin")
+  const hasTsLoader = configurator.hasDevDependency("ts-loader")
+  
+  // add after js
+  configurator.extensions.splice(1, 0, ".ts", ".tsx")
+  
+  if (!(hasTsChecker && hasTsLoader) && !configurator.hasDevDependency("electron-webpack-ts")) {
     return
   }
 
-  // add after js
-  configurator.extensions.splice(1, 0, ".ts", ".tsx")
 
   const isTranspileOnly = configurator.isTest || (hasTsChecker && !configurator.isProduction)
 
