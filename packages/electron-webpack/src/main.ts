@@ -59,6 +59,7 @@ export class WebpackConfigurator {
 
   readonly sourceDir: string
   readonly commonSourceDirectory: string
+  readonly commonDistDirectory: string
 
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
@@ -109,6 +110,8 @@ export class WebpackConfigurator {
 
     const commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory
     this.commonSourceDirectory = commonSourceDirectory == null ? path.join(this.projectDir, "src", "common") : path.resolve(this.projectDir, commonSourceDirectory)
+
+    this.commonDistDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonDistDirectory || "dist")
   }
 
   /**
@@ -137,10 +140,6 @@ export class WebpackConfigurator {
     else {
       return this.electronWebpackConfiguration.renderer
     }
-  }
-
-  get commonDistDirectory() {
-    return path.join(this.projectDir, "dist")
   }
 
   hasDependency(name: string) {
