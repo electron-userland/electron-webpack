@@ -4,7 +4,7 @@
 Since `electron-webpack` is a module, not a boilerplate, let's install that and few other dependencies.
 
 ```bash
-yarn add electron-webpack electron webpack --dev
+yarn add electron-webpack electron webpack webpack-dev-server --dev
 yarn add source-map-support
 ```
 
