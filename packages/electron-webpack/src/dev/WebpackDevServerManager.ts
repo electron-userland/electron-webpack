@@ -9,8 +9,7 @@ import { LineFilter, logError, logProcess, logProcessErrorOutput } from "./devUt
 const debug = require("debug")("electron-webpack")
 
 function runWds(projectDir: string, env: any) {
-  const isWin = process.platform === "win32"
-  const webpackDevServerPath = path.join(projectDir, "node_modules", ".bin", "webpack-dev-server" + (isWin ? ".cmd" : ""))
+  const webpackDevServerPath = require.resolve(path.join("webpack-dev-server", "bin", "webpack-dev-server.js"))
   debug(`Start renderer WDS ${webpackDevServerPath} on ${env.ELECTRON_WEBPACK_WDS_PORT} port`)
   return run(webpackDevServerPath, ["--color", "--env.autoClean=false", "--config", path.join(__dirname, "../../webpack.renderer.config.js")], {
     env,
