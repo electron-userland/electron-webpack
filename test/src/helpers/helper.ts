@@ -37,7 +37,7 @@ export async function testWebpack(configuration: Configuration, projectDir: stri
   })
 
   if (checkCompilation) {
-    expect(statToMatchObject(stats, projectDir)).toMatchSnapshot()
+    expect(statToMatchObject(stats, projectDir, fs)).toMatchSnapshot()
     expect(bufferToString(fs.meta(projectDir), projectDir)).toMatchSnapshot()
   }
   return fs
@@ -50,9 +50,10 @@ function addCustomResolver(configuration: Configuration) {
   }
 }
 
-function statToMatchObject(stats: Stats, projectDir: string) {
+function statToMatchObject(stats: Stats, projectDir: string, fs: MemoryFS) {
   if (stats.hasErrors()) {
     console.log(stats.toString({colors: true}))
+    // console.log("FS data: " + util.inspect(fs, {colors: true}))
     throw new Error(stats.toJson().errors)
   }
 
@@ -64,8 +65,8 @@ function statToMatchObject(stats: Stats, projectDir: string) {
       return !trimmed.startsWith("Time:") && !trimmed.startsWith("Hash:") && !trimmed.startsWith("Version:") && !trimmed.startsWith("Built at:")
     })
     .join("\n")
-    .replace(new RegExp(`[../]*${projectDir}`, "g"), "<project-dir>")
-    .replace(new RegExp(`[../]*${process.cwd()}`, "g"), "<cwd>")
+    .replace(new RegExp(`[./]*${projectDir}`, "g"), "<project-dir>")
+    .replace(new RegExp(`[./]*${process.cwd()}`, "g"), "<cwd>")
     // no idea why failed on CI - in any case we validate file content
     .replace(/\/style\.css \d+ bytes/g, "/style.css")
 }

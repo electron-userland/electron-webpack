@@ -35,7 +35,7 @@ resolve 'nunjucks-loader' in '<project-dir>'
 [<root-dir>/packages/electron-webpack/node_modules/nunjucks-loader]
 [<root-dir>/packages/electron-webpack/node_modules/nunjucks-loader.js]
 [<root-dir>/packages/electron-webpack/node_modules/nunjucks-loader.json]
- @ ./src/main/index.js 1:0-20
+ @ ./src/main/index.js 3:0-21
  @ multi ./src/main/index.js"
 `;
 
@@ -76,6 +76,6 @@ resolve 'sass-loader' in '<project-dir>'
 [<root-dir>/packages/electron-webpack/node_modules/sass-loader]
 [<root-dir>/packages/electron-webpack/node_modules/sass-loader.js]
 [<root-dir>/packages/electron-webpack/node_modules/sass-loader.json]
- @ ./src/renderer/index.js 1:0-21
+ @ ./src/renderer/index.js 3:0-22
  @ multi ./src/renderer/index.js"
 `;

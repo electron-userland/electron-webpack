@@ -198,7 +198,7 @@ export class WebpackConfigurator {
     }
 
     // if electronVersion not specified, use latest
-    this._electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "1.8.2"
+    this._electronVersion = this.electronWebpackConfiguration.electronVersion || await this.electronVersionPromise.value || "3.0.7"
     const target = (() => {
       switch (this.type) {
         case "renderer": return new RendererTarget()

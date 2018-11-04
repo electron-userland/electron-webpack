@@ -58,16 +58,11 @@ export class BaseTarget {
 
     if (configurator.isProduction) {
       if (configurator.env.minify !== false) {
-        const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-        plugins.push(new UglifyJsPlugin({
+        const TerserPlugin = require("terser-webpack-plugin")
+        optimization.minimizer = [new TerserPlugin({
           parallel: true,
           sourceMap: true,
-          uglifyOptions: {
-            compress: {
-              ecma: 7,
-            },
-          },
-        }))
+        })]
       }
       optimization.minimize = true
       plugins.push(new LoaderOptionsPlugin({minimize: true}))
