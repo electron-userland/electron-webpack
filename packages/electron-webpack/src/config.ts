@@ -1,7 +1,6 @@
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
-import "source-map-support/register"
 import { orNullIfFileNotExist } from "./util"
 import { getConfig } from "read-config-file"
 
