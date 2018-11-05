@@ -59,6 +59,7 @@ export class WebpackConfigurator {
 
   readonly sourceDir: string
   readonly commonSourceDirectory: string
+  readonly commonDistDirectory: string
 
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
@@ -109,6 +110,7 @@ export class WebpackConfigurator {
 
     const commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory
     this.commonSourceDirectory = commonSourceDirectory == null ? path.join(this.projectDir, "src", "common") : path.resolve(this.projectDir, commonSourceDirectory)
+    this.commonDistDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonDistDirectory || "dist")
   }
 
   /**
@@ -139,10 +141,6 @@ export class WebpackConfigurator {
     }
   }
 
-  get commonDistDirectory() {
-    return path.join(this.projectDir, "dist")
-  }
-
   hasDependency(name: string) {
     return name in this.metadata.dependencies || this.hasDevDependency(name)
   }
@@ -155,7 +153,7 @@ export class WebpackConfigurator {
    * Returns the names of devDependencies that match a given string or regex.
    * If no matching dependencies are found, an empty array is returned.
    *
-   * @return list of matching dependency names, e.g. `['@babel/preset-react', '@babel/preset-stage-0']`
+   * @return list of matching dependency names, e.g. `["@babel/preset-react", "@babel/preset-stage-0"]`
    */
   getMatchingDevDependencies(options: GetMatchingDevDependenciesOptions = {}) {
     const includes = options.includes || []
@@ -380,4 +378,41 @@ export interface GetMatchingDevDependenciesOptions {
    * The list of names to exclude.
    */
   excludes?: Array<string>
+}
+
+export async function electronBuilderConfig() {
+  const projectDir = process.cwd()
+  const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
+  const electronWebpackConfig = ((await getConfig({
+    packageKey: "electronWebpack",
+    configFilename: "electron-webpack",
+    projectDir,
+    packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
+  })) || {} as any).result || {}
+  return {
+    extraMetadata: {
+      main: "main.js"
+    },
+    files: [
+      {
+        from: ".",
+        filter: ["package.json"]
+      },
+      {
+        from: electronWebpackConfig.commonDistDirectory + "/main"
+      },
+      {
+        from: electronWebpackConfig.commonDistDirectory + "/renderer"
+      },
+      {
+        from: electronWebpackConfig.commonDistDirectory + "/renderer-dll"
+      }
+    ],
+    extraResources: [
+      {
+        from: "static",
+        to: "static"
+      }
+    ]
+  }
 }

@@ -8,7 +8,6 @@
     "out",
     "*.js",
     "scheme.json",
-    "electron-builder.yml",
     "tsconfig-base.json",
     "vendor"
   ],

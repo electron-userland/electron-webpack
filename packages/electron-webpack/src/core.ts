@@ -16,6 +16,7 @@ export interface ElectronWebpackConfiguration {
   main?: ElectronWebpackConfigurationMain | null
 
   commonSourceDirectory?: string | null
+  commonDistDirectory?: string | null
 
   title?: string | boolean | null
 
