@@ -2,7 +2,7 @@ import BluebirdPromise from "bluebird-lst"
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
-import { getConfig, validateConfig } from "read-config-file"
+import { validateConfig } from "read-config-file"
 import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, RuleSetRule } from "webpack"
@@ -13,7 +13,7 @@ import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, Pack
 import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
-import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
+import { getFirstExistingFile } from "./util"
 import { getElectronWebpackConfig, getPackageMetadata } from "./config"
 
 export { ElectronWebpackConfiguration } from "./core"
@@ -373,41 +373,4 @@ export interface GetMatchingDevDependenciesOptions {
    * The list of names to exclude.
    */
   excludes?: Array<string>
-}
-
-export async function electronBuilderConfig() {
-  const projectDir = process.cwd()
-  const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
-  const electronWebpackConfig = ((await getConfig({
-    packageKey: "electronWebpack",
-    configFilename: "electron-webpack",
-    projectDir,
-    packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
-  })) || {} as any).result || {}
-  return {
-    extraMetadata: {
-      main: "main.js"
-    },
-    files: [
-      {
-        from: ".",
-        filter: ["package.json"]
-      },
-      {
-        from: electronWebpackConfig.commonDistDirectory + "/main"
-      },
-      {
-        from: electronWebpackConfig.commonDistDirectory + "/renderer"
-      },
-      {
-        from: electronWebpackConfig.commonDistDirectory + "/renderer-dll"
-      }
-    ],
-    extraResources: [
-      {
-        from: "static",
-        to: "static"
-      }
-    ]
-  }
 }
