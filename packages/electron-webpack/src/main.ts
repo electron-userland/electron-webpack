@@ -14,6 +14,7 @@ import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
 import { getFirstExistingFile, orNullIfFileNotExist } from "./util"
+import { getElectronWebpackConfig, getPackageMetadata } from "./config"
 
 export { ElectronWebpackConfiguration } from "./core"
 
@@ -304,14 +305,7 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
      env = {}
    }
 
-  const projectDir = (env.configuration || {}).projectDir || process.cwd()
-  const packageMetadata = await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
-  const electronWebpackConfig = ((await getConfig({
-    packageKey: "electronWebpack",
-    configFilename: "electron-webpack",
-    projectDir,
-    packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
-  })) || {} as any).result || {}
+  const electronWebpackConfig = await getElectronWebpackConfig()
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
   }
@@ -326,6 +320,7 @@ How to fix:
   * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
 `
   })
+  const packageMetadata = await getPackageMetadata()
   return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
 }
 
