@@ -6,6 +6,6 @@
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts", "typings/*.d.ts"
+    "**/*.ts", "src/electron-builder.ts",  "typings/*.d.ts"
   ]
 }

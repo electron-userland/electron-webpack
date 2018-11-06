@@ -10,6 +10,7 @@ import { configure } from "../main"
 import { getFreePort, orNullIfFileNotExist } from "../util"
 import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 import { startRenderer } from "./WebpackDevServerManager"
+import { getElectronWebpackConfig } from "../config"
 
 const projectDir = process.cwd()
 
@@ -19,7 +20,8 @@ const debug = require("debug")("electron-webpack")
 
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {
-  const outDir = path.join(projectDir, "dist", "main")
+  const electronWebpackConfig = await getElectronWebpackConfig()
+  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory, "main")
   const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
