@@ -7,6 +7,7 @@ import { deepAssign } from "read-config-file/out/deepAssign"
 import "source-map-support/register"
 import { Configuration, Plugin, RuleSetRule } from "webpack"
 import merge from "webpack-merge"
+import { getElectronWebpackConfiguration, getPackageMetadata } from "./config"
 import { configureTypescript } from "./configurators/ts"
 import { configureVue } from "./configurators/vue/vue"
 import { ConfigurationEnv, ConfigurationType, ElectronWebpackConfiguration, PackageMetadata, PartConfiguration } from "./core"
@@ -14,7 +15,6 @@ import { BaseTarget } from "./targets/BaseTarget"
 import { MainTarget } from "./targets/MainTarget"
 import { BaseRendererTarget, RendererTarget } from "./targets/RendererTarget"
 import { getFirstExistingFile } from "./util"
-import { getElectronWebpackConfig, getPackageMetadata } from "./config"
 
 export { ElectronWebpackConfiguration } from "./core"
 
@@ -109,9 +109,8 @@ export class WebpackConfigurator {
 
     this.sourceDir = this.getSourceDirectory(this.type)!!
 
-    const commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory
-    this.commonSourceDirectory = commonSourceDirectory == null ? path.join(this.projectDir, "src", "common") : path.resolve(this.projectDir, commonSourceDirectory)
-    this.commonDistDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonDistDirectory || "dist")
+    this.commonSourceDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonSourceDirectory!!)
+    this.commonDistDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonDistDirectory!!)
   }
 
   /**
@@ -302,10 +301,15 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
   }
 
   if (env == null) {
-     env = {}
-   }
-  const projectDir = (env.configuration || {}).projectDir
-  const electronWebpackConfig = await getElectronWebpackConfig(projectDir)
+    env = {}
+  }
+
+  const projectDir = (env.configuration || {}).projectDir || process.cwd()
+  const packageMetadata = getPackageMetadata(projectDir)
+  const electronWebpackConfig = await getElectronWebpackConfiguration({
+    packageMetadata,
+    projectDir,
+  })
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
   }
@@ -320,8 +324,7 @@ How to fix:
   * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
 `
   })
-  const packageMetadata = await getPackageMetadata(projectDir)
-  return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
+  return new WebpackConfigurator(type, env, electronWebpackConfig, await packageMetadata.value)
 }
 
 export async function configure(type: ConfigurationType, env: ConfigurationEnv | null): Promise<Configuration | null> {

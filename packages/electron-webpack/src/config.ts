@@ -1,21 +1,32 @@
 import { readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
-import { orNullIfFileNotExist } from "./util"
 import { getConfig } from "read-config-file"
+import { ElectronWebpackConfiguration } from "./core"
+import { orNullIfFileNotExist } from "./util"
 
-export { ElectronWebpackConfiguration } from "./core"
-
-export async function getPackageMetadata(projectDir?: string | null) {
-  return await orNullIfFileNotExist(readJson(path.join(projectDir || process.cwd(), "package.json")))
+export function getPackageMetadata(projectDir: string) {
+  return new Lazy(() => orNullIfFileNotExist(readJson(path.join(projectDir, "package.json"))))
 }
 
-export async function getElectronWebpackConfig(projectDir?: string | null) {
-  const packageMetadata = await getPackageMetadata(projectDir)
-  return ((await getConfig({
+export interface ConfigurationRequest {
+  projectDir: string
+  packageMetadata: Lazy<{ [key: string]: any } | null> | null
+}
+
+export async function getElectronWebpackConfiguration(context: ConfigurationRequest): Promise<ElectronWebpackConfiguration> {
+  const result = await getConfig({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
-    projectDir: projectDir || process.cwd(),
-    packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
-  })) || {} as any).result || {}
+    projectDir: context.projectDir,
+    packageMetadata: context.packageMetadata
+  })
+  const configuration: ElectronWebpackConfiguration = result == null || result.result == null ? {} : result.result
+  if (configuration.commonDistDirectory == null) {
+    configuration.commonDistDirectory = "dist"
+  }
+  if (configuration.commonSourceDirectory == null) {
+    configuration.commonSourceDirectory = "src/common"
+  }
+  return configuration
 }

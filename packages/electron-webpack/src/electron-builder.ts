@@ -1,7 +1,13 @@
-import { getElectronWebpackConfig } from "./config"
+import { Lazy } from "lazy-val"
+import { getElectronWebpackConfiguration } from "./config"
 
-export default async function() {
-  const electronWebpackConfig = await getElectronWebpackConfig()
+interface Context {
+  projectDir: string
+  packageMetadata: Lazy<{ [key: string]: any } | null> | null
+}
+
+export default async function(context: Context) {
+  const electronWebpackConfig = await getElectronWebpackConfiguration(context)
   return {
     extraMetadata: {
       main: "main.js"
@@ -12,13 +18,13 @@ export default async function() {
         filter: ["package.json"]
       },
       {
-        from: electronWebpackConfig.commonDistDirectory + "/main"
+        from: `${electronWebpackConfig.commonDistDirectory}/main`
       },
       {
-        from: electronWebpackConfig.commonDistDirectory + "/renderer"
+        from: `${electronWebpackConfig.commonDistDirectory}/renderer`
       },
       {
-        from: electronWebpackConfig.commonDistDirectory + "/renderer-dll"
+        from: `${electronWebpackConfig.commonDistDirectory}/renderer-dll`
       }
     ],
     extraResources: [

@@ -5,12 +5,12 @@ import { readdir, remove } from "fs-extra-p"
 import * as path from "path"
 import "source-map-support/register"
 import webpack, { Compiler } from "webpack"
+import { getElectronWebpackConfiguration, getPackageMetadata } from "../config"
 import { HmrServer } from "../electron-main-hmr/HmrServer"
 import { configure } from "../main"
 import { getFreePort, orNullIfFileNotExist } from "../util"
 import { DelayedFunction, getCommonEnv, logError, logProcess, logProcessErrorOutput } from "./devUtil"
 import { startRenderer } from "./WebpackDevServerManager"
-import { getElectronWebpackConfig } from "../config"
 
 const projectDir = process.cwd()
 
@@ -20,8 +20,11 @@ const debug = require("debug")("electron-webpack")
 
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {
-  const electronWebpackConfig = await getElectronWebpackConfig()
-  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory || "dist", "main")
+  const electronWebpackConfig = await getElectronWebpackConfiguration({
+    projectDir,
+    packageMetadata: getPackageMetadata(projectDir),
+  })
+  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory!!, "main")
   const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
