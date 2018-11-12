@@ -6,19 +6,16 @@ import { getConfig } from "read-config-file"
 
 export { ElectronWebpackConfiguration } from "./core"
 
-export async function getPackageMetadata() {
-  const projectDir = process.cwd()
-  return await orNullIfFileNotExist(readJson(path.join(projectDir, "package.json")))
+export async function getPackageMetadata(projectDir?: string | null) {
+  return await orNullIfFileNotExist(readJson(path.join(projectDir || process.cwd(), "package.json")))
 }
 
-export async function getElectronWebpackConfig() {
-  const projectDir = process.cwd()
-  const packageMetadata = await getPackageMetadata()
-  const electronWebpackConfig = ((await getConfig({
+export async function getElectronWebpackConfig(projectDir?: string | null) {
+  const packageMetadata = await getPackageMetadata(projectDir)
+  return ((await getConfig({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
-    projectDir,
+    projectDir: projectDir || process.cwd(),
     packageMetadata: new Lazy(() => Promise.resolve(packageMetadata))
   })) || {} as any).result || {}
-  return electronWebpackConfig
 }
