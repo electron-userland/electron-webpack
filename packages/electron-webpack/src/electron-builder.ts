@@ -8,6 +8,7 @@ interface Context {
 
 export default async function(context: Context) {
   const electronWebpackConfig = await getElectronWebpackConfiguration(context)
+  const distDir = electronWebpackConfig.commonDistDirectory!!
   return {
     extraMetadata: {
       main: "main.js"
@@ -18,13 +19,13 @@ export default async function(context: Context) {
         filter: ["package.json"]
       },
       {
-        from: `${electronWebpackConfig.commonDistDirectory}/main`
+        from: `${distDir}/main`
       },
       {
-        from: `${electronWebpackConfig.commonDistDirectory}/renderer`
+        from: `${distDir}/renderer`
       },
       {
-        from: `${electronWebpackConfig.commonDistDirectory}/renderer-dll`
+        from: `${distDir}/renderer-dll`
       }
     ],
     extraResources: [

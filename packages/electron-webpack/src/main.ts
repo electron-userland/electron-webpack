@@ -1,5 +1,6 @@
 import BluebirdPromise from "bluebird-lst"
-import { readJson, pathExists } from "fs-extra-p"
+import { config as dotEnvConfig } from "dotenv"
+import { pathExists, readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { validateConfig } from "read-config-file"
@@ -334,26 +335,25 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
   if (sourceDir === null) {
     return null
   }
-  else {
-    const processEnv = configurator.isProduction ? "production" : "development"
-    const dotEnvPath = path.resolve(configurator.projectDir, ".env")
-    const dotenvFiles = [
-      `${dotEnvPath}.${processEnv}.local`,
-      `${dotEnvPath}.${processEnv}`,
-      `${dotEnvPath}.local`,
-      dotEnvPath,
-    ]
 
-    for (const file of dotenvFiles) {
-      const exists = await pathExists(file)
-      if (exists) {
-        require("dotenv").config({
-          path: file
-        })
-      }
+  const processEnv = configurator.isProduction ? "production" : "development"
+  const dotEnvPath = path.resolve(configurator.projectDir, ".env")
+  const dotenvFiles = [
+    `${dotEnvPath}.${processEnv}.local`,
+    `${dotEnvPath}.${processEnv}`,
+    `${dotEnvPath}.local`,
+    dotEnvPath,
+  ]
+
+  for (const file of dotenvFiles) {
+    const exists = await pathExists(file)
+    if (exists) {
+      dotEnvConfig({
+        path: file
+      })
     }
-    return await configurator.configure()
   }
+  return await configurator.configure()
 }
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {

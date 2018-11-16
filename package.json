@@ -15,6 +15,7 @@
     "update-deps": "lerna exec -- npm-check-updates -a"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.0",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/jest": "^23.3.1",
     "@types/memory-fs": "^0.3.1",

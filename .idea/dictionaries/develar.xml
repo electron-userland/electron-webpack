@@ -2,6 +2,7 @@
   <dictionary name="develar">
     <words>
       <w>crocket</w>
+      <w>dotenv</w>
       <w>eaddrinuse</w>
       <w>embeddedjs</w>
       <w>errored</w>
