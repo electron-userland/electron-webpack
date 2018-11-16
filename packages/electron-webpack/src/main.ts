@@ -304,8 +304,8 @@ export async function createConfigurator(type: ConfigurationType, env: Configura
   if (env == null) {
      env = {}
    }
-
-  const electronWebpackConfig = await getElectronWebpackConfig()
+  const projectDir = (env.configuration || {}).projectDir
+  const electronWebpackConfig = await getElectronWebpackConfig(projectDir)
   if (env.configuration != null) {
     deepAssign(electronWebpackConfig, env.configuration)
   }
@@ -320,7 +320,7 @@ How to fix:
   * Found? Check that the option in the appropriate place. e.g. "sourceDirectory" only in the "main" or "renderer", not in the root.
 `
   })
-  const packageMetadata = await getPackageMetadata()
+  const packageMetadata = await getPackageMetadata(projectDir)
   return new WebpackConfigurator(type, env, electronWebpackConfig, packageMetadata)
 }
 

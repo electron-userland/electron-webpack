@@ -21,7 +21,7 @@ const debug = require("debug")("electron-webpack")
 // do not remove main.js to allow IDE to keep breakpoints
 async function emptyMainOutput() {
   const electronWebpackConfig = await getElectronWebpackConfig()
-  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory, "main")
+  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory || "dist", "main")
   const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
