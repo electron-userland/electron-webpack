@@ -123,10 +123,12 @@ function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   }
 
   // watch common code
-  let commonSourceDir = configurator.electronWebpackConfiguration.commonSourceDirectory
-  if (commonSourceDir == null) {
+  let commonSourceDir: string
+  if (!configurator.electronWebpackConfiguration.commonSourceDirectory) {
     // not src/common, because it is convenient to just put some code into src to use it
     commonSourceDir = path.join(configurator.projectDir, "src")
+  } else {
+    commonSourceDir = configurator.commonSourceDirectory
   }
 
   const alienSourceDir = configurator.getSourceDirectory(configurator.type === "main" ? "renderer" : "main")
