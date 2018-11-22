@@ -1,12 +1,12 @@
 {
   "name": "electron-webpack-ts",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "files": [],
   "repository": "electron-userland/electron-webpack",
   "dependencies": {
-    "fork-ts-checker-webpack-plugin": "^0.4.15",
+    "fork-ts-checker-webpack-plugin": "^0.5.0",
     "ts-loader": "^5.3.0"
   },
   "peerDependencies": {

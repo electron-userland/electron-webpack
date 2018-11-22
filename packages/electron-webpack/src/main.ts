@@ -74,7 +74,7 @@ export class WebpackConfigurator {
   readonly rules: Array<RuleSetRule> = []
   readonly plugins: Array<Plugin> = []
 
-  // js must be first - e.g. iview has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
+  // js must be first - e.g. iView has two files loading-bar.js and loading-bar.vue - when we require "loading-bar", js file must be resolved and not vue
   readonly extensions: Array<string> = [".js", ".json", ".node"]
 
   private _electronVersion: string | null = null
@@ -85,14 +85,8 @@ export class WebpackConfigurator {
 
   readonly entryFiles: Array<string> = []
 
+  // electronWebpackConfiguration expected to be resolved (use getElectronWebpackConfiguration())
   constructor(readonly type: ConfigurationType, readonly env: ConfigurationEnv, readonly electronWebpackConfiguration: ElectronWebpackConfiguration, readonly metadata: PackageMetadata) {
-    if (electronWebpackConfiguration.renderer === undefined) {
-      electronWebpackConfiguration.renderer = {}
-    }
-    if (electronWebpackConfiguration.main === undefined) {
-      electronWebpackConfiguration.main = {}
-    }
-
     if (metadata.dependencies == null) {
       metadata.dependencies = {}
     }
@@ -100,7 +94,7 @@ export class WebpackConfigurator {
       metadata.devDependencies = {}
     }
 
-    this.projectDir = electronWebpackConfiguration.projectDir || process.cwd()
+    this.projectDir = electronWebpackConfiguration.projectDir!!
     this.isRenderer = type.startsWith("renderer")
     process.env.BABEL_ENV = type
 
@@ -110,8 +104,8 @@ export class WebpackConfigurator {
 
     this.sourceDir = this.getSourceDirectory(this.type)!!
 
-    this.commonSourceDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonSourceDirectory!!)
-    this.commonDistDirectory = path.resolve(this.projectDir, this.electronWebpackConfiguration.commonDistDirectory!!)
+    this.commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory!!
+    this.commonDistDirectory = this.electronWebpackConfiguration.commonDistDirectory!!
   }
 
   /**
@@ -164,6 +158,7 @@ export class WebpackConfigurator {
   }
 
   async configure(entry?: { [key: string]: any } | null) {
+    // noinspection SpellCheckingInspection
     this._configuration = {
       context: this.projectDir,
       devtool: this.isProduction || this.isTest ? "nosources-source-map" : "eval-source-map",

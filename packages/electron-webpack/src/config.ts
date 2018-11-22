@@ -14,6 +14,13 @@ export interface ConfigurationRequest {
   packageMetadata: Lazy<{ [key: string]: any } | null> | null
 }
 
+export function getDefaultRelativeSystemDependentCommonSource(): string {
+  return path.join("src", "common")
+}
+
+/**
+ * Return configuration with resolved commonDistDirectory / commonSourceDirectory.
+ */
 export async function getElectronWebpackConfiguration(context: ConfigurationRequest): Promise<ElectronWebpackConfiguration> {
   const result = await getConfig({
     packageKey: "electronWebpack",
@@ -26,7 +33,20 @@ export async function getElectronWebpackConfiguration(context: ConfigurationRequ
     configuration.commonDistDirectory = "dist"
   }
   if (configuration.commonSourceDirectory == null) {
-    configuration.commonSourceDirectory = "src/common"
+    configuration.commonSourceDirectory = getDefaultRelativeSystemDependentCommonSource()
+  }
+  configuration.commonDistDirectory = path.resolve(context.projectDir, configuration.commonDistDirectory)
+  configuration.commonSourceDirectory = path.resolve(context.projectDir, configuration.commonSourceDirectory)
+
+  if (configuration.renderer === undefined) {
+    configuration.renderer = {}
+  }
+  if (configuration.main === undefined) {
+    configuration.main = {}
+  }
+
+  if (configuration.projectDir == null) {
+    configuration.projectDir = context.projectDir
   }
   return configuration
 }

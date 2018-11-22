@@ -24,7 +24,7 @@ async function emptyMainOutput() {
     projectDir,
     packageMetadata: getPackageMetadata(projectDir),
   })
-  const outDir = path.join(projectDir, electronWebpackConfig.commonDistDirectory!!, "main")
+  const outDir = path.join(electronWebpackConfig.commonDistDirectory!!, "main")
   const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
