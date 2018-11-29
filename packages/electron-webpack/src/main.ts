@@ -1,5 +1,6 @@
 import BluebirdPromise from "bluebird-lst"
 import { config as dotEnvConfig } from "dotenv"
+import dotEnvExpand from "dotenv-expand"
 import { pathExists, readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
@@ -343,9 +344,11 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
   for (const file of dotenvFiles) {
     const exists = await pathExists(file)
     if (exists) {
-      dotEnvConfig({
-        path: file
-      })
+      dotEnvExpand(
+        dotEnvConfig({
+          path: file
+        })
+      )
     }
   }
   return await configurator.configure()
