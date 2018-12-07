@@ -8,6 +8,7 @@ Configurations can be applied in `package.json` at `electronWebpack` or in a sep
 ```json
 "electronWebpack": {
   "commonSourceDirectory": "src/common",
+  "staticSourceDirectory": "src/static",
   "title": true,
   "whiteListedModules": ["foo-ui-library"],
 
@@ -35,6 +36,7 @@ Defines the path to a process's or common usage directory, relative to the proje
 ```json
 "electronWebpack": {
   "commonSourceDirectory": "src/common",
+  "staticSourceDirectory": "src/static",
   "main": {
     "sourceDirectory": "src/main"
   },

@@ -108,7 +108,7 @@ function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const plugins = configurator.plugins
   configurator.config.optimization!!.namedModules = true
   plugins.push(new DefinePlugin({
-    __static: `"${path.join(configurator.projectDir, "static").replace(/\\/g, "\\\\")}"`
+    __static: `"${path.join(configurator.projectDir, configurator.staticSourceDirectory).replace(/\\/g, "\\\\")}"`
   }))
 
   plugins.push(new HotModuleReplacementPlugin())
