@@ -110,11 +110,11 @@ export class RendererTarget extends BaseRendererTarget {
 
     if (configurator.isProduction) {
       configurator.plugins.push(new DefinePlugin({
-        __static: `process.resourcesPath + "/static"`
+        __static: `process.resourcesPath + "/${configurator.staticSourceDirectory}"`
       }))
     }
     else {
-      const contentBase = [path.join(configurator.projectDir, "static"), path.join(configurator.commonDistDirectory, "renderer-dll")];
+      const contentBase = [path.join(configurator.projectDir, configurator.staticSourceDirectory), path.join(configurator.commonDistDirectory, "renderer-dll")];
       (configurator.config as any).devServer = {
         contentBase,
         host: process.env.ELECTRON_WEBPACK_WDS_HOST || "localhost",

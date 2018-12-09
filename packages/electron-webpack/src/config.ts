@@ -19,7 +19,7 @@ export function getDefaultRelativeSystemDependentCommonSource(): string {
 }
 
 /**
- * Return configuration with resolved commonDistDirectory / commonSourceDirectory.
+ * Return configuration with resolved staticSourceDirectory / commonDistDirectory / commonSourceDirectory.
  */
 export async function getElectronWebpackConfiguration(context: ConfigurationRequest): Promise<ElectronWebpackConfiguration> {
   const result = await getConfig({
@@ -29,6 +29,9 @@ export async function getElectronWebpackConfiguration(context: ConfigurationRequ
     packageMetadata: context.packageMetadata
   })
   const configuration: ElectronWebpackConfiguration = result == null || result.result == null ? {} : result.result
+  if (configuration.staticSourceDirectory == null) {
+    configuration.staticSourceDirectory = "static"
+  }
   if (configuration.commonDistDirectory == null) {
     configuration.commonDistDirectory = "dist"
   }
