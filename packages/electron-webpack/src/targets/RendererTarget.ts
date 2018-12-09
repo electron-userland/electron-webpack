@@ -86,13 +86,6 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.debug("Add ExtractTextPlugin plugin")
     configurator.plugins.push(new MiniCssExtractPlugin({filename: `${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`}))
 
-    // https://github.com/electron-userland/electrify/issues/1
-    if (!configurator.isProduction) {
-      configurator.plugins.push(new DefinePlugin({
-        "process.env.NODE_ENV": "\"development\"",
-      }))
-    }
-
     await BaseTarget.prototype.configurePlugins.call(this, configurator)
   }
 }
