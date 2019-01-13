@@ -353,7 +353,7 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
   const candidates: Array<string> = []
-  for (const ext of ["ts", "js", "tsx"]) {
+  for (const ext of ["ts", "js", "tsx", "jsx"]) {
     for (const name of ["index", "main", "app"]) {
       candidates.push(`${name}.${ext}`)
     }
