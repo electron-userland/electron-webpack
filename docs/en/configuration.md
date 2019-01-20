@@ -21,6 +21,7 @@ Configurations can be applied in `package.json` at `electronWebpack` or in a sep
   "renderer": {
     "dll": ["fooModule"],
     "sourceDirectory": "src/renderer",
+    "template": "src/renderer/index.html",
     "webpackConfig": "custom.webpack.additions.js",
     "webpackDllConfig": "custom.webpackDll.additions.js"
   }
