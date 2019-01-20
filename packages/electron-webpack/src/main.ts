@@ -64,6 +64,8 @@ export class WebpackConfigurator {
   readonly commonSourceDirectory: string
   readonly commonDistDirectory: string
 
+  readonly rendererTemplate: string
+
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
   private _configuration: Configuration | null = null
@@ -107,6 +109,8 @@ export class WebpackConfigurator {
 
     this.commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory!!
     this.commonDistDirectory = this.electronWebpackConfiguration.commonDistDirectory!!
+
+    this.rendererTemplate = ( this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.template ) || 'src/index.ejs';
   }
 
   /**
