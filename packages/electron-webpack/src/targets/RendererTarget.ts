@@ -38,7 +38,7 @@ export class BaseRendererTarget extends BaseTarget {
         use: cssHotLoader.concat("less-loader"),
       },
       {
-        test: /\.scss/,
+        test: /\.scss$/,
         use: cssHotLoader.concat("sass-loader"),
       },
       {
