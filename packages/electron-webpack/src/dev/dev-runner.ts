@@ -19,12 +19,8 @@ let socketPath: string | null = null
 const debug = require("debug")("electron-webpack")
 
 // do not remove main.js to allow IDE to keep breakpoints
-async function emptyMainOutput() {
-  const electronWebpackConfig = await getElectronWebpackConfiguration({
-    projectDir,
-    packageMetadata: getPackageMetadata(projectDir),
-  })
-  const outDir = path.join(electronWebpackConfig.commonDistDirectory!!, "main")
+async function emptyMainOutput(distDirectory: string) {
+  const outDir = path.join(distDirectory, "main")
   const files = await orNullIfFileNotExist(readdir(outDir))
   if (files == null) {
     return
@@ -43,6 +39,11 @@ class DevRunner {
       ELECTRON_WEBPACK_WDS_PORT: wdsPort,
     }
 
+    const electronWebpackConfig = await getElectronWebpackConfiguration({
+      projectDir,
+      packageMetadata: getPackageMetadata(projectDir),
+    })
+
     const hmrServer = new HmrServer()
     await Promise.all([
       startRenderer(projectDir, env),
@@ -50,7 +51,7 @@ class DevRunner {
         .then(it => {
           socketPath = it
         }),
-      emptyMainOutput()
+      emptyMainOutput(electronWebpackConfig.commonDistDirectory!!)
         .then(() => this.startMainCompilation(hmrServer)),
     ])
 
@@ -60,7 +61,7 @@ class DevRunner {
 
     const electronArgs = process.env.ELECTRON_ARGS
     const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${await getFreePort("127.0.0.1", 5858)}`]
-    args.push(path.join(projectDir, "dist/main/main.js"))
+    args.push(path.join(projectDir, electronWebpackConfig.commonDistDirectory!!, "main/main.js"))
     // Pass remaining arguments to the application. Remove 3 instead of 2, to remove the `dev` argument as well.
     args.push(...process.argv.slice(3))
     // we should start only when both start and main are started
