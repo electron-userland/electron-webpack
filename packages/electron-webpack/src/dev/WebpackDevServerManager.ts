@@ -65,7 +65,7 @@ export async function startRenderer(projectDir: string, env: any) {
       }
     })
 
-    devServerProcess.stdout.on("data", (data: string) => {
+    devServerProcess.stdout!!.on("data", (data: string) => {
       logProcess("Renderer", data, chalk.blue, lineFilter)
 
       const r = resolve

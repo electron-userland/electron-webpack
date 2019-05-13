@@ -54,7 +54,7 @@ function statToMatchObject(stats: Stats, projectDir: string, fs: MemoryFS) {
   if (stats.hasErrors()) {
     console.log(stats.toString({colors: true}))
     // console.log("FS data: " + util.inspect(fs, {colors: true}))
-    throw new Error(stats.toJson().errors)
+    throw new Error(stats.toJson().errors.join("\n"))
   }
 
   // skip first 3 lines - Hash, Version and Time

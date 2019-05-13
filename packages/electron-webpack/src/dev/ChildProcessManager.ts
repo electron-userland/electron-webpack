@@ -35,7 +35,7 @@ export class ChildProcessManager {
       }
 
       if (process.platform === "win32") {
-        child.stdin.end(Buffer.from([5, 5]))
+        child.stdin!!.end(Buffer.from([5, 5]))
       }
       else {
         child.kill("SIGINT")
