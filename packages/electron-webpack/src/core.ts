@@ -33,6 +33,8 @@ export interface ElectronWebpackConfigurationRenderer extends PartConfiguration 
   dll?: Array<string> | { [key: string]: any } | null
   webpackConfig?: string | null
   webpackDllConfig?: string | null
+  mergeFunction?: string | null
+  mergeDllFunction?: string | null
 }
 
 export interface ElectronWebpackConfigurationMain extends PartConfiguration {
@@ -41,6 +43,7 @@ export interface ElectronWebpackConfigurationMain extends PartConfiguration {
    */
   extraEntries?: Array<string> | { [key: string]: string | Array<string> } | string
   webpackConfig?: string | null
+  mergeFunction?: string | null
 }
 
 export interface ConfigurationEnv {

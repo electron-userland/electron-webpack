@@ -244,25 +244,29 @@ export class WebpackConfigurator {
   private applyCustomModifications(config: Configuration): Configuration {
     const { renderer, main } = this.electronWebpackConfiguration
 
-    const applyCustom = (configPath: string) => {
+    const applyCustom = (configPath: string, mergeFunctionPath?: string | null) => {
       const customModule = require(path.join(this.projectDir, configPath))
+
       if (typeof customModule === "function") {
         return customModule(config)
+      } else if (mergeFunctionPath) {
+        const customMergeFunction = require(path.join(this.projectDir, mergeFunctionPath))(merge) as merge.ConfigurationMergeFunction
+        return customMergeFunction(config, customModule)
       } else {
         return merge.smart(config, customModule)
       }
     }
 
     if (this.type === "renderer" && renderer && renderer.webpackConfig) {
-      return applyCustom(renderer.webpackConfig)
+      return applyCustom(renderer.webpackConfig, renderer.mergeFunction)
     }
 
     if (this.type === "renderer-dll" && renderer && renderer.webpackDllConfig) {
-      return applyCustom(renderer.webpackDllConfig)
+      return applyCustom(renderer.webpackDllConfig, renderer.mergeDllFunction)
     }
 
     if (this.type === "main" && main && main.webpackConfig) {
-      return applyCustom(main.webpackConfig)
+      return applyCustom(main.webpackConfig, main.mergeFunction)
     }
 
     return config
