@@ -61,6 +61,7 @@ export class WebpackConfigurator {
   readonly isTest = this.type === "test"
 
   readonly sourceDir: string
+  readonly staticSourceDirectory: string
   readonly commonSourceDirectory: string
   readonly commonDistDirectory: string
 
@@ -107,6 +108,7 @@ export class WebpackConfigurator {
 
     this.sourceDir = this.getSourceDirectory(this.type)!!
 
+    this.staticSourceDirectory = this.electronWebpackConfiguration.staticSourceDirectory!!
     this.commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory!!
     this.commonDistDirectory = this.electronWebpackConfiguration.commonDistDirectory!!
 

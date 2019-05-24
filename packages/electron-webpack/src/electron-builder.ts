@@ -30,8 +30,8 @@ export default async function(context: Context) {
     ],
     extraResources: [
       {
-        from: "static",
-        to: "static"
+        from: electronWebpackConfig.staticSourceDirectory,
+        to: electronWebpackConfig.staticSourceDirectory
       }
     ]
   }

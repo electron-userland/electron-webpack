@@ -29,7 +29,7 @@ export class MainTarget extends BaseTarget {
 
     if (configurator.isProduction) {
       configurator.plugins.push(new DefinePlugin({
-        __static: `process.resourcesPath + "/static"`
+        __static: `process.resourcesPath + "/${configurator.staticSourceDirectory}"`
       }))
 
       // do not add for main dev (to avoid adding to hot update chunks), our main-hmr install it
