@@ -21,16 +21,16 @@ Child
     [2] ./src/renderer/style.css {0} [built]
     [3] ./src/renderer/foo.html 34 bytes {0} [built]
     [4] external \\"path\\" 42 bytes {0} [built]
-    [] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
+    [] css <cwd>/node_modules/css-loader/dist/cjs.js!./src/renderer/style.css {0}
     Child html-webpack-plugin for \\"index.html\\":
              Asset   Size  Chunks  Chunk Names
         index.html  4 KiB       0  
         Entrypoint undefined = index.html
         [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
-    Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!src/renderer/style.css:
+    Child mini-css-extract-plugin <cwd>/node_modules/css-loader/dist/cjs.js!src/renderer/style.css:
         Entrypoint mini-css-extract-plugin = *
-        [0] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]
-        [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
+        [0] <cwd>/node_modules/css-loader/dist/cjs.js!./src/renderer/style.css {0} [built]
+        [1] <cwd>/node_modules/css-loader/dist/runtime/api.js 2.35 KiB {0} [built]"
 `;
 
 exports[`app 2`] = `
@@ -138,16 +138,16 @@ Entrypoint renderer = styles.css renderer.js styles.css.map renderer.js.map
 [2] ./customRenderer/style.css {0} [built]
 [3] ./customRenderer/foo.html 34 bytes {0} [built]
 [4] external \\"path\\" 42 bytes {0} [built]
-[] css <cwd>/node_modules/css-loader!./customRenderer/style.css {0}
+[] css <cwd>/node_modules/css-loader/dist/cjs.js!./customRenderer/style.css {0}
 Child html-webpack-plugin for \\"index.html\\":
          Asset   Size  Chunks  Chunk Names
     index.html  4 KiB       0  
     Entrypoint undefined = index.html
     [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
-Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!customRenderer/style.css:
+Child mini-css-extract-plugin <cwd>/node_modules/css-loader/dist/cjs.js!customRenderer/style.css:
     Entrypoint mini-css-extract-plugin = *
-    [0] <cwd>/node_modules/css-loader!./customRenderer/style.css {0} [built]
-    [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
+    [0] <cwd>/node_modules/css-loader/dist/cjs.js!./customRenderer/style.css {0} [built]
+    [1] <cwd>/node_modules/css-loader/dist/runtime/api.js 2.35 KiB {0} [built]"
 `;
 
 exports[`renderer custom sourceDirectory 2`] = `
@@ -201,16 +201,16 @@ Entrypoint renderer = styles.css renderer.js styles.css.map renderer.js.map
 [2] ./src/renderer/style.css {0} [built]
 [3] ./src/renderer/foo.html 34 bytes {0} [built]
 [4] external \\"path\\" 42 bytes {0} [built]
-[] css <cwd>/node_modules/css-loader!./src/renderer/style.css {0}
+[] css <cwd>/node_modules/css-loader/dist/cjs.js!./src/renderer/style.css {0}
 Child html-webpack-plugin for \\"index.html\\":
          Asset   Size  Chunks  Chunk Names
     index.html  4 KiB       0  
     Entrypoint undefined = index.html
     [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 260 bytes {0} [built]
-Child mini-css-extract-plugin <cwd>/node_modules/css-loader/index.js!src/renderer/style.css:
+Child mini-css-extract-plugin <cwd>/node_modules/css-loader/dist/cjs.js!src/renderer/style.css:
     Entrypoint mini-css-extract-plugin = *
-    [0] <cwd>/node_modules/css-loader!./src/renderer/style.css {0} [built]
-    [1] <cwd>/node_modules/css-loader/lib/css-base.js 2.21 KiB {0} [built]"
+    [0] <cwd>/node_modules/css-loader/dist/cjs.js!./src/renderer/style.css {0} [built]
+    [1] <cwd>/node_modules/css-loader/dist/runtime/api.js 2.35 KiB {0} [built]"
 `;
 
 exports[`renderer production 2`] = `

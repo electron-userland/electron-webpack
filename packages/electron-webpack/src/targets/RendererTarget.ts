@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { outputFile } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
@@ -21,7 +22,7 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
-    const miniLoaders = [MiniCssExtractPlugin.loader, "css-loader"]
+    const miniLoaders = [MiniCssExtractPlugin.loader, { loader: "css-loader", options: { modules: true } }]
     const cssHotLoader = configurator.isProduction ? miniLoaders : ["css-hot-loader"].concat(miniLoaders)
     if (!configurator.isProduction) {
       // https://github.com/shepherdwind/css-hot-loader/issues/37
@@ -38,7 +39,7 @@ export class BaseRendererTarget extends BaseTarget {
         use: cssHotLoader.concat("less-loader"),
       },
       {
-        test: /\.scss/,
+        test: /\.s(a|c)ss$/,
         use: cssHotLoader.concat("sass-loader"),
       },
       {
@@ -86,13 +87,6 @@ export class BaseRendererTarget extends BaseTarget {
     configurator.debug("Add ExtractTextPlugin plugin")
     configurator.plugins.push(new MiniCssExtractPlugin({filename: `${configurator.type === "renderer-dll" ? "vendor" : "styles"}.css`}))
 
-    // https://github.com/electron-userland/electrify/issues/1
-    if (!configurator.isProduction) {
-      configurator.plugins.push(new DefinePlugin({
-        "process.env.NODE_ENV": "\"development\"",
-      }))
-    }
-
     await BaseTarget.prototype.configurePlugins.call(this, configurator)
   }
 }
@@ -104,13 +98,20 @@ export class RendererTarget extends BaseRendererTarget {
 
   async configurePlugins(configurator: WebpackConfigurator): Promise<void> {
     // not configurable for now, as in the electron-vue
-    const customTemplateFile = path.join(configurator.projectDir, "src/index.ejs")
+    const customTemplateFile = path.join(configurator.projectDir, configurator.rendererTemplate)
     const HtmlWebpackPlugin = require("html-webpack-plugin")
     const nodeModulePath = configurator.isProduction ? null : path.resolve(require.resolve("electron"), "..", "..")
 
+    let template;
+    if (await statOrNull(customTemplateFile)) {
+      template = fs.readFileSync(customTemplateFile, {encoding: 'utf8'})
+    } else {
+      template = getDefaultIndexTemplate()
+    }
+
     configurator.plugins.push(new HtmlWebpackPlugin({
       filename: "index.html",
-      template: (await statOrNull(customTemplateFile)) == null ? (await generateIndexFile(configurator, nodeModulePath)) : customTemplateFile,
+      template: await generateIndexFile(configurator, nodeModulePath, template),
       minify: false,
       nodeModules: nodeModulePath
     }))
@@ -164,7 +165,19 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
   return title
 }
 
-async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePath: string | null) {
+function getDefaultIndexTemplate () {
+  return `<!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+      </head>
+      <body>
+        <div id="app"></div>
+      </body>
+    </html>`
+}
+
+async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePath: string | null, template: string) {
   // do not use add-asset-html-webpack-plugin - no need to copy vendor files to output (in dev mode will be served directly, in production copied)
   const assets = await getDllAssets(path.join(configurator.commonDistDirectory, "renderer-dll"), configurator)
   const scripts: Array<string> = []
@@ -180,22 +193,28 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   const title = await computeTitle(configurator)
   const filePath = path.join(configurator.commonDistDirectory, ".renderer-index-template.html")
-  await outputFile(filePath, `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    ${title == null ? "" : `<title>${title}</title>`}
-    <script>
-      ${nodeModulePath == null ? "" : `require("module").globalPaths.push("${nodeModulePath.replace(/\\/g, "/")}")`}
-      require("source-map-support/source-map-support.js").install()
-    </script>
-    ${scripts.join("")}
-  ${css.join("")}
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
-</html>`)
+
+  let html = template;
+
+  if (title) {
+    html = html.replace('</head>', `<title>${title}</title></head>`);
+  }
+
+  if (nodeModulePath) {
+    html = html.replace('</head>', `<script>require('module').globalPaths.push("${nodeModulePath.replace(/\\/g, '/')}")</script></head>`);
+  }
+
+  html = html.replace('</head>', '<script>require("source-map-support/source-map-support.js").install()</script></head>');
+
+  if (scripts.length) {
+    html = html.replace('</head>', `${scripts.join('')}</head>`);
+  }
+
+  if (css.length) {
+    html = html.replace('</head>', `${css.join('')}</head>`);
+  }
+
+  await outputFile(filePath, html);
 
   return `!!html-loader?minimize=false&url=false!${filePath}`
 }

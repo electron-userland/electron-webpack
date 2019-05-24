@@ -34,7 +34,7 @@ function filterText(s: string, lineFilter: LineFilter | null) {
 }
 
 export function logProcessErrorOutput(label: "Electron" | "Renderer" | "Main", childProcess: ChildProcess) {
-  childProcess.stderr.on("data", data => {
+  childProcess.stderr!!.on("data", data => {
     logProcess(label, data.toString(), chalk.red)
   })
 }

@@ -4,7 +4,7 @@ When creating `electron` applications, dependency management can be a little dif
 
 ### Using `yarn`
 
-As previously mentioned, the use of the [`yarn`](https://yarnpkg.com) package manager is **strongly** recommened, as opposed to `npm`. Aside from a more stable dependency tree, one other major benefit to using `yarn` is the ability to [*clean*](https://yarnpkg.com/en/docs/cli/clean) your `node_modules` to help eliminate redudant files that will help reduce your application's final build size.
+As previously mentioned, the use of the [`yarn`](https://yarnpkg.com) package manager is **strongly** recommended, as opposed to `npm`. Aside from a more stable dependency tree, one other major benefit to using `yarn` is the ability to [*clean*](https://yarnpkg.com/en/docs/cli/clean) your `node_modules` to help eliminate redudant files that will help reduce your application's final build size.
 
 ### package.json
 #### `dependencies`
@@ -42,4 +42,4 @@ npx electron-builder install-app-deps
 ```
 
 #### Final Notes
-If you do expect your application to use native node modules, it is **highly recommened** to use [`electron-builder`](https://github.com/electron-userland/electron-builder) for your build tool as it handles these conflicts for you during the build step.
+If you do expect your application to use native node modules, it is **highly recommended** to use [`electron-builder`](https://github.com/electron-userland/electron-builder) for your build tool as it handles these conflicts for you during the build step.

@@ -1,5 +1,6 @@
 import BluebirdPromise from "bluebird-lst"
 import { config as dotEnvConfig } from "dotenv"
+import dotEnvExpand from "dotenv-expand"
 import { pathExists, readJson } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
@@ -64,6 +65,8 @@ export class WebpackConfigurator {
   readonly commonSourceDirectory: string
   readonly commonDistDirectory: string
 
+  readonly rendererTemplate: string
+
   readonly debug = _debug(`electron-webpack:${this.type}`)
 
   private _configuration: Configuration | null = null
@@ -108,6 +111,8 @@ export class WebpackConfigurator {
     this.staticSourceDirectory = this.electronWebpackConfiguration.staticSourceDirectory!!
     this.commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory!!
     this.commonDistDirectory = this.electronWebpackConfiguration.commonDistDirectory!!
+
+    this.rendererTemplate = ( this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.template ) || 'src/index.ejs';
   }
 
   /**
@@ -237,28 +242,43 @@ export class WebpackConfigurator {
       }
     }
 
-    this.applyCustomModifications()
+    this._configuration = await this.applyCustomModifications(this.config)
 
     return this.config
   }
 
-  private applyCustomModifications() {
-    if (this.type === "renderer" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackConfig) {
-      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackConfig))) as any
+  private applyCustomModifications(config: Configuration): Configuration {
+    const { renderer, main } = this.electronWebpackConfiguration
+
+    const applyCustom = (configPath: string) => {
+      const customModule = require(path.join(this.projectDir, configPath))
+      if (typeof customModule === "function") {
+        return customModule(config)
+      } else {
+        return merge.smart(config, customModule)
+      }
     }
 
-    if (this.type === "renderer-dll" && this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.webpackDllConfig) {
-      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.renderer.webpackDllConfig))) as any
+    if (this.type === "renderer" && renderer && renderer.webpackConfig) {
+      return applyCustom(renderer.webpackConfig)
     }
 
-    if (this.type === "main" && this.electronWebpackConfiguration.main && this.electronWebpackConfiguration.main.webpackConfig) {
-      this._configuration = merge.smart(this._configuration as any, require(path.join(this.projectDir, this.electronWebpackConfiguration.main.webpackConfig))) as any
+    if (this.type === "renderer-dll" && renderer && renderer.webpackDllConfig) {
+      return applyCustom(renderer.webpackDllConfig)
     }
+
+    if (this.type === "main" && main && main.webpackConfig) {
+      return applyCustom(main.webpackConfig)
+    }
+
+    return config
   }
 
   private computeExternals() {
     const whiteListedModules = new Set(this.electronWebpackConfiguration.whiteListedModules || [])
     if (this.isRenderer) {
+      whiteListedModules.add("react")
+      whiteListedModules.add("react-dom")
       whiteListedModules.add("vue")
     }
 
@@ -345,9 +365,11 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
   for (const file of dotenvFiles) {
     const exists = await pathExists(file)
     if (exists) {
-      dotEnvConfig({
-        path: file
-      })
+      dotEnvExpand(
+        dotEnvConfig({
+          path: file
+        })
+      )
     }
   }
   return await configurator.configure()
@@ -355,7 +377,7 @@ export async function configure(type: ConfigurationType, env: ConfigurationEnv |
 
 async function computeEntryFile(srcDir: string, projectDir: string): Promise<string | null> {
   const candidates: Array<string> = []
-  for (const ext of ["ts", "js", "tsx"]) {
+  for (const ext of ["ts", "js", "tsx", "jsx"]) {
     for (const name of ["index", "main", "app"]) {
       candidates.push(`${name}.${ext}`)
     }
