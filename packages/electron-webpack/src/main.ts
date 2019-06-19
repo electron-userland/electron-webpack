@@ -112,7 +112,7 @@ export class WebpackConfigurator {
     this.commonSourceDirectory = this.electronWebpackConfiguration.commonSourceDirectory!!
     this.commonDistDirectory = this.electronWebpackConfiguration.commonDistDirectory!!
 
-    this.rendererTemplate = ( this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.template ) || 'src/index.ejs';
+    this.rendererTemplate = (this.electronWebpackConfiguration.renderer && this.electronWebpackConfiguration.renderer.template) || "src/index.ejs"
   }
 
   /**

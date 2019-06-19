@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-import { outputFile } from "fs-extra-p"
+import { outputFile, readFile } from "fs-extra-p"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { getConfig } from "read-config-file"
@@ -39,7 +38,7 @@ export class BaseRendererTarget extends BaseTarget {
         use: cssHotLoader.concat("less-loader"),
       },
       {
-        test: /\.s(a|c)ss$/,
+        test: /\.s([ac])ss$/,
         use: cssHotLoader.concat("sass-loader"),
       },
       {
@@ -102,10 +101,11 @@ export class RendererTarget extends BaseRendererTarget {
     const HtmlWebpackPlugin = require("html-webpack-plugin")
     const nodeModulePath = configurator.isProduction ? null : path.resolve(require.resolve("electron"), "..", "..")
 
-    let template;
+    let template
     if (await statOrNull(customTemplateFile)) {
-      template = fs.readFileSync(customTemplateFile, {encoding: 'utf8'})
-    } else {
+      template = await readFile(customTemplateFile, {encoding: "utf8"})
+    }
+    else {
       template = getDefaultIndexTemplate()
     }
 
@@ -165,7 +165,7 @@ async function computeTitle(configurator: WebpackConfigurator): Promise<string |
   return title
 }
 
-function getDefaultIndexTemplate () {
+function getDefaultIndexTemplate() {
   return `<!DOCTYPE html>
     <html>
       <head>
@@ -194,27 +194,26 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
   const title = await computeTitle(configurator)
   const filePath = path.join(configurator.commonDistDirectory, ".renderer-index-template.html")
 
-  let html = template;
-
+  let html = template
   if (title) {
-    html = html.replace('</head>', `<title>${title}</title></head>`);
+    html = html.replace("</head>", `<title>${title}</title></head>`)
   }
 
   if (nodeModulePath) {
-    html = html.replace('</head>', `<script>require('module').globalPaths.push("${nodeModulePath.replace(/\\/g, '/')}")</script></head>`);
+    html = html.replace("</head>", `<script>require('module').globalPaths.push("${nodeModulePath.replace(/\\/g, "/")}")</script></head>`)
   }
 
-  html = html.replace('</head>', '<script>require("source-map-support/source-map-support.js").install()</script></head>');
+  html = html.replace("</head>", '<script>require("source-map-support/source-map-support.js").install()</script></head>')
 
   if (scripts.length) {
-    html = html.replace('</head>', `${scripts.join('')}</head>`);
+    html = html.replace("</head>", `${scripts.join("")}</head>`)
   }
 
   if (css.length) {
-    html = html.replace('</head>', `${css.join('')}</head>`);
+    html = html.replace("</head>", `${css.join("")}</head>`)
   }
 
-  await outputFile(filePath, html);
+  await outputFile(filePath, html)
 
   return `!!html-loader?minimize=false&url=false!${filePath}`
 }
