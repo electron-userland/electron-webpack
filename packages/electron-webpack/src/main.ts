@@ -242,7 +242,8 @@ export class WebpackConfigurator {
       }
     }
 
-    this._configuration = await this.applyCustomModifications(this.config)
+    // noinspection ES6RedundantAwait
+    this._configuration = await Promise.resolve(this.applyCustomModifications(this.config))
 
     return this.config
   }
@@ -254,7 +255,8 @@ export class WebpackConfigurator {
       const customModule = require(path.join(this.projectDir, configPath))
       if (typeof customModule === "function") {
         return customModule(config)
-      } else {
+      }
+      else {
         return merge.smart(config, customModule)
       }
     }
@@ -262,16 +264,15 @@ export class WebpackConfigurator {
     if (this.type === "renderer" && renderer && renderer.webpackConfig) {
       return applyCustom(renderer.webpackConfig)
     }
-
-    if (this.type === "renderer-dll" && renderer && renderer.webpackDllConfig) {
+    else if (this.type === "renderer-dll" && renderer && renderer.webpackDllConfig) {
       return applyCustom(renderer.webpackDllConfig)
     }
-
-    if (this.type === "main" && main && main.webpackConfig) {
+    else if (this.type === "main" && main && main.webpackConfig) {
       return applyCustom(main.webpackConfig)
     }
-
-    return config
+    else {
+      return config
+    }
   }
 
   private computeExternals() {
