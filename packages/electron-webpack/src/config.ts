@@ -22,7 +22,7 @@ export function getDefaultRelativeSystemDependentCommonSource(): string {
  * Return configuration with resolved staticSourceDirectory / commonDistDirectory / commonSourceDirectory.
  */
 export async function getElectronWebpackConfiguration(context: ConfigurationRequest): Promise<ElectronWebpackConfiguration> {
-  const result = await getConfig({
+  const result = await getConfig<ElectronWebpackConfiguration>({
     packageKey: "electronWebpack",
     configFilename: "electron-webpack",
     projectDir: context.projectDir,
