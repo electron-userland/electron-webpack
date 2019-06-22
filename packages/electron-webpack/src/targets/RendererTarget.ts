@@ -21,7 +21,7 @@ export class BaseRendererTarget extends BaseTarget {
 
     configurator.extensions.push(".css")
 
-    const miniLoaders = [MiniCssExtractPlugin.loader, { loader: "css-loader", options: { modules: true } }]
+    const miniLoaders = [MiniCssExtractPlugin.loader, { loader: "css-loader", options: { modules: "global" } }]
     const cssHotLoader = configurator.isProduction ? miniLoaders : ["css-hot-loader"].concat(miniLoaders)
     if (!configurator.isProduction) {
       // https://github.com/shepherdwind/css-hot-loader/issues/37
