@@ -254,7 +254,7 @@ export class WebpackConfigurator {
     const applyCustom = (configPath: string) => {
       const customModule = require(path.join(this.projectDir, configPath))
       if (typeof customModule === "function") {
-        return customModule(config)
+        return customModule(config, this)
       }
       else {
         return merge.smart(config, customModule)
