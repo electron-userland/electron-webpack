@@ -39,7 +39,7 @@
     "lazy-val": "^1.0.4",
     "mini-css-extract-plugin": "^0.7.0",
     "node-loader": "^0.6.0",
-    "read-config-file": "^3.2.2",
+    "read-config-file": "^3.3.0",
     "semver": "^6.1.1",
     "source-map-support": "^0.5.12",
     "style-loader": "^0.23.1",
