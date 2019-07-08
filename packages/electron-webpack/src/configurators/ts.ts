@@ -25,6 +25,7 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
 
   // no sense to use fork-ts-checker-webpack-plugin for production build
   if (isTranspileOnly && !configurator.isTest) {
+    const hasVue = configurator.hasDependency("vue")
     const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
     configurator.plugins.push(new ForkTsCheckerWebpackPlugin({
       tsconfig: tsConfigFile,
@@ -35,7 +36,8 @@ export async function configureTypescript(configurator: WebpackConfigurator) {
 
         warn: console.warn.bind(console),
         error: console.error.bind(console),
-      }
+      },
+      vue: hasVue
     }))
   }
 
