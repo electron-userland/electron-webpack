@@ -1,4 +1,4 @@
-import { outputFile, readFile } from "fs-extra-p"
+import { outputFile, readFile } from "fs-extra"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { getConfig } from "read-config-file"

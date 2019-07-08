@@ -1,5 +1,5 @@
 import { randomBytes } from "crypto"
-import { mkdir, move, outputJson, writeFile } from "fs-extra-p"
+import { mkdir, move, outputJson, writeFile } from "fs-extra"
 import * as path from "path"
 import { doTest, getMutableProjectDir, rootDir, testWebpack, tmpDir } from "./helpers/helper"
 

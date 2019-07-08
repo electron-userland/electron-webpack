@@ -1,4 +1,4 @@
-import { writeFile, writeJson } from "fs-extra-p"
+import { writeFile, writeJson } from "fs-extra"
 import * as path from "path"
 import { assertThat, getMutableProjectDir, testWebpack } from "./helpers/helper"
 

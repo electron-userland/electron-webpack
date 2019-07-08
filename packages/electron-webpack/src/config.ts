@@ -1,4 +1,4 @@
-import { readJson } from "fs-extra-p"
+import { readJson } from "fs-extra"
 import { Lazy } from "lazy-val"
 import * as path from "path"
 import { getConfig } from "read-config-file"

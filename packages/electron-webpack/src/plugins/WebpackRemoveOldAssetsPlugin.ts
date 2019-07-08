@@ -1,5 +1,5 @@
-import BluebirdPromise from "bluebird-lst"
-import { lstat, readdir, remove, Stats } from "fs-extra-p"
+import * as bluebird from "bluebird"
+import { lstat, readdir, remove, Stats } from "fs-extra"
 import * as path from "path"
 import { Compiler } from "webpack"
 import { orNullIfFileNotExist } from "../util"
@@ -32,7 +32,7 @@ export async function walk(initialDirPath: string, filter?: Filter | null): Prom
 
     const dirs: Array<string> = []
     // our handler is async, but we should add sorted files, so, we add file to result not in the mapper, but after map
-    const sortedFilePaths = await BluebirdPromise.map(childNames, name => {
+    const sortedFilePaths = await bluebird.map(childNames, name => {
       const filePath = dirPath + path.sep + name
       return lstat(filePath)
         .then(stat => {
@@ -103,7 +103,7 @@ export class WebpackRemoveOldAssetsPlugin {
           if (debug.enabled) {
             debug(`Remove outdated files:\n  ${it.join("\n  ")}`)
           }
-          return BluebirdPromise.map(it, it => remove(it), CONCURRENCY)
+          return bluebird.map(it, it => remove(it), CONCURRENCY)
         })
         .then(() => callback())
         .catch(callback)

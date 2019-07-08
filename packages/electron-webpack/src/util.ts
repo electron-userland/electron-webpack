@@ -1,5 +1,5 @@
-import BluebirdPromise from "bluebird-lst"
-import { stat, Stats } from "fs-extra-p"
+import * as BluebirdPromise from "bluebird"
+import { stat, Stats } from "fs-extra"
 import { createServer } from "net"
 import * as path from "path"
 

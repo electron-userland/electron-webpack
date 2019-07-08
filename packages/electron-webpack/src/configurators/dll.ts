@@ -1,4 +1,4 @@
-import { readdir, readJson } from "fs-extra-p"
+import { readdir, readJson } from "fs-extra"
 import * as path from "path"
 import { DllPlugin, DllReferencePlugin } from "webpack"
 import { WebpackConfigurator } from "../main"

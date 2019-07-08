@@ -1,5 +1,5 @@
 import { ElectronWebpackConfiguration } from "electron-webpack"
-import { copy, emptyDir } from "fs-extra-p"
+import { copy, emptyDir } from "fs-extra"
 import MemoryFS from "memory-fs"
 import * as path from "path"
 import { TmpDir } from "temp-file"
