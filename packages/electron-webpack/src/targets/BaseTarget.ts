@@ -64,6 +64,7 @@ export class BaseTarget {
         optimization.minimizer = [new TerserPlugin({
           parallel: true,
           sourceMap: true,
+          keep_fnames: true,
         })]
       }
       optimization.minimize = true
