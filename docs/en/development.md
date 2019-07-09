@@ -40,7 +40,15 @@ yarn dev
 `electron-webpack` may seem like a **magical** module to some from the outside, but let's cover a few topics about what's going on *under the hood*.
 
 ##### Hot Module Replacement
-Webpack HMR has been setup to support both the `renderer` and `main` process. This allows for faster development ensuring your application is only restarted when neccessary.
+Webpack HMR has been setup to support both the `renderer` and `main` process. This allows for faster development ensuring your application is only restarted when neccessary. All you need to do is accept hot updates in your entry files:
+
+```js
+// in main/index.js, renderer/index.js or in both
+if (module.hot) {
+  module.hot.accept();
+}
+```
+Check out [this article](https://medium.com/@develar/electron-very-fast-developer-workflow-with-webpack-hmr-e2a2e23590ad) for more details on HMR in `electron-webpack` and the official [webpack docs](https://webpack.js.org/api/hot-module-replacement/) for details and options on the HMR API.
 
 ##### Bundling for both `renderer` and `main` processes
 `webpack` is already setup to have an entry point for each process. In addition, you can also easily add further entry points to the `main` process when needed. In the other cases where you just need support for the `main` process, you can even skip the `renderer` process when needed ([more info](./configuration.md#source-directories)).
