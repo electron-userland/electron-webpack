@@ -39,3 +39,7 @@ If you already have an existing project, or are looking for a custom approach ou
 
 ### Next Steps
 Make sure to take advantage of the detailed [documentation](https://webpack.electron.build) that `electron-webpack` provides. It covers everything from how things work internally, adding custom configurations, and building your application.
+
+### Contributing
+Feel free to grab an issue and fix it or to share your features and improvements - PRs are always welcome!  
+However, in order for your contribution to be property included in the automatically generated release notes, please use our [standard format](https://gist.github.com/develar/273e2eb938792cf5f86451fbac2bcd51) for your commit messages.
