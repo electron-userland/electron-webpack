@@ -70,7 +70,7 @@ export async function startRenderer(projectDir: string, env: any) {
 
       const r = resolve
       // we must resolve only after compilation, otherwise devtools disconnected
-      if (r != null && data.includes(": Compiled successfully.")) {
+      if (r != null && (data.includes(": Compiled successfully.") || data.includes(": Compiled with warnings."))) {
         resolve = null
         r()
       }
