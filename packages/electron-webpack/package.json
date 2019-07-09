@@ -1,6 +1,6 @@
 {
   "name": "electron-webpack",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "main": "out/main.js",
@@ -31,7 +31,7 @@
     "dotenv": "^8.0.0",
     "dotenv-expand": "^5.1.0",
     "electron-devtools-installer": "^2.2.4",
-    "electron-webpack-js": "~2.3.2",
+    "electron-webpack-js": "~2.3.3",
     "file-loader": "^4.0.0",
     "fs-extra": "^8.1.0",
     "html-loader": "^1.0.0-alpha.0",
@@ -52,6 +52,9 @@
   },
   "peerDependencies": {
     "webpack": "^4.35.3"
+  },
+  "resolutions": {
+    "js-yaml": "^3.13.1"
   },
   "types": "./out/main.d.ts",
   "publishConfig": {

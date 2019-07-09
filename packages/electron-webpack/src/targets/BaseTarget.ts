@@ -61,10 +61,13 @@ export class BaseTarget {
     if (configurator.isProduction) {
       if (configurator.env.minify !== false) {
         const TerserPlugin = require("terser-webpack-plugin")
+        // noinspection SpellCheckingInspection
         optimization.minimizer = [new TerserPlugin({
           parallel: true,
           sourceMap: true,
-          keep_fnames: true,
+          terserOptions: {
+            keep_fnames: true,
+          },
         })]
       }
       optimization.minimize = true

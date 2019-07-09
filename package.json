@@ -21,7 +21,7 @@
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.15",
     "@types/memory-fs": "^0.3.2",
-    "@types/node": "^12.6.0",
+    "@types/node": "^12.6.1",
     "@types/semver": "^6.0.1",
     "@types/webpack": "^4.4.34",
     "@types/webpack-merge": "^4.1.5",
@@ -39,12 +39,15 @@
     "ts-babel": "^6.1.7",
     "ts-json-schema-generator": "^0.50.2",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.2",
+    "typescript": "^3.5.3",
     "webpack": "^4.35.3"
   },
   "workspaces": [
     "packages/*"
   ],
+  "resolutions": {
+    "js-yaml": "^3.13.1"
+  },
   "jest": {
     "globals": {
       "ts-jest": {

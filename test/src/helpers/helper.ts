@@ -65,10 +65,12 @@ function statToMatchObject(stats: Stats, projectDir: string, fs: MemoryFS) {
       return !trimmed.startsWith("Time:") && !trimmed.startsWith("Hash:") && !trimmed.startsWith("Version:") && !trimmed.startsWith("Built at:")
     })
     .join("\n")
+    .replace(/\\/g, "/")
     .replace(new RegExp(`[./]*${projectDir}`, "g"), "<project-dir>")
-    .replace(new RegExp(`[./]*${process.cwd()}`, "g"), "<cwd>")
     // no idea why failed on CI - in any case we validate file content
     .replace(/\/style\.css \d+ bytes/g, "/style.css")
+    .replace(new RegExp(`[./]*${process.cwd()}`, "g"), "<cwd>")
+    .replace(new RegExp("[.]*/[^\n]+node_modules", "g"), "<some path>/node_modules")
 }
 
 function compile(fs: any, configuration: Configuration, resolve: (stats: Stats) => void, reject: (error?: Error) => void) {
