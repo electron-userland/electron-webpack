@@ -1,5 +1,3 @@
-# Using Static Assets
-
 When using `webpack` to bundle all of our assets together we lose the ability to provide a full path to our assets. This is especially important when we need to use modules like `fs` or those that require a file path to an asset. `electron-webpack` is aware of that issue and provides a solution.
 
 You may have noticed in [Project Structure](./project-structure.md) there is a directory specifically for static assets (`static/`). It is here where we can put assets we explicity don't want `webpack` to bundle. So now how can we access their path?
@@ -12,8 +10,7 @@ Similar to how `__dirname` can provide you with a path to the parent directory n
 
 Let's say we have a static Text file (`foobar.txt`) we need to read into our application using `fs`. Here's how we can use the `__static` variable to get a reliable path to our asset.
 
-##### static/foobar.txt
-```txt
+```txt tab="static/foobar.txt"
 foobarbizzbuzz
 ```
 

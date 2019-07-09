@@ -17,3 +17,5 @@ _book/
 yarn-error.log
 
 .renderer-index-template.html
+
+/site/

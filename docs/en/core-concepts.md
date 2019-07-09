@@ -1,5 +1,3 @@
-# Core Concepts
-
 Below is a general overview of what `electron-webpack` aims to solve, and what it isn't.
 
 #### `electron-webpack` is a module

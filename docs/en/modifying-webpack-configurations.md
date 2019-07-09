@@ -1,5 +1,3 @@
-# Modifying Webpack Configurations
-
 Another great benefit of using `electron-wepback` is that you are never restricted to an abstracted API. Of course there isn't a configuration that fits everybody's need, and `electron-webpack` is aware of that.
 
 Custom modifications can be made for the `renderer`, `renderer-dll`, and `main` processes. 
@@ -44,8 +42,7 @@ See [Configuration](configuration.md) for more information.
  
 #### Configure `raw-loader`
 
-```js
-/* webpack.renderer.additions.js */
+```js tab="webpack.renderer.additions.js"
 module.exports = {
   module: {
     rules: [
@@ -76,7 +73,7 @@ You may modify the default object using any method you like, for example you cou
 
 ### Use Case
 
-Let's say you would like the `css-loader` to treat everything as [CSS modules](https://github.com/webpack-contrib/css-loader#modules) and implicitly convert all classnames to hashed variants, unless you defined them as `:global` explicitly. 
+Let's say you would like the `css-loader` to treat everything as [CSS modules](https://github.com/webpack-contrib/css-loader#modules) and implicitly convert all class names to hashed variants, unless you defined them as `:global` explicitly. 
 
 First, configure `electron-webpack` to use your custom config file.
  
@@ -95,8 +92,7 @@ See [Configuration](configuration.md) for more information.
 
 Next, provide your custom configuration file:
 
-```js
-/* webpack.renderer.js */
+```js tab="webpack.renderer.js"
 module.exports = function(config) {
   const styleRules = config.module.rules.filter(rule =>
     rule.test.toString().match(/css|less|s\(\[ac\]\)ss/)

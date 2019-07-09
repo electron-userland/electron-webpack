@@ -1,5 +1,3 @@
-# Environment Variables
-
 Sometimes you need your `webpack` build to be dependent upon specific environment variables. Whether you need to set a global API Url or even the application name, here's how you can set variables that `electron-webpack` will provide for your application.
 
 ### `ELECTRON_WEBPACK_APP_*`
@@ -48,7 +46,6 @@ set ELECTRON_ARGS=["--inspect-brk=9229"]&&yarn dev
 
 Since `electron-webpack` uses the [dotenv](https://www.npmjs.com/package/dotenv) library under the hood, instead of wrestling with CLI arguments, escaping and differences between Windows and Unix systems, you can instead create an `.env` file and specify environment variables:
  
-```bash
-# file .env.development
+```bash tab=".env.development"
 ELECTRON_ARGS=["--inspect-brk=9229"]
 ```

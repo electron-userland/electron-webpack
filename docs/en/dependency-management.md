@@ -1,5 +1,3 @@
-# Dependency Management
-
 When creating `electron` applications, dependency management can be a little different for specific cases. To make sure everybody is on the same page, make sure to take a look at the below documentation.
 
 ### Using `yarn`
@@ -26,7 +24,7 @@ yarn add electron-builder --dev
 
 It may also be worth adding a `package.json` script for this command if you plan on using it often (`yarn rebuild-deps`).
 
-```json
+```json tab="package.json"
 {
   "scripts": {
     "rebuild-deps": "electron-builder install-app-deps"
@@ -37,7 +35,7 @@ It may also be worth adding a `package.json` script for this command if you plan
 If you choose not to use `electron-builder` as your build tool, you can still run the command using `npx` without side affects.
 
 ```bash
-# Using `npm@^5.2.0`
+# using `npm@^5.2.0`
 npx electron-builder install-app-deps
 ```
 

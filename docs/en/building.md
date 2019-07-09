@@ -6,7 +6,7 @@ One important thing to understand is that `electron-webpack` is agnostic about t
 
 Once you have `electron-webpack` configured for your project, you can simply run the `electron-webpack` command to compile your source code. To make things easier, make use of setting up a script in your `package.json`.
 
-```json
+```json tab="package.json"
 {
   "scripts": {
     "compile": "electron-webpack"
@@ -22,7 +22,6 @@ Now that `electron-webpack` has created your `webpack` bundle, you can simply im
 
 #### Using `electron-builder`
 
-##### Install
 ```bash
 yarn add electron-builder --dev
 ```

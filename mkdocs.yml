@@ -1,0 +1,55 @@
+site_name: electron-webpack
+use_directory_urls: false
+theme:
+  name: material
+  logo:
+    icon: 'build'
+  palette:
+    primary: 'blue'
+    accent: 'blue'
+
+docs_dir: docs/en
+
+repo_name: electron-userland/electron-webpack
+repo_url: 'https://github.com/electron-userland/electron-webpack'
+edit_uri: ""
+dev_addr: 0.0.0.0:8000
+strict: true
+
+extra_javascript:
+  - extra.js
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - pymdownx.smartsymbols
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - markdown_include.include:
+      base_path: docs/en
+  - toc:
+      permalink: true
+
+google_analytics:
+  - 'UA-104881670-1'
+  - webpack.electron.build
+
+nav:
+  - Introduction: index.md
+  - Core Concepts: core-concepts.md
+  - Development:
+    - Development: development.md
+    - Add-ons: add-ons.md
+    - Configuration: configuration.md
+    - CLI Commands: cli-commands.md
+    - Dll Bundle Splitting: dll-bundle-splitting.md
+    - Environment Variables: environment-variables.md
+    - Extending as a Library: extending-as-a-library.md
+    - Modifying Webpack Configurations: modifying-webpack-configurations.md
+    - Using Static Assets: using-static-assets.md
+  - Project Structure: project-structure.md
+  - Building: building.md
+  - Miscellaneous:
+      - Dependency Management: dependency-management.md
+      - Technical Differences of electron-compile: technical-differences-of-electron-compile.md

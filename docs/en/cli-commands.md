@@ -1,5 +1,3 @@
-# CLI Commands
-
 `electron-webpack` comes with a simple CLI to help run your application in development and compile your source code. Here is a general overview of what's available.
 
 #### `electron-webpack dev`
@@ -16,8 +14,7 @@ Yields quick overview of all CLI features.
 ### Package Scripts
 To make things easier, make use of setting up scripts in your `package.json` to use the CLI easier.
 
-##### package.json
-```json
+```json tab="package.json"
 {
   "scripts": {
     "dev": "electron-webpack dev",

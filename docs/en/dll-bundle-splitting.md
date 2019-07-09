@@ -1,5 +1,3 @@
-# Dll Bundle Splitting
-
 One great feature of using `webpack` is being able to take advantage of the `webpack.DllPlugin` plugin. If you are unfamiliar with the `webpack.DllPlugin` plugin, make sure to read its [documentation](https://webpack.js.org/plugins/dll-plugin/) to better understand what problem it attempts to solve. In short, this can be used to [drastically improve](https://robertknight.github.io/posts/webpack-dll-plugins/) build time performance.
 
 Through custom configurations `electron-webpack` provides a place to define specific packages you would like to create a separate bundle for. You can treat this feature as a way to bundle all of your *vendor* libraries together.
@@ -46,8 +44,7 @@ Please know that the `vendor` bundle is only created when you explicity run `ele
 #### Using a `postinstall` hook
 One common practice when using Dll bundle splitting to define a `postinstall` command to create the `vendor` bundle whenever new dependecies are installed. This can help ensure everything is up to date so you don't have to manually run this yourself.
 
-##### package.json
-```json
+```json tab="package.json"
 {
   "scripts": {
     "postinstall": "electron-webpack dll"

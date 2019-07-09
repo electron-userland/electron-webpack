@@ -1,5 +1,3 @@
-# Project Structure
-
 Everybody likes to structure their projects differently, and `electron-webpack` is aware of that. For the most part, the only configurations needed are [entry points](https://webpack.js.org/concepts/entry-points/) for `webpack` to step in.
 
 If you are looking to follow common electron practices or wanting an example template, make sure to check out [`electron-webpack-quick-start`](https://github.com/electron-userland/electron-webpack-quick-start). It has the bare minimun setup, but can be easily modified to meet many needs. The use of this template, of course, is optional.

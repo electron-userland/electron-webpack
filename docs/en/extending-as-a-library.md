@@ -1,5 +1,3 @@
-# Extending as a Library
-
 One of the great benefits of using `electron-webpack` is that the entirity of `webpack`'s documentation still applies. You can easily skip using the provided CLI and modify the configurations to meet your needs. Since `electron` uses a multi-process architecture, there are also multiple `webpack` configurations. Let's cover what's provided.
 
 ### Configuration Files
@@ -32,8 +30,7 @@ Let's say we need to support `*.txt` files in our `renderer` process and want to
 yarn add -D raw-loader
 ```
 
-##### myCustomWebpack.renderer.config.js
-```js
+```js tab="myCustomWebpack.renderer.config.js"
 const webpackRenderer = require('electron-webpack/webpack.renderer.config.js')
 
 module.exports = env => {

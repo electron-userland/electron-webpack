@@ -9,7 +9,7 @@ Modern web development practices today require a lot of setup with things like `
 
 If you've been in the JavaScript world for even a short period of time, you are very aware that things are always changing, and development setup is no exclusion. Putting all development scripts into a single **updatable** module just makes sense. Sure a full featured boilerplate works too, but doing also involves needing to manually update those pesky `webpack` configuration files that some may call *magic* when something new comes out.
 
-Here are some of the awesome features you'll find using `electron-webpack`...
+Here are some of the awesome features you'll find using `electron-webpack`:
 
 * Detailed [documentation](https://webpack.electron.build)
 * Use of [`webpack`](https://webpack.js.org/) for source code bundling
