@@ -5,12 +5,12 @@
   "author": "Vladimir Krivosheev <develar@gmail.com>",
   "scripts": {
     "compile": "cross-env ts-babel packages/electron-webpack test && yarn schema",
-    "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude '**/*.js'",
+    "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude \"**/*.js\"",
     "release": "BABEL_ENV=production yarn compile && ./npm-publish.sh && conventional-changelog -p angular -i CHANGELOG.md -s",
     "test": "yarn compile && yarn lint && jest",
     "serve-docs": "mkdocs serve",
     "deploy-docs": "mkdocs build --clean && netlifyctl deploy --publish-directory site",
-    "schema": "ts-json-schema-generator --path 'packages/electron-webpack/src/**/*.ts' --no-top-ref --no-type-check --type ElectronWebpackConfiguration --expose export > packages/electron-webpack/scheme.json",
+    "schema": "ts-json-schema-generator --path \"packages/electron-webpack/src/**/*.ts\" --no-top-ref --no-type-check --type ElectronWebpackConfiguration --expose export > packages/electron-webpack/scheme.json",
     "//": "update-deps task intended only for core maintainers",
     "update-deps": "npm-check-updates -u && npx lerna exec -- npm-check-updates -u"
   },
