@@ -54,7 +54,8 @@
     "webpack": "^4.42.0"
   },
   "resolutions": {
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "htmlnano": "^0.2.5"
   },
   "types": "./out/main.d.ts",
   "publishConfig": {
