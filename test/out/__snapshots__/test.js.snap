@@ -26,7 +26,7 @@ Child
              Asset      Size  Chunks  Chunk Names
         index.html  3.99 KiB       0  
         Entrypoint undefined = index.html
-        [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
+        [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
     Child mini-css-extract-plugin <some path>/node_modules/css-loader/dist/cjs.js??ref--6-1!src/renderer/style.css:
         Entrypoint mini-css-extract-plugin = *
         [0] <cwd>/node_modules/css-loader/dist/cjs.js??ref--6-1!./src/renderer/style.css {0} [built]
@@ -136,7 +136,7 @@ Child html-webpack-plugin for \\"index.html\\":
          Asset      Size  Chunks  Chunk Names
     index.html  3.99 KiB       0  
     Entrypoint undefined = index.html
-    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
+    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
 Child mini-css-extract-plugin <some path>/node_modules/css-loader/dist/cjs.js??ref--6-1!customRenderer/style.css:
     Entrypoint mini-css-extract-plugin = *
     [0] <cwd>/node_modules/css-loader/dist/cjs.js??ref--6-1!./customRenderer/style.css {0} [built]
@@ -192,7 +192,7 @@ Child html-webpack-plugin for \\"index.html\\":
          Asset      Size  Chunks  Chunk Names
     index.html  3.99 KiB       0  
     Entrypoint undefined = index.html
-    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false&url=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
+    [0] <cwd>/node_modules/html-loader/dist/cjs.js?minimize=false!./dist/.renderer-index-template.html 255 bytes {0} [built]
 Child mini-css-extract-plugin <some path>/node_modules/css-loader/dist/cjs.js??ref--6-1!src/renderer/style.css:
     Entrypoint mini-css-extract-plugin = *
     [0] <cwd>/node_modules/css-loader/dist/cjs.js??ref--6-1!./src/renderer/style.css {0} [built]
