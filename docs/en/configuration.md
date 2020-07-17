@@ -6,7 +6,7 @@ Configurations can be applied in `package.json` at `electronWebpack` or in a sep
 ```json
 "electronWebpack": {
   "commonSourceDirectory": "src/common",
-  "staticSourceDirectory": "src/static",
+  "staticSourceDirectory": "static",
   "title": true,
   "whiteListedModules": ["foo-ui-library"],
 
