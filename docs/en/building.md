@@ -1,6 +1,6 @@
 # Building
 
-One important thing to understand is that `electron-webpack` is agnostic about the build tool you decide to use for creating your distributable `electron` application. The only concern of this module is to create a `webpack` output that functions properly and is optimized for the `electron` enviroment.
+One important thing to understand is that `electron-webpack` is agnostic about the build tool you decide to use for creating your distributable `electron` application. The only concern of this module is to create a `webpack` output that functions properly and is optimized for the `electron` environment.
 
 ### Compiling your code
 
