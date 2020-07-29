@@ -99,7 +99,7 @@ export class RendererTarget extends BaseRendererTarget {
     // not configurable for now, as in the electron-vue
     const customTemplateFile = path.join(configurator.projectDir, configurator.rendererTemplate)
     const HtmlWebpackPlugin = require("html-webpack-plugin")
-    const nodeModulePath = configurator.isProduction ? null : path.resolve(require.resolve("electron"), "..", "..")
+    const nodeModulePath = configurator.isProduction ? null : path.resolve(require.resolve("electron-webpack"), "..", "..")
 
     let template
     if (await statOrNull(customTemplateFile)) {

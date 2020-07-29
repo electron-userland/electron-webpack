@@ -153,7 +153,7 @@ main()
   })
 
 function startElectron(electronArgs: Array<string>, env: any) {
-  const electronProcess = spawn(require("electron").toString(), electronArgs, {
+  const electronProcess = spawn("electron", electronArgs, {
     env: {
       ...env,
       ELECTRON_HMR_SOCKET_PATH: socketPath,
