@@ -1,5 +1,5 @@
 import * as path from "path"
-import { DefinePlugin, EnvironmentPlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin } from "webpack"
+import { DefinePlugin, EnvironmentPlugin, HotModuleReplacementPlugin, LoaderOptionsPlugin, version as webpackVersion } from "webpack"
 import { getDefaultRelativeSystemDependentCommonSource } from "../config"
 import { configureDll } from "../configurators/dll"
 import { configureEslint } from "../configurators/eslint"
@@ -109,8 +109,15 @@ function isAncestor(file: string, dir: string) {
 }
 
 function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
+  const optimization = configurator.config.optimization!!
+  if (parseInt(String(webpackVersion)) >= 5) {
+    optimization.moduleIds = 'named'
+  }
+  else {
+    optimization.namedModules = true
+  }
+
   const plugins = configurator.plugins
-  configurator.config.optimization!!.namedModules = true
   plugins.push(new DefinePlugin({
     __static: `"${path.join(configurator.projectDir, configurator.staticSourceDirectory).replace(/\\/g, "\\\\")}"`,
     "process.env.NODE_ENV": configurator.isProduction ? "\"production\"" : "\"development\""
