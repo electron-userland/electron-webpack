@@ -50,7 +50,15 @@ export class BaseRendererTarget extends BaseTarget {
       },
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack', 'url-loader'],
+          use: [
+            {
+              loader: '@svgr/webpack',
+            },
+            {
+              loader: "url-loader",
+              options: configureFileLoader("imgs")
+            }
+          ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
