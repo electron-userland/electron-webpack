@@ -20,6 +20,7 @@
   },
   "//": "@types/webpack-env in the dependencies because used by clients",
   "dependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/webpack-env": "^1.15.1",
     "async-exit-hook": "^2.0.1",
     "bluebird": "^3.7.2",

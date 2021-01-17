@@ -42,11 +42,23 @@ export class BaseRendererTarget extends BaseTarget {
         use: cssHotLoader.concat("sass-loader"),
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
         use: {
           loader: "url-loader",
           options: configureFileLoader("imgs")
         }
+      },
+      {
+        test: /\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+            },
+            {
+              loader: "url-loader",
+              options: configureFileLoader("imgs")
+            }
+          ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
