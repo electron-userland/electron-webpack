@@ -58,9 +58,13 @@ class DevRunner {
       logError("Main", error)
     })
 
+    const electronWebpackConfig = await getElectronWebpackConfiguration({
+      projectDir,
+      packageMetadata: getPackageMetadata(projectDir),
+    })
     const electronArgs = process.env.ELECTRON_ARGS
     const args = electronArgs != null && electronArgs.length > 0 ? JSON.parse(electronArgs) : [`--inspect=${await getFreePort("127.0.0.1", 5858)}`]
-    args.push(path.join(projectDir, "dist/main/main.js"))
+    args.push(path.join(electronWebpackConfig.commonDistDirectory!!, "main/main.js"))
     // Pass remaining arguments to the application. Remove 3 instead of 2, to remove the `dev` argument as well.
     args.push(...process.argv.slice(3))
     // we should start only when both start and main are started
