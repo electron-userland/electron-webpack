@@ -4,7 +4,7 @@
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
 ## Maintainer Needed
-This project is looking for maintainers. Feel free to post [here](https://github.com/electron-userland/electron-webpack/issues/428). 
+This project is looking for active maintainers. Feel free to post [here](https://github.com/electron-userland/electron-webpack/issues/428). 
 
 ## Overview
 Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunately when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
