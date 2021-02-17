@@ -227,5 +227,5 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
 
   await outputFile(filePath, html)
 
-  return `!!html-loader?minimize=false!${filePath}`
+  return `!!html-loader?minimize=false&attributes=false!${filePath}`
 }
