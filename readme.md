@@ -1,5 +1,7 @@
 # electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
 
+Project Status: maintance mode. Consider using [Vite](https://github.com/cawa-93/vite-electron-builder) instead of Webpack.
+
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
 
 ## Overview
