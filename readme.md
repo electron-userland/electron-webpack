@@ -1,8 +1,12 @@
-# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack)
+# electron-webpack [![npm version](https://img.shields.io/npm/v/electron-webpack.svg)](https://npmjs.org/package/electron-webpack) [![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)](https://github.com/electron-userland/electron-webpack)
+
 
 Project Status: maintenance mode. **Consider using [Vite](https://github.com/cawa-93/vite-electron-builder) instead of Webpack.**
 
 > Because setting up `webpack` in the `electron` environment shouldn't be difficult.
+
+## Maintainer Needed
+This project is looking for active maintainers. Feel free to post [here](https://github.com/electron-userland/electron-webpack/issues/428). 
 
 ## Overview
 Modern web development practices today require a lot of setup with things like `webpack` to bundle your code, `babel` for transpiling, `eslint` for linting, and so much more that the list just goes on. Unfortunately when creating `electron` applications, all of that setup just became much more difficult. The primary aim of `electron-webpack` is to eliminate all preliminary setup with one simple install so you can get back to developing your application.
