@@ -110,7 +110,7 @@ function isAncestor(file: string, dir: string) {
 
 function configureDevelopmentPlugins(configurator: WebpackConfigurator) {
   const optimization = configurator.config.optimization!!
-  if (parseInt(String(webpackVersion)) >= 5) {
+  if (parseInt(String(webpackVersion), 10) >= 5) {
     optimization.moduleIds = 'named'
   }
   else {
