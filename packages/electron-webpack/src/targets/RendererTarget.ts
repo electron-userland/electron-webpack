@@ -215,7 +215,9 @@ async function generateIndexFile(configurator: WebpackConfigurator, nodeModulePa
     html = html.replace("</head>", `<script>require('module').globalPaths.push("${nodeModulePath.replace(/\\/g, "/")}")</script></head>`)
   }
 
-  html = html.replace("</head>", '<script>require("source-map-support/source-map-support.js").install()</script></head>')
+  if (!process.env.ELECTRON_WEBPACK_DISABLE_SOURCE_MAP_SUPPORT) {
+    html = html.replace("</head>", '<script>require("source-map-support/source-map-support.js").install()</script></head>');
+  }
 
   if (scripts.length) {
     html = html.replace("</head>", `${scripts.join("")}</head>`)
