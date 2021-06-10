@@ -1,0 +1,309 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+name: D
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dlang-community/setup-dlang@4c99aa991ce7d19dd3064de0a4f2f6b2f152e2d7
+
+    - name: 'Build & Test'
+      run: |
+        # Build the project, with its main file included, without unittests
+        dub build --compiler=$DC
+        # Build and run tests, as defined by `unittest` configuration
+        # In this mode, `mainSourceFile` is excluded and `version (unittest)` are included
+        # See https://dub.pm/package-format-json.html#configurations
+        dub test --compiler=$DC
+        - name: Dub Upgrade
+  # You may pin to the exact commit or the version.
+  # uses: WebFreak001/dub-upgrade@4c1a1d35ebb8828c8a6b31d066e8e67e69eadd2a
+  uses: WebFreak001/dub-upgrade@v0.1
+  with:
+    # Boolean if packages should be cached. If this is called before a build this will only cache downloaded files, if this is called after a build as well this will cache the compiled libraries, making future completion faster.
+    cache: # optional, default is true
+    # Boolean if this should just cache all (compiled) dub dependencies under a separate cache key. Should be called after building.
+    store: # optional
+    # Any custom arguments (shell syntax) to pass after `dub upgrade`. Will be used multiple times in case of dub network failures.
+    args: # optional, default is 
+    - name: Setup DMD
+  # You may pin to the exact commit or the version.
+  # uses: WebFreak001/setup-dmd@f4b6758bef35537351a6c02dc900ce01e022e76c
+  uses: WebFreak001/setup-dmd@v1
+  with:
+    # DMD version string starting with 2.
+    dmd-version: 
+    - name: Due Dates
+  # You may pin to the exact commit or the version.
+  # uses: alexleventer/github-issue-due-dates-action@b76d16b0a629458d255f127ea4ab52c95dde8eea
+  uses: alexleventer/github-issue-due-dates-action@1.1.0
+  with:
+    # GitHub token used to make API requests
+    GH_TOKEN: 
+    - name: DustiLock
+  # You may pin to the exact commit or the version.
+  # uses: dustico/dusti-lock@50f45f168943dd408a7ccf4a33a015354ee84cd3
+  uses: dustico/dusti-lock@v1.0.0
+  with:
+    # scan recursively (default = false)
+    recursive: # optional, default is 
+    # custom scan dir (e.g. "subdir1/subdir2")
+    path: # optional, default is 
+    # disable failing the build when having alerts (default = false)
+    audit: # optional, default is 
+    - name: Run Dunamai
+  # You may pin to the exact commit or the version.
+  # uses: mtkennerly/dunamai-action@f33a36717a0738efcf5fcb6f9f257d272b395633
+  uses: mtkennerly/dunamai-action@v1.1.0
+  with:
+    # Version of Dunamai to install (e.g., "1.3.0").
+Use the default if you don't need a specific version,
+or use "none" if your workflow installs Dunamai by other means.
+
+    install: # optional, default is latest
+    # Name of environment variable in which to set the dynamic version.
+If this is empty, no environment variable will be set.
+
+    env-var: # optional, default is 
+    # Command to run Dunamai.
+    command: # optional, default is dunamai from any
+    # Additional arguments to pass to the command.
+    args: # optional, default is 
+- name: Duplicate Issue
+  # You may pin to the exact commit or the version.
+  # uses: bubkoo/duplicate-issue@eaa180c6e93ffc3736168c532d0446c92114aa16
+  uses: bubkoo/duplicate-issue@v1.0.0
+  with:
+    # Your GitHub token for authentication.
+    GITHUB_TOKEN: 
+    # Command name to copy the issue.
+    command: # optional, default is duplicate
+    # Who can duplicate the issue.
+    who: # optional, default is author
+    # Additional information appended to the duplicated issue body.
+    extras: # optional, default is > This issue was copied from [#{{ issueNumber }}]({{ issueUrl }}) by @{{ author }}.
+    - name: Potential Duplicates
+  # You may pin to the exact commit or the version.
+  # uses: bubkoo/potential-duplicates@bc2082a34c22e52bf8ce21ad7e71329d54be37c4
+  uses: bubkoo/potential-duplicates@v1.0.8
+  with:
+    # Your GitHub token for authentication.
+    GITHUB_TOKEN: 
+    # Filter issues by title.
+    filter: # optional
+    # Exclude keywords in title before detecting.
+    exclude: # optional
+    # Label to set, when potential duplicates are detected.
+    label: # optional, default is potential-duplicate
+    # Get issues with state to compare. Supported state: 'all', 'closed', 'open'
+    state: # optional, default is all
+    # Label color to set, when potential duplicates are detected.
+    threshold: # optional, default is 0.6
+    # Comment to post when potential duplicates are detected.
+    comment: # optional, default is Potential duplicates: {{#issues}}
+  - [#{{ number }}] {{ title }} ({{ accuracy }}%)
+{{/issues}}
+
+    # Reactions to be add to comment when potential duplicates are detected.
+    reactions: # optional
+    - name: Dustico Analyser
+  # You may pin to the exact commit or the version.
+  # uses: dustico/action@fff1d513eec6fa13cd065a25ae52a2b3f43d597b
+  uses: dustico/action@v2.1.1
+  with:
+    # an API token provided by Dustico. contact us at https://dusti.co
+    api_token: 
+    # optional
+    options: # optional
+    - name: Dump context
+  # You may pin to the exact commit or the version.
+  # uses: crazy-max/ghaction-dump-context@791d0e52d67ad7dfd869695bd30012e6017dc68a
+  uses: crazy-max/ghaction-dump-context@v1.2.0
+  - name: pg-dump
+  # You may pin to the exact commit or the version.
+  # uses: tj-actions/pg-dump@cea2800a4a61d40e76fafc4e3cd1d273c50b4163
+  uses: tj-actions/pg-dump@v2.1
+  with:
+    # Database URL
+    database_url: 
+    # Backup file output location
+    path: 
+    # Extra arguments passed to pg_dump
+    options: # default is -O
+    - name: Dupicate-Line Remover Action
+  # You may pin to the exact commit or the version.
+  # uses: maharishi1/Duplicate-Line-Remover-Action@80becf8c69a28b7bf63266acfdb3d43c6235d5eb
+  uses: maharishi1/Duplicate-Line-Remover-Action@v1
+  with:
+    # Folder in which input text are stored
+    input-folder: # default is itext
+    # Folder in which removed text are stored
+    output-folder: # default is removed_text
+    - name: Super Duper Linter
+  # You may pin to the exact commit or the version.
+  # uses: JustinGrote/Super-Duper-Linter@76596b0ef7d3e47ebdf7b2765c25db26b92df63e
+  uses: JustinGrote/Super-Duper-Linter@preview
+  with:
+    # Name(s) of the linters you wish to run. Runs all by default
+    linter: # optional
+    # Specify a relative path within your repository that contains the custom linters. Defaults to "linters". These definitions will OVERRIDE (not merge) definitions of the same name.
+    customLinterPath: # optional
+    # Specify a relative path of your repository to lint. Only files in this path will be processed
+    path: # optional
+    # Explicit file paths to exclude, relative to your root directory. Wildcards are *not* supported
+    excludepath: # optional
+    # Files patterns to include. Wildcards are supported.
+    include: # optional
+    # Files patterns to exclude. Wildcards are supported.
+    exclude: # optional
+    # Set to True to enable advanced Powershell-level debugging
+    debug: # optional
+    # Set to True to enable advanced Powershell-level verbose logging
+    verbose: # optional
+    # Set to True to only display problems in the test result output
+    problemsOnly: # optional
+    # Set to the number of linters to run concurrently. By default this is set to the number of logical cores in your system plus 1
+    parallel: # optional
+    # Set to True to evaluate all files in the repository, not just those that have changed since the last PR
+    all: # optional
+    # Set to true to validate the linter operation against defined test cases. This is useful if defining a new custom linter.
+    test: # optional
+    # Choose what level of issue severity consistutes a failure of the linter and that it should exit with a non-zero exit status. Options are error, warning, and information. Options are inclusive of their previous choices (e.g. setting information also fails on warnings and errors)
+    severity: # optional
+    - name: File Dup Action
+  # You may pin to the exact commit or the version.
+  # uses: Monorepo-Actions/file-dup-action@1078cbf59af465b17bb8bd08a52383936aab6402
+  uses: Monorepo-Actions/file-dup-action@v1.0.0
+  with:
+    # The configuration files.
+    config_files: # default is .github/file-dup-action.yml
+    # The email for commits.
+    email: 
+    # The GitHub username.
+    username: 
+    # The GitHub token.
+    token: 
+    # The way to check in change [push|pull_request|dry_run].
+    method: # default is pull_request
+    # The branch to push the changes to [default=main].
+    branch: # default is pull_request
+    - name: rdp-duty-machine-action
+  # You may pin to the exact commit or the version.
+  # uses: rdp-duty-machine/rdp-duty-machine-action@82922290cd00619afbf08d22d92651480ab39921
+  uses: rdp-duty-machine/rdp-duty-machine-action@v2
+  - name: Duplicate code detection tool
+  # You may pin to the exact commit or the version.
+  # uses: platisd/duplicate-code-detection-tool@94384601d0975ae0071dd83be52025e913c4af96
+  uses: platisd/duplicate-code-detection-tool@1.0.0
+  with:
+    # The GitHub token
+    github_token: 
+    # A comma-separated list of the directories containing the source code
+    directories: 
+    # A comma-separated list of directories that should be ignored
+    ignore_directories: # optional, default is 
+    # The relative path to filter out when reporting results
+    project_root_dir: # optional, default is ./
+    # A comma-separated list of source code file extensions to check for similarities
+    file_extensions: # optional, default is h, hpp, c, cpp, cc, java, py, cs
+    # The minimum similarity percentage to be reported
+    ignore_below: # optional, default is 10
+    # The maximum allowed similarity percentage before the action fails
+    fail_above: # optional, default is 100
+    # The maximum allowed similarity percentage before the action warns
+    warn_above: # optional, default is 100
+    - name: Skip Duplicate Actions
+  # You may pin to the exact commit or the version.
+  # uses: fkirc/skip-duplicate-actions@4c656bbdb6906310fa6213604828008bc28fe55d
+  uses: fkirc/skip-duplicate-actions@v3.4.0
+  with:
+    # Your GitHub Access Token
+    github_token: # default is ${{ github.token }}
+    # A JSON-array with ignored path patterns, e.g. something like ["**/README.md", "**/docs/**"]
+    paths_ignore: # optional, default is []
+    # A JSON-array with path patterns, e.g. something like ["platform-specific/**"]
+    paths: # optional, default is []
+    # If true, then workflow-runs from outdated commits will be cancelled
+    cancel_others: # optional, default is false
+    # If true, skip if an already finished duplicate run can be found
+    skip_after_successful_duplicate: # optional, default is true
+    # A JSON-array with triggers that should never be skipped
+    do_not_skip: # optional, default is ["workflow_dispatch", "schedule"]
+    # One of never, same_content, outdated_runs, always
+    concurrent_skipping: # default is never
+    - name: Cypress report action duynhanf
+  # You may pin to the exact commit or the version.
+  # uses: duynhanf/cypress-report-action@b8f8c36d1252baf9aabf1c4dfef38b8a072dddf5
+  uses: duynhanf/cypress-report-action@v13
+  with:
+    # Github token
+    token: 
+    # Full pathname to the mochawesome report JSON file
+    pathname: # default is test/
+    # Title in the comment
+    title: # optional, default is ## :evergreen_tree: Cypress report
+    # Should it be shown always or it should be deleted when there are no failures
+    always: # optional, default is true
+    - name: Black Duck Scanner
+  # You may pin to the exact commit or the version.
+  # uses: philips-labs/blackduck-scanner-action@f8a604ccb9df9a6450b35ac102b30c5b00958d87
+  uses: philips-labs/blackduck-scanner-action@v1.3
+  with:
+    # Blackduck project name
+    projectName: 
+    # Blackduck project version prefix
+    versionPrefix: 
+    # Blackduck url
+    url: 
+    # Blackduck token
+    token: 
+    # sourcePath
+    sourcePath: 
+    # Extra arguments that will be passed to the detector
+    extraArgs: # optional
+    - name: Changed in duration
+  # You may pin to the exact commit or the version.
+  # uses: VikramTiwari/changed-in-duration@3d5d6d8fac215e10d886eb9feba07697de32dd7e
+  uses: VikramTiwari/changed-in-duration@v0.0.2
+  with:
+    # Duration to check against, default is 1 day
+    duration: # default is 86400
+    - name: WoW ToC Duplicator
+  # You may pin to the exact commit or the version.
+  # uses: Numynum/ToCDuplicator@90dd6859e372b0b14cbf29487f9b8eefe6b97601
+  uses: Numynum/ToCDuplicator@v1.0.3
+  with:
+    # List of files to duplicate. See https://github.com/Numynum/ToCDuplicator.
+    files: # optional
+    # If left out, or true is passed, *originalToC*-Mainline.toc files will be created.
+    retail: # optional
+    # If left out, or true is passed, *originalToC*-BCC.toc files will be created.
+    bcc: # optional
+    # If left out, or true is passed, *originalToC*-Classic.toc files will be created.
+    classic: # optional
+    - name: Cancel Workflow Action for duplicate jobs
+  # You may pin to the exact commit or the version.
+  # uses: vishnudxb/cancel-duplicate-workflow@16749af44477c2b5836ed8fa8a5d3f98d7bf95a3
+  uses: vishnudxb/cancel-duplicate-workflow@v1.4
+  with:
+    # Repo details: for eg: octocat/hello-world
+    repo: 
+    # Github Action Workflow ID
+    workflow_id: 
+    # Your GitHub Access Token, defaults to: {{ github.token }}
+    access_token: # optional, default is ${{ github.token }}
+    # Specify the branch name you want to check if the job is running
+    branch_name: 
+    
