@@ -19,7 +19,7 @@ By default, `electron-webpack` expects, at minimum, a `main` process entry point
 }
 ```
 
-If you are using [`electron-webpack-quick-start`](https://github.com/electron-userland/electron-webpack-quick-start) and have already installed dependecies, simply run the follwing to open your application in development mode.
+If you are using [`electron-webpack-quick-start`](https://github.com/electron-userland/electron-webpack-quick-start) and have already installed dependecies, simply run the following to open your application in development mode.
 ```bash
 yarn dev
 ```
