@@ -19,3 +19,8 @@ yarn-error.log
 .renderer-index-template.html
 
 /site/
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+.pnp.*

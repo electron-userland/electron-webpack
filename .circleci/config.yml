@@ -3,21 +3,22 @@ version: 2
 jobs:
     build:
       docker:
-        - image: circleci/node:10
+        - image: cimg/node:18.20
           environment:
             JEST_JUNIT_OUTPUT: ./test-reports/test.xml
+            NODE_OPTIONS: --openssl-legacy-provider
       steps:
         - checkout
         - restore_cache:
             keys:
               - dependencies-{{ checksum "yarn.lock" }}
         - run:
-            command: yarn
+            command: yarn install --immutable
         - save_cache:
             key: dependencies-{{ checksum "yarn.lock" }}
             paths:
               - node_modules
         - run:
-            command: yarn test -- --ci --testResultsProcessor="jest-junit"
+            command: yarn test --ci --testResultsProcessor="jest-junit"
         - store_test_results:
             path: test-reports

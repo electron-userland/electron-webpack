@@ -1,8 +1,9 @@
 {
-  "name": "electron-webpack",
+  "name": "electron-webpack-monorepo",
   "private": true,
   "license": "MIT",
   "author": "Vladimir Krivosheev <develar@gmail.com>",
+  "packageManager": "yarn@4.10.3",
   "scripts": {
     "compile": "cross-env ts-babel packages/electron-webpack test && yarn schema",
     "lint": "tslint -c ./node_modules/electron-builder-tslint-config/tslint.json -p packages/electron-webpack --exclude \"**/*.js\"",
