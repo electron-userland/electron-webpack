@@ -11,9 +11,7 @@
     "tsconfig-base.json",
     "vendor"
   ],
-  "bin": {
-    "electron-webpack": "./out/cli.js"
-  },
+  "bin": "./out/cli.js",
   "repository": "electron-userland/electron-webpack",
   "engines": {
     "node": ">=10.0"
